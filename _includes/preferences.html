@@ -1,0 +1,3 @@
+<script>
+(function(){var d=document.documentElement,m=matchMedia('(prefers-color-scheme: dark)'),theme='system',lang={{ site.default_language | jsonify }};try{theme=localStorage.getItem('lab-theme')||theme;lang=localStorage.getItem('lab-language')||lang;}catch(e){}if(!['light','dark','system'].includes(theme))theme='system';if(!['en','zh'].includes(lang))lang={{ site.default_language | jsonify }};d.dataset.mode=theme;d.dataset.theme=theme==='system'?(m.matches?'dark':'light'):theme;d.lang=lang;d.classList.add('js');})();
+</script>

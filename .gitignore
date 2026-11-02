@@ -1,0 +1,12 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
+node_modules/
+originals/*
+!originals/.gitkeep
+test-results/
+playwright-report/
+photography-import.json

@@ -1,0 +1,342 @@
+[
+  {
+    "id": "demo-01",
+    "image": "/assets/photography/demo-1.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-1.webp",
+    "width": 1500,
+    "height": 1000,
+    "title": {
+      "en": "Demo · Quiet silhouette",
+      "zh": "Demo · 安静的剪影"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-10-12",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "wildlife",
+    "tags": [
+      "birds",
+      "nature"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 1",
+      "zh": "Demo 抽象风景占位图 1"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-1.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-1-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-1.webp",
+        "width": 1500
+      }
+    ]
+  },
+  {
+    "id": "demo-02",
+    "image": "/assets/photography/demo-2.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-2.webp",
+    "width": 900,
+    "height": 1350,
+    "title": {
+      "en": "Demo · Mountain study",
+      "zh": "Demo · 山形习作"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-09-20",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "landscape",
+    "tags": [
+      "nature"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 2",
+      "zh": "Demo 抽象风景占位图 2"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-2.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-2-960.webp",
+        "width": 900
+      },
+      {
+        "src": "/assets/photography/demo-2.webp",
+        "width": 900
+      }
+    ]
+  },
+  {
+    "id": "demo-03",
+    "image": "/assets/photography/demo-3.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-3.webp",
+    "width": 1800,
+    "height": 800,
+    "title": {
+      "en": "Demo · After hours",
+      "zh": "Demo · 夜色之后"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-08-15",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "street",
+    "tags": [
+      "architecture",
+      "night"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 3",
+      "zh": "Demo 抽象风景占位图 3"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-3.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-3-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-3.webp",
+        "width": 1800
+      }
+    ]
+  },
+  {
+    "id": "demo-04",
+    "image": "/assets/photography/demo-4.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-4.webp",
+    "width": 1400,
+    "height": 1000,
+    "title": {
+      "en": "Demo · A distant place",
+      "zh": "Demo · 远方"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-07-10",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "travel",
+    "tags": [
+      "japan",
+      "architecture"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 4",
+      "zh": "Demo 抽象风景占位图 4"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-4.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-4-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-4.webp",
+        "width": 1400
+      }
+    ]
+  },
+  {
+    "id": "demo-05",
+    "image": "/assets/photography/demo-5.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-5.webp",
+    "width": 1000,
+    "height": 1000,
+    "title": {
+      "en": "Demo · Paper & light",
+      "zh": "Demo · 纸与光"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-06-01",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "other",
+    "tags": [
+      "film"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 5",
+      "zh": "Demo 抽象风景占位图 5"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-5.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-5-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-5.webp",
+        "width": 1000
+      }
+    ]
+  },
+  {
+    "id": "demo-06",
+    "image": "/assets/photography/demo-6.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-6.webp",
+    "width": 1600,
+    "height": 1000,
+    "title": {
+      "en": "Demo · A passing shape",
+      "zh": "Demo · 掠过的形状"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-10-12",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "wildlife",
+    "tags": [
+      "birds"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 6",
+      "zh": "Demo 抽象风景占位图 6"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-6.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-6-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-6.webp",
+        "width": 1600
+      }
+    ]
+  },
+  {
+    "id": "demo-07",
+    "image": "/assets/photography/demo-7.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-7.webp",
+    "width": 1000,
+    "height": 1400,
+    "title": {
+      "en": "Demo · Evening geometry",
+      "zh": "Demo · 傍晚的几何"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": "2026-01-05",
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "travel",
+    "tags": [
+      "night",
+      "japan"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 7",
+      "zh": "Demo 抽象风景占位图 7"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-7.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-7-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-7.webp",
+        "width": 1000
+      }
+    ]
+  },
+  {
+    "id": "demo-08",
+    "image": "/assets/photography/demo-8.webp",
+    "thumbnail": "/assets/photography/thumbs/demo-8.webp",
+    "width": 1500,
+    "height": 1000,
+    "title": {
+      "en": "Demo · Undated horizon",
+      "zh": "Demo · 未注明日期的地平线"
+    },
+    "description": {
+      "en": "Original abstract placeholder. Fictional metadata for gallery testing.",
+      "zh": "原创抽象占位图。元数据仅用于画廊测试。"
+    },
+    "date": null,
+    "location": {
+      "en": "Demo location",
+      "zh": "虚拟地点"
+    },
+    "category": "landscape",
+    "tags": [
+      "nature"
+    ],
+    "alt": {
+      "en": "Demo abstract landscape placeholder 8",
+      "zh": "Demo 抽象风景占位图 8"
+    },
+    "srcset": [
+      {
+        "src": "/assets/photography/thumbs/demo-8.webp",
+        "width": 480
+      },
+      {
+        "src": "/assets/photography/demo-8-960.webp",
+        "width": 960
+      },
+      {
+        "src": "/assets/photography/demo-8.webp",
+        "width": 1500
+      }
+    ]
+  }
+]

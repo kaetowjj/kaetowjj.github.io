@@ -1,0 +1,53 @@
+title: Engineering Lab
+description: Thinking, Building & Learning — engineering notes, projects, essays and photography.
+url: https://kaetowjj.github.io
+baseurl: ""
+default_language: en
+lang: en
+timezone: Asia/Shanghai
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  parse_block_html: true
+collections:
+  notes:
+    output: true
+    permalink: /notes/:name/
+  essays:
+    output: true
+    permalink: /essays/:name/
+  projects:
+    output: true
+    permalink: /projects/:name/
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+  - scope:
+      path: ""
+      type: notes
+    values:
+      layout: article
+  - scope:
+      path: ""
+      type: essays
+    values:
+      layout: article
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: article
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+feed:
+  collections:
+    notes:
+      path: /notes/feed.xml
+    essays:
+      path: /essays/feed.xml
+exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, node_modules, package.json, package-lock.json, scripts, tests, playwright.config.mjs, test-results, playwright-report, docs, originals, vendor]

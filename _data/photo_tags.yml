@@ -1,0 +1,26 @@
+{
+  "birds": {
+    "en": "Birds",
+    "zh": "鸟类"
+  },
+  "nature": {
+    "en": "Nature",
+    "zh": "自然"
+  },
+  "architecture": {
+    "en": "Architecture",
+    "zh": "建筑"
+  },
+  "night": {
+    "en": "Night",
+    "zh": "夜晚"
+  },
+  "film": {
+    "en": "Film",
+    "zh": "胶片"
+  },
+  "japan": {
+    "en": "Japan",
+    "zh": "日本"
+  }
+}

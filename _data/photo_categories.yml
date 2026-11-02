@@ -1,0 +1,22 @@
+{
+  "wildlife": {
+    "en": "Wildlife",
+    "zh": "野生动物"
+  },
+  "landscape": {
+    "en": "Landscape",
+    "zh": "风景"
+  },
+  "street": {
+    "en": "Street",
+    "zh": "街头"
+  },
+  "travel": {
+    "en": "Travel",
+    "zh": "旅行"
+  },
+  "other": {
+    "en": "Other",
+    "zh": "其他"
+  }
+}

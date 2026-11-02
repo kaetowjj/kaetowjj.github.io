@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {selectPhotos,justifiedRows,localize} from '../assets/js/gallery-core.mjs';
+const photos=[{id:'c',date:null,category:'street',tags:[]},{id:'b',date:'2024-02-01',category:'wildlife',tags:['nature']},{id:'a',date:'2024-02-01',category:'landscape',tags:['nature']},{id:'d',date:'2023-01-01',category:'wildlife',tags:['birds']}];
+test('newest uses date, stable ID ties, missing last',()=>assert.deepEqual(selectPhotos(photos,{}).map(p=>p.id),['a','b','d','c']));
+test('oldest keeps missing last',()=>assert.deepEqual(selectPhotos(photos,{sort:'oldest'}).map(p=>p.id),['d','a','b','c']));
+test('category and tag combine',()=>assert.deepEqual(selectPhotos(photos,{category:'wildlife',tag:'nature'}).map(p=>p.id),['b']));
+test('category preserves oldest ordering',()=>assert.deepEqual(selectPhotos(photos,{category:'wildlife',sort:'oldest'}).map(p=>p.id),['d','b']));
+test('empty combination yields empty list',()=>assert.equal(selectPhotos(photos,{category:'street',tag:'nature'}).length,0));
+test('selection does not mutate source',()=>{selectPhotos(photos,{});assert.equal(photos[0].id,'c')});
+test('translation fallback',()=>{assert.equal(localize({en:'Demo'},'zh'),'Demo');assert.equal(localize('Place','zh'),'Place')});
+for(const width of [320,768,1200]) test('justified layout preserves aspect ratios '+width,()=>{const input=[1.5,.67,2,1.33,1,1.8,1.5];const rows=justifiedRows(input,width,220,8);assert.equal(rows.flatMap(r=>r.widths).length,input.length);let i=0;for(const row of rows){assert.ok(row.widths.reduce((a,b)=>a+b,0)+8*(row.widths.length-1)<=width+.01);for(const w of row.widths)assert.ok(Math.abs(w/row.height-input[i++])<.0001)}});

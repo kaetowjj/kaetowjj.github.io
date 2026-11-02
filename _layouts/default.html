@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="{{ site.default_language }}">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+{% include preferences.html %}
+<title>{{ page.title | default: site.title | escape }}{% if page.title %} · {{ site.title }}{% endif %}</title>
+<meta name="description" content="{{ page.description | default: site.description | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:type" content="{% if page.layout == 'article' %}article{% else %}website{% endif %}"><meta property="og:title" content="{{ page.title | default: site.title | escape }}"><meta property="og:description" content="{{ page.description | default: site.description | escape }}"><meta property="og:url" content="{{ page.url | absolute_url }}"><meta property="og:site_name" content="{{ site.title }}"><meta name="color-scheme" content="light dark">
+{% if page.date %}<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">{% endif %}{% if page.updated %}<meta property="article:modified_time" content="{{ page.updated | date_to_xmlschema }}">{% endif %}
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<link rel="alternate" type="application/atom+xml" title="Engineering Notes" href="{{ '/notes/feed.xml' | relative_url }}">
+<script type="module" src="{{ '/assets/js/site.mjs' | relative_url }}"></script>
+{% if page.math %}<script>window.MathJax={startup:{ready:()=>{document.querySelectorAll('script[type^="math/tex"]').forEach(s=>{const d=document.createElement('span');d.textContent=(s.type.includes('display')?'\\[':'\\(')+s.textContent+(s.type.includes('display')?'\\]':'\\)');s.replaceWith(d)});MathJax.startup.defaultReady()}},tex:{inlineMath:[['$','$'],['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>{% endif %}
+</head>
+<body>
+<a class="skip-link" href="#main">{% include bi.html en="Skip to content" zh="跳转正文" %}</a>
+<header class="site-header"><div class="header-inner"><a class="wordmark" href="{{ '/' | relative_url }}">Engineering Lab<span class="brand-dot">.</span></a><div class="header-actions"><button id="language-toggle" type="button" aria-label="Switch language / 切换语言">中 / EN</button><button id="theme-toggle" type="button" aria-label="Theme" title="System">◐</button><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">☰<span class="sr-only">Menu</span></button></div>
+<nav id="navigation" aria-label="Main navigation">{% for item in site.data.navigation %}<a href="{{ item.url | relative_url }}" {% if page.nav == item.id %}aria-current="page"{% endif %}>{% include bi.html en=item.en zh=item.zh %}</a>{% endfor %}</nav></div></header>
+<main id="main" class="page {{ page.page_class }}">{{ content }}</main>
+<footer class="site-footer"><span>© {{ site.time | date: '%Y' }} Engineering Lab</span><span>Thinking, Building & Learning</span><div><a href="{{ site.data.profile.github }}">GitHub ↗</a> <a href="{{ '/notes/feed.xml' | relative_url }}">RSS ↗</a>{% if site.data.profile.linkedin != '' %} <a href="{{ site.data.profile.linkedin | escape }}">LinkedIn ↗</a>{% endif %}</div></footer>
+</body></html>

@@ -1,0 +1,24 @@
+- id: home
+  url: /
+  en: Home
+  zh: 首页
+- id: notes
+  url: /notes/
+  en: Engineering Notes
+  zh: 工程笔记
+- id: projects
+  url: /projects/
+  en: Projects
+  zh: 项目
+- id: essays
+  url: /essays/
+  en: Essays
+  zh: 随笔
+- id: photography
+  url: /photography/
+  en: Photography
+  zh: 摄影
+- id: about
+  url: /about/
+  en: About
+  zh: 关于

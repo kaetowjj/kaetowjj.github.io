@@ -1,0 +1,6 @@
+---
+title: Essays
+nav: essays
+permalink: /essays/
+---
+<div class="page-heading"><p class="eyebrow">ENGINEERING LAB / ESSAYS</p><h1>{% include bi.html en="Essays" zh="随笔" %}<span class="brand-dot">.</span></h1><p>{% include bi.html en="Notes on learning, work, and paying attention." zh="关于学习、工作与观察的思考。" %}</p></div><div class="archive-controls"><label>{% include bi.html en="Category" zh="分类" %} <select id="entry-category"><option value="all" data-en="All" data-zh="全部">All</option>{% assign categories = site.essays | map: 'category' | uniq | sort %}{% for category in categories %}<option>{{ category }}</option>{% endfor %}</select></label><label>{% include bi.html en="Tag" zh="标签" %} <select id="entry-tag"><option value="all" data-en="All" data-zh="全部">All</option>{% assign tags = site.essays | map: 'tags' | join: '|' | split: '|' | uniq | sort %}{% for tag in tags %}<option>{{ tag }}</option>{% endfor %}</select></label></div>{% include entries.html entries=site.essays %}<p id="entries-empty" hidden>{% include bi.html en="No matching entries." zh="没有符合条件的文章。" %}</p>
