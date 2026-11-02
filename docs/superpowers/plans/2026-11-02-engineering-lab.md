@@ -12,8 +12,8 @@ Preserve all demo labels and personal placeholders. No selected photography. No 
 Missing dates sort last in both directions; ties use IDs. Translation falls back to available language. Storage denial must not break startup. Hidden language headings must not enter TOC. Gallery resizing must preserve proportions.
 
 ## Tasks
-- [ ] Phase 1: Configure Gemfile, Jekyll collections and Actions. Verify bundle exec jekyll build --strict_front_matter.
-- [ ] Phase 2: Add default/article/index layouts and six top-level pages, demo bilingual content. Validate internal links in generated HTML.
-- [ ] Phase 3: Add early preference initialization and runtime language/theme controls. Verify persistence, system changes and denied storage.
-- [ ] Phase 4: Test then implement selectPhotos and justifiedRows in assets/js/gallery-core.mjs. Add YAML gallery, composable filters and dialog viewer. Verify keyboard, touch and filtered order.
-- [ ] Phase 5: Add privacy-preserving Sharp pipeline, README, AGENTS and browser tests. Build and test in Actions, inspect actual deployment result.
+- [x] Phase 1: Configure Gemfile, Jekyll collections and Actions. Verify bundle exec jekyll build --strict_front_matter.
+- [x] Phase 2: Add default/article/index layouts and six top-level pages, demo bilingual content. Validate internal links in generated HTML.
+- [x] Phase 3: Add early preference initialization and runtime language/theme controls. Verify persistence, system changes and denied storage.
+- [x] Phase 4: Test then implement selectPhotos and justifiedRows in assets/js/gallery-core.mjs. Add YAML gallery, composable filters and dialog viewer. Verify keyboard, touch and filtered order.
+- [x] Phase 5: Add privacy-preserving Sharp pipeline, README, AGENTS and browser tests. Build and test in Actions, inspect actual deployment result.

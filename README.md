@@ -26,7 +26,7 @@ UI 的 data-en / data-zh 提供就地翻译；缺少中文标题时回退英文�
 
 1. 将 JPEG / PNG / TIFF / WebP / AVIF 放到 originals（已被 Git 忽略）。先将 RAW 导出为支持的格式。
 2. 执行 `npm run images`，或 `npm run images -- /path/to/exported-images`。
-3. 脚本生成最大 2000px WebP、480px 缩略图及 960px 响应式版本，并输出 photography-import.json。它自动处理方向、移除 EXIF/GPS，保留原图于本地。
+3. 脚本生成最大 2000px WebP、480px 缩略图及 responsive/ 下的 960px 响应式版本，并输出 photography-import.json。它自动处理方向、移除 EXIF/GPS，保留原图于本地。
 4. 将生成记录合并到 _data/photography.yml，补充 title、description、alt、实际拍摄 date（ISO YYYY-MM-DD），category 和 tags。没有日期请保持 null。location 可写双语对象；设备参数均可省略。
 5. 提交 _data 与 assets，推送 main，Actions 自动构建并测试后部署。
 
