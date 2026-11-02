@@ -1,0 +1,12 @@
+{% assign profile = site.data.profile %}
+{% assign avatar = profile.avatar %}
+<section markdown="0" class="about-profile" aria-labelledby="profile-name">
+  <div class="profile-avatar" role="img" aria-label="{{ avatar.alt.en | default: avatar.alt.zh | default: 'Profile portrait' | escape }}" style="--avatar-position: {{ avatar.position | default: 'center' | escape }}">
+    <span class="profile-avatar-initials" aria-hidden="true" data-en="{{ avatar.initials.en | default: 'YN' | escape }}" data-zh="{{ avatar.initials.zh | default: avatar.initials.en | default: '名' | escape }}">{{ avatar.initials.en | default: 'YN' | escape }}</span>
+    <img hidden width="176" height="176" decoding="async" {% if avatar.src and avatar.src != '' %}data-avatar-src="{{ avatar.src | relative_url | escape }}"{% endif %} data-alt-en="{{ avatar.alt.en | default: avatar.alt.zh | default: 'Profile portrait' | escape }}" data-alt-zh="{{ avatar.alt.zh | default: avatar.alt.en | default: '个人头像' | escape }}" alt="{{ avatar.alt.en | default: avatar.alt.zh | default: 'Profile portrait' | escape }}">
+  </div>
+  <div class="profile-introduction">
+    <h2 id="profile-name">{% include bi.html en=profile.name.en zh=profile.name.zh %}</h2>
+    <p>{% include bi.html en=profile.intro.en zh=profile.intro.zh %}</p>
+  </div>
+</section>

@@ -7,3 +7,12 @@ intro:
 email: ""
 linkedin: ""
 github: https://github.com/kaetowjj
+avatar:
+  src: "/assets/images/avatar.webp"
+  position: "center 35%"
+  alt:
+    en: "Profile portrait"
+    zh: "个人头像"
+  initials:
+    en: "YN"
+    zh: "名"

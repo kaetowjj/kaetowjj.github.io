@@ -59,3 +59,9 @@ npm run test:browser
 若 deploy 报 Pages 未开启，按以上步骤切换 Source 并在 Actions 重新运行。若 environment 审批待处理，在 github-pages 环境批准。若资源 404，检查 _config.yml 的 url / baseurl（当前根站点 baseurl 为空）；项目子路径站点需同步修改。GitHub Pages 的缓存头由托管平台控制；图片换内容时建议换文件名。canonical 和 Open Graph 使用站点 URL，单 URL 双语页面共享 canonical。
 
 参考：Jekyll https://jekyllrb.com/docs/；GitHub Pages https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages 。
+
+## About 页头像
+
+将个人照片保存为 assets/images/avatar.webp，即可替换当前首字母占位头像。_data/profile.yml 的 avatar.src 控制路径，avatar.position 控制裁剪焦点（例如 center 35%），avatar.alt.en / zh 为双语替代文本，avatar.initials.en / zh 为图片缺失时的首字母占位。name 和 intro 配置控制头像旁的姓名与简介。替换照片后推送 GitHub 即可，无需修改 HTML / CSS。空路径或加载失败会保持占位头像；照片始终以 cover 填充固定的圆形区域。
+
+建议先导出无 EXIF/GPS 的 WebP（约 512px，注意 sRGB）。本次未加入上传后台或额外依赖；现有 Photography 图片处理流程不受影响。
