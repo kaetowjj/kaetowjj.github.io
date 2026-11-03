@@ -32,8 +32,12 @@
       "zh": "一位老人正在河边进行游泳前的热身。"
     },
     "date": "2026-10-24",
-    "category": "Street",
-    "tags": ["People", "Street", "Daily Life"]
+    "category": "street",
+    "tags": [
+      "people",
+      "street",
+      "daily-life"
+    ]
   },
   {
     "id": "dsc_6048",
@@ -68,7 +72,11 @@
       "zh": "一位老人正在河边进行游泳前的热身。"
     },
     "date": "2026-10-24",
-    "category": "Street",
-    "tags": ["People", "Street", "Daily Life"]
+    "category": "street",
+    "tags": [
+      "people",
+      "street",
+      "daily-life"
+    ]
   }
 ]

@@ -22,5 +22,17 @@
   "japan": {
     "en": "Japan",
     "zh": "日本"
+  },
+  "people": {
+    "en": "People",
+    "zh": "人物"
+  },
+  "street": {
+    "en": "Street",
+    "zh": "街头"
+  },
+  "daily-life": {
+    "en": "Daily Life",
+    "zh": "日常生活"
   }
 }

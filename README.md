@@ -211,43 +211,44 @@ git push origin main
 ```
 
 <a id="homepage"></a>
-## 如何修改首页文案？ / Homepage
+## 如何维护个人首页？ / Homepage
 
-打开 [_data/home.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/home.yml)，点击铅笔按钮编辑；或在 VS Code 修改。无需编辑 JavaScript。
+打开 [_data/home.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/home.yml) 编辑；所有长文案在这里，不放入 profile.yml 的短 intro。首页呈现持续探索的个人，不使用职业头衔或一排技术标签定义作者；AI 基础设施是当前兴趣，不是固定身份。
 
-| 字段 | 页面位置及操作 |
+首页顺序为 Hero → What I'm Exploring / 我在探索什么 → Beyond Engineering / 工程之外 → Recent Notes → Projects / Photography → Jerry's Silly Thoughts。
+
+| 字段 | 修改内容 |
 | --- | --- |
-| eyebrow.en / zh | 小标题；分别填英文/中文个人工程研究空间说明。 |
-| headline.en / zh | 稳定主标题；刷新和 Shuffle 不会改变它。 |
-| subtitle.en / zh | 副标题；可体现冷笑话、谐音或双关的个人气质，不会自动加入收藏库。 |
-| intro.en / zh | 首页专业介绍，保留研究方向和摄影信息，不用笑话代替全部介绍。 |
-| disciplines | 专业方向字符串数组，按列表顺序显示。当前领域名称保留英文。 |
+| eyebrow.en / zh | 小号说明。 |
+| headline.en / zh | 主标题：Still branching out. / 还在探索，也还在生长。 |
+| hero.en / zh | Hero 两段完整个人介绍，保留 About 入口；不再使用 subtitle、intro 或 disciplines 字段。 |
+| exploring.title.en / zh | 探索方向章节标题。 |
+| exploring.en / zh | AI、数据工程、架构决策与技术品味的完整段落。 |
+| beyond.title.en / zh | 工程之外章节标题。 |
+| beyond.en / zh | 野生动物、摄影、环境与自我认知等段落。 |
 
-完整当前配置示例：
+长正文使用 YAML 的竖线块；每行相对字段多缩进两个空格，空行分隔段落。不要改成大于号折叠块。普通 Markdown 的 **加粗**、*强调* 与段落会由 Jekyll markdownify 解析；不要给这些长段落加 data-en/data-zh 属性或重复粘贴到 profile.yml。
+
+以下 Hero 是可复制的完整配置片段；只替换文件内对应字段，保留其它 exploring、beyond 字段：
 
 ```yaml
-eyebrow:
-  en: A PERSONAL ENGINEERING LAB
-  zh: 个人工程研究空间
 headline:
-  en: Jerry's Engineering Lab.
-  zh: Jerry 的工程实验室。
-subtitle:
-  en: Engineering notes, photographs, and the occasional pun.
-  zh: 工程笔记、摄影记录，偶尔也认真讲个冷笑话。
-intro:
-  en: Notes on data engineering, AI systems, and software architecture — with a camera close by.
-  zh: 记录数据工程、AI 系统与软件架构，也带着相机观察工程之外的世界。
-disciplines:
-  - Data Engineering
-  - AI Systems
-  - Software Architecture
-  - Photography
+  en: "Still branching out."
+  zh: "还在探索，也还在生长。"
+hero:
+  en: |
+    I don't want to be defined by a job title, a field, or a single version of myself.
+
+    I'm more interested in following questions, building things, and figuring out what matters to me along the way.
+  zh: |
+    我不想被某个职业头衔、某个技术领域，或者某个阶段的自己所定义。
+
+    比起急着回答「我是什么样的人」，我更愿意跟着真正感兴趣的问题走，动手做点东西，再慢慢弄清楚什么对自己重要。
 ```
 
-YAML 使用空格缩进，文本含英文冒号加空格等特殊字符时加引号。About 的姓名、头像和个人简介仍由 profile.yml 管理，首页简介已独立。About 入口保留 A little about me ↗ / 关于我 ↗。
+What I'm Exploring 与 Beyond Engineering 的 en/zh 正文使用同样的竖线写法，直接编辑相应语言段落即可。About 姓名、头像和简短个人介绍仍在 profile.yml，与首页长文案独立。
 
-保存后 Commit changes；本地则 git add _data/home.yml、commit、push。等待 Actions 的 build/deploy 成功，打开首页切换中英文，检查桌面/手机换行。仅改首页文案无需运行图片脚本。统一站名的修改方法见“站名、副标题与地址”。
+保存后 Commit changes；本地则 git add _data/home.yml、commit、push。等待 Actions 的 build/deploy 成功后检查双语加粗、段落及手机换行，无需处理照片。站点统一名称仍由 _config.yml 的 title 控制页眉和版权信息，Hero 主标题是独立的个人表达。
 
 <a id="thoughts"></a>
 ## How to Manage Jerry's Silly Thoughts
@@ -554,7 +555,7 @@ node $checkFile
 
 若显示 SyntaxError，按报错位置检查英文逗号、引号和括号；此校验不能证明路径、日期、分类引用或宽高正确，仍需预览。它要求保持现有 JSON 写法。不要用 PowerShell 的默认文本输出方式随意重写数据文件，以免引入编码变化。
 
-**删除 Demo**：先备份，再从摄影数组中只删除已确认是示例的对象。当前示例 ID 为 demo-01 到 demo-08；通过标题里的 Demo 和 description 再核对一次，不要按位置批量删除真实对象。修正相邻逗号并验证。只移除元数据，画廊就不会再展示它们；对应图片可暂时保留。清理 Demo 图片前确认没有任何真实记录的 image、thumbnail、srcset 仍引用这些文件。不要删除整个 assets/photography 目录。
+**删除 Demo**：先备份，再从摄影数组中只删除已确认是示例的对象。历史示例 ID 为 demo-01 到 demo-08（当前真实作品不再依赖这些 Demo）；通过标题里的 Demo 和 description 再核对一次，不要按位置批量删除真实对象。修正相邻逗号并验证。只移除元数据，画廊就不会再展示它们；对应图片可暂时保留。清理 Demo 图片前确认没有任何真实记录的 image、thumbnail、srcset 仍引用这些文件。不要删除整个 assets/photography 目录。
 
 ### D. 每张照片字段怎样填？
 
@@ -603,6 +604,29 @@ node $checkFile
 - 然后给照片设置 `"category": "architecture"` 或在 tags 里加 `"wetland"`。重新构建后，分类按钮和标签下拉菜单会从映射自动生成，即使还没有照片使用该映射也会显示。无需修改 HTML。
 - **只改显示名称**：保持键名 ID 不变，只修改 en/zh。例如把 Wetland 改为 Wetlands 不需要修改照片；若重命名 ID，必须同步更新所有引用。
 - 分类和标签可组合，取交集。某个分类+标签没有交集时显示空结果；这并不说明上传失败，可先点 Clear filters/清除筛选。
+
+### 摄影 ID 规范与发布前验证
+
+**Category ID 和显示名称不是同一回事。** 错误：`"category": "Street"`；正确：`"category": "street"`。显示文字 Street / 街头在 photo_categories.yml 中维护。Tag 同样使用小写英文 kebab-case：例如 people、street、daily-life，而不是 People、Street、Daily Life。Category 与 Tag 是独立映射，照片可同时 category=street、tags 包含 street。
+
+当前真实作品保留原 ID、图片路径、标题、描述、alt、拍摄日期和尺寸；仅将分类规范为 street、标签规范为 people / street / daily-life，补齐其双语显示名。新增内容时先定义映射再引用，不会自动纠正或默默吞掉拼错的 ID。
+
+在仓库根目录运行（无需先构建网页）：
+
+```powershell
+node scripts/check-photography.mjs
+```
+
+或运行完整检查（需先构建 _site）：
+
+```powershell
+bundle exec jekyll build --strict_front_matter
+npm run check:site
+```
+
+check:site 已自动包含同一摄影校验。校验检查 category/tag 引用及大小写、taxonomy ID 格式和双语显示名、重复照片 ID、必要字段、尺寸、日期、srcset 与本地图片文件；当前摄影数据和 taxonomy 文件保持 JSON 语法。错误会包含照片 ID、字段与修复建议，例如：Photo dsc_6047 / category: unknown/noncanonical ID "Street"; use "street"。校验只提示，不修改原片或元数据。
+
+本地预览 Photography 后点击 Street、Wildlife、All；分别选择 Tag、组合筛选、切换语言与正反时间排序，打开 Lightbox 检查前后顺序，再点 Clear filters。没有 Wildlife 作品时应为空状态；这与失效不同。自动端到端测试也会真实点击这些控件，依据当前作品计算预期结果。
 
 ### F. 提交发布与排查
 
@@ -659,12 +683,12 @@ avatar:
 ```
 
 - name 控制 About 头像旁姓名；intro 控制顶部简介。教育与经历没有结构化履历数据库，直接在 about.md 替换占位内容即可。
-- github 控制页脚 GitHub 链接；linkedin 非空时页脚显示 LinkedIn。留空请写 `linkedin: ""`，不要删除键或填一个假地址。
+- github 与 linkedin 配置字段保留供未来使用，但当前 Footer 不显示 GitHub、LinkedIn 等社交入口。About 联系区只显示邮箱。留空请写 `linkedin: ""`，不要删除键或填一个假地址。
 
 <a id="email"></a>
 ### 公开联系邮箱
 
-当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，About 页底部及 Footer 都由此字段生成 mailto 联系链接；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏该链接；About 正文中的联系说明需要自己相应修改。
+当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，仅 About 联系区域由此字段生成 mailto 联系链接，Footer 不显示联系入口；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏 About 中该链接；About 正文中的联系说明需要自己相应修改。
 
 **建议使用专门的公开联系别名**，不要公开私人主邮箱。仓库及网站是公开的；不要把邮箱密码、验证码、GitHub token、相机云服务凭据或其它账号秘密写入任何文件。把别名写入 email 不会自动在邮箱服务商处创建它，须先确认该别名已配置并可收信。
 
@@ -692,7 +716,7 @@ avatar:
 | 导航名称、链接和顺序 | [_data/navigation.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
 | 主题颜色 | [assets/css/main.css](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
-| 页眉/页脚站名、Hero 与副标题 | _config.yml 的 title；_data/home.yml 的 headline/subtitle；页脚标语在 _layouts/default.html | 站名统一读 title；Hero 独立配置，页脚标语仍需修改模板。 |
+| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/hero | 站名统一读 title；Hero 独立配置，Footer 仅保留版权和彩蛋。 |
 
 ### 默认语言与个人偏好
 
@@ -705,7 +729,7 @@ avatar:
 
 ### 站名、副标题与地址
 
-_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 独立配置，若希望与站名相同，改名时同步检查 home.yml。页脚 Thinking, Building & Learning 标语仍在 _layouts/default.html 中，不属于随机收藏。
+_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 是独立的个人表达，无需与站名相同。Footer 只保留版权与 Jerry 的收藏彩蛋，已移除旧标语及 Email、GitHub、RSS、LinkedIn 可见入口；RSS Feed 与 head 元数据仍然保留。
 
 当前发布根地址为 `https://kaetowjj.github.io`，baseurl 为 `""`。这是用户主页仓库，不需要在 URL 中加仓库名。若未来迁移成项目子路径站点，需要同步调整 url/baseurl 并检查所有资源；日常写文章、上传图片无需改它们。时区配置为 Asia/Shanghai。
 
@@ -792,10 +816,10 @@ Remove-Item Env:JEKYLL_ENV
 
 逐条看结果，上一条失败先解决，不要把后续命令执行完误当成全部成功。回到日常开发预览前移除 JEKYLL_ENV，使行为与开发模式一致。
 
-- npm test：逻辑和图片流水线测试。当前图片测试会读取既有 Demo fixtures；如果打算彻底删除/替换所有 Demo 数据，需让维护者同步调整测试 fixtures，再提交，不能直接忽略失败。
+- npm test：逻辑和图片流水线测试。图片测试会读取当前真实摄影数据并检查文件与比例，不再要求八张 Demo。
 - Jekyll build：解析 Liquid、YAML、Markdown 并输出 _site。_site 是构建产物，不应手动维护或提交。
 - check:site：检查生成 HTML 中的本地 href/src 与关键页面；不代表已逐一验证照片 JSON 内每个图片路径，仍要预览照片。
-- test:browser：需先构建 _site，自动在 127.0.0.1:4173 启动测试服务器，使用桌面 1280×900 和手机 390×844 视口。浏览器测试当前也断言 Demo 数量/ID 和占位个人资料；正式换内容时需同步维护测试预期，可能需要 Codex/开发者协助，不是上传工具的自动行为。
+- test:browser：需先构建 _site，自动在 127.0.0.1:4173 启动测试服务器，使用桌面 1280×900 和手机 390×844 视口。摄影浏览器测试从当前真实数据推导数量、分类、标签与浏览顺序，头像测试也读取当前资料属性，不再要求 Demo ID 或占位姓名。
 - 固定版本 MathJax 依赖 CDN 网络；首次安装 Playwright 需要下载 Chromium。本地只写内容可先运行 Jekyll 预览，最终仍以 CI 的完整检查为准。
 
 开发者/后续 Coding Agent 参考：

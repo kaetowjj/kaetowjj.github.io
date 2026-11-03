@@ -19,3 +19,5 @@ Before reporting deployment, inspect actual workflow/deployment success or the l
 ## Documentation synchronization
 
 Any change affecting content management or user-facing configuration must be reflected in README.md.
+
+Photography taxonomy IDs must use lowercase kebab-case and pass node scripts/check-photography.mjs (also included in check:site). Report invalid references instead of silently folding their case at runtime. Browser tests must use current real data rather than fixed Demo counts, IDs, titles or personal placeholders. Preserve photo files and unrelated metadata during taxonomy migrations.

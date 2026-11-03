@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {validatePhotography} from '../assets/js/gallery-validation.mjs';
+const read=p=>JSON.parse(fs.readFileSync('_data/'+p+'.yml','utf8'));const photos=read('photography'),cats=read('photo_categories'),tags=read('photo_tags');
+test('current real photography data has valid taxonomy and required fields',()=>assert.deepEqual(validatePhotography(photos,cats,tags),[]));
+test('case and undefined IDs have photo-specific actionable errors',()=>{const p={...photos[0],category:'Street',tags:['People','missing-tag']};const errors=validatePhotography([p],cats,tags).join('\n');assert.match(errors,new RegExp(p.id));assert.match(errors,/category.*street/);assert.match(errors,/tags.*people/);assert.match(errors,/missing-tag/)});
+test('duplicate IDs and missing required fields fail validation',()=>{const errors=validatePhotography([{...photos[0],width:0,title:null},photos[0]],cats,tags).join('\n');assert.match(errors,/width/);assert.match(errors,/title/);assert.match(errors,/duplicate id/)});

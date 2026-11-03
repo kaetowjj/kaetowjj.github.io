@@ -1,17 +1,55 @@
 eyebrow:
-  en: A PERSONAL ENGINEERING LAB
-  zh: 个人工程研究空间
+  en: "A PERSONAL SPACE"
+  zh: "一处个人空间"
 headline:
-  en: Jerry's Engineering Lab.
-  zh: Jerry 的工程实验室。
-subtitle:
-  en: Engineering notes, photographs, and the occasional pun.
-  zh: 工程笔记、摄影记录，偶尔也认真讲个冷笑话。
-intro:
-  en: Notes on data engineering, AI systems, and software architecture — with a camera close by.
-  zh: 记录数据工程、AI 系统与软件架构，也带着相机观察工程之外的世界。
-disciplines:
-  - Data Engineering
-  - AI Systems
-  - Software Architecture
-  - Photography
+  en: "Still branching out."
+  zh: "还在探索，也还在生长。"
+hero:
+  en: |
+    I don't want to be defined by a job title, a field, or a single version of myself.
+
+    I'm more interested in following questions, building things, and figuring out what matters to me along the way.
+  zh: |
+    我不想被某个职业头衔、某个技术领域，或者某个阶段的自己所定义。
+
+    比起急着回答「我是什么样的人」，我更愿意跟着真正感兴趣的问题走，动手做点东西，再慢慢弄清楚什么对自己重要。
+exploring:
+  title:
+    en: "What I'm Exploring"
+    zh: "我在探索什么"
+  en: |
+    I'm interested in **making AI more useful and building the systems behind it**. I'm currently exploring AI agents, data engineering, and AI infrastructure—particularly how these technologies can move beyond impressive demos to become reliable tools in the real world.
+
+    I'm also interested in the questions behind engineering decisions. What should we delegate to AI? What should remain deterministic and verifiable? How might software architecture change as AI makes building software easier?
+
+    I'm inspired by engineers like **Jeff Dean and Sanjay Ghemawat**. I hope to develop better *technical taste*: the ability to recognize important problems, understand trade-offs, find elegant solutions, and gradually form my own perspective on where technology is heading.
+  zh: |
+    我对**如何更好地运用 AI，以及如何建设支撑它的底层系统**很感兴趣。目前，我正在探索 AI Agent、数据工程和 AI 基础设施，也很好奇如何让这些技术不只停留在 Demo，而是真正成为可靠、实用的工具。
+
+    我也关心工程决策背后的问题：哪些事情适合交给 AI？哪些应该保留给确定性、可验证的程序？当 AI 不断降低软件开发成本，我们设计系统的方式又会发生什么变化？
+
+    我很喜欢 **Jeff Dean 和 Sanjay Ghemawat** 这样的工程师。我希望慢慢培养自己的 *Technical Taste（技术品味）*：识别真正重要的问题，理解设计背后的权衡，找到简洁而有效的解决方案，并逐渐形成自己对未来技术发展的判断。
+beyond:
+  title:
+    en: "Beyond Engineering"
+    zh: "工程之外"
+  en: |
+    My curiosity doesn't stop at technology.
+
+    I love wildlife, birdwatching, and photography. I'm interested in wildlife conservation, public spaces, and how our actions affect the environment around us.
+
+    I'm also trying to understand myself better—to think more independently, express my opinions more openly, and become more comfortable sharing ideas that aren't fully formed.
+
+    **I don't want to wait until I have everything figured out before speaking up.**
+
+    This website is a record of that process: things I've built, questions I'm exploring, opinions I might change, and the occasional nonsense I find amusing.
+  zh: |
+    我的好奇心并不只停留在技术上。
+
+    我喜欢野生动物、观鸟和摄影，也关注野生动物保护、公共空间，以及人类的行为如何影响周围的环境。
+
+    我同样在尝试更好地认识自己：更独立地思考，更坦诚地表达观点，也更愿意分享那些尚未成熟、甚至可能被反驳的想法。
+
+    **我不希望只有在一切都想清楚之后，才敢表达自己。**
+
+    这个网站就是我记录这一过程的地方：做过的项目、正在探索的问题、未来可能改变的观点，以及一些我觉得莫名其妙但很好笑的东西。
