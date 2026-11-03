@@ -1,10 +1,10 @@
-# Engineering Lab：博客所有者使用手册
+# Jerry's Engineering Lab：网站使用与维护手册
 
 这是一份可以边看边操作的日常维护指南。网站使用 **Jekyll + GitHub Pages**，文章存放在 Markdown 文件中，摄影和个人资料存放在数据文件中；没有后台、登录或网页自动上传处理功能。
 
 网站：[Engineering Lab](https://kaetowjj.github.io/) · [About](https://kaetowjj.github.io/about/) · [Photography](https://kaetowjj.github.io/photography/) · [Actions 部署记录](https://github.com/kaetowjj/kaetowjj.github.io/actions)
 
-## 快速开始：我要做什么？
+## 我要做什么？
 
 以下路径均相对于仓库根目录。点击文件链接后可用铅笔按钮编辑；目录链接用于新增文件。
 
@@ -16,6 +16,9 @@
 | 上传摄影作品 | [优化脚本](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/scripts/optimize-images.mjs)、[摄影数据](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/photography.yml)、[图片目录](https://github.com/kaetowjj/kaetowjj.github.io/tree/main/assets/photography) | [摄影完整流程](#photos) |
 | 修改中英文内容 | 对应文章文件；[About 正文](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/about.md) | [中英文写作](#bilingual) |
 | 修改默认语言 | [_config.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_config.yml) 的 default_language | [网站设置](#settings) |
+| 修改首页标题和介绍 | [_data/home.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/home.yml) | [Homepage 个性化](#homepage) |
+| 添加谐音梗和冷笑话 | [_data/quotes.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/quotes.yml) | [Jerry's Silly Thoughts](#thoughts) |
+| 调整白天 / 黑夜模式 | 右上角主题按钮；[配色 CSS](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/assets/css/main.css) | [Themes](#themes) |
 | 修改个人资料 | [_data/profile.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml)、[about.md](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/about.md) | [个人资料](#profile) |
 | 更换头像 | [assets/images/](https://github.com/kaetowjj/kaetowjj.github.io/tree/main/assets/images) 的 avatar.webp；[头像配置](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml) | [头像](#avatar) |
 | 修改邮箱 | [_data/profile.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml) 的 email | [公开联系邮箱](#email) |
@@ -23,49 +26,8 @@
 
 建议按“修改 → 本地预览或检查 → Commit → 等 Actions 成功 → 检查线上页面”的顺序操作。GitHub 的 Commit changes 只是保存源码，**不代表已经部署成功**。
 
-<a id="setup"></a>
-## 1. Windows 本地准备（只做一次）
-
-只在 GitHub 网页修改文字不必安装这些工具。批量处理照片或长期本地写作需要：
-
-- [Git for Windows](https://git-scm.com/downloads/win)；[VS Code](https://code.visualstudio.com/)。
-- [Node.js](https://nodejs.org/en/download) 22 或更新的受支持版本；当前 CI 使用 Node 22。npm 随 Node 安装。图片处理依赖 Sharp，必须安装开发依赖，不要使用省略 devDependencies 的安装方式。
-- 本地预览 Jekyll 另需 [RubyInstaller with Devkit](https://rubyinstaller.org/downloads/)（推荐与 CI 一致的 Ruby 3.3）及 Bundler。Windows 原生依赖需要 MSYS2/DevKit；安装时按 RubyInstaller 提示完成工具链安装。
-
-安装后重新打开 PowerShell，检查版本：
-
-```powershell
-git --version
-node --version
-npm --version
-ruby --version
-bundle --version
-```
-
-如果仅缺 Bundler，运行 `gem install bundler`。如果命令找不到，先重新打开终端并检查安装时是否添加到 PATH；不要在不明终端目录里继续操作。
-
-在希望存放项目的父目录执行以下命令。已克隆过仓库则直接打开已有目录，不要再次嵌套克隆：
-
-```powershell
-git clone https://github.com/kaetowjj/kaetowjj.github.io.git
-Set-Location ./kaetowjj.github.io
-npm ci
-bundle install
-code .
-```
-
-`code .` 需要 VS Code 已添加到 PATH；也可以在 VS Code 用 File → Open Folder 打开该目录。检查当前位置有 `package.json`、`Gemfile`、`_config.yml`。本文后续命令均在这里执行。
-
-本地预览：
-
-```powershell
-bundle exec jekyll serve --livereload
-```
-
-打开 http://127.0.0.1:4000/ 。终端需保持运行；按 Ctrl+C 停止。修改 `_config.yml` 后停止并重新启动。普通 Markdown 和图片修改可等待重建后刷新。完整测试命令见[验证](#checks)。
-
 <a id="articles"></a>
-## 2. 发布 Notes、Essays、Projects
+## 发布 Notes、Essays、Projects
 
 ### 2.1 先选择正确目录
 
@@ -107,7 +69,7 @@ bundle exec jekyll serve --livereload
 本仓库使用 Jekyll collections，不是 `_posts` 的日期命名规则。简单 ASCII 文件名的基本名称决定 `:name`，例如 `_notes/repeatable-data-task.md` 对应 `/notes/repeatable-data-task/`。修改 title、date、updated、category 或 tags 不改变该 URL；重命名/移动文件则可能改变 URL，旧链接不会自动重定向。无需给文件名加发布日期。示例 URL 只在创建并发布该文件后存在。
 
 <a id="bilingual"></a>
-## 3. 完整可复制的双语文章
+## 完整可复制的双语文章
 
 把下面**整个代码块内容**保存为 `_notes/repeatable-data-task.md`，不要把外层四个反引号也复制到文件。用于 Essay 或 Project 时只需放到相应目录并改内容。日期和标题均为示例，请自行填写真实值。
 
@@ -229,8 +191,108 @@ git push origin main
 
 新文件在 git add 之前不会出现在普通 git diff 中，可在编辑器查看；git status 会列为 untracked。推送需已登录 GitHub 并有写权限，按 Git 的正常登录流程操作，不要把 token 或密码写进命令、文章或仓库。最后按上面的 Actions 与线上检查步骤验收。
 
+### 编辑已发布文章与添加正文图片
+
+在原文章的 GitHub 页面点铅笔 Edit this file，或在 VS Code 打开原文件。修改正文、updated 和可选 changelog，保持文件名可保留原 URL；填写 Commit changes，再检查 Actions 和线上文章。不要为一次小修新建重复文章。
+
+文章配图不走摄影画廊导入：先导出合适尺寸、去除 EXIF/GPS 的 WebP，在 [assets/images/](https://github.com/kaetowjj/kaetowjj.github.io/tree/main/assets/images) 用 Add file → Upload files 上传，例如 note-diagram.webp；本地也可复制到此目录。示例文件需实际上传后才存在。在语言容器里写：
+
+```markdown
+![Diagram of the data workflow]({{ '/assets/images/note-diagram.webp' | relative_url }})
+```
+
+中文容器把 alt 改成“数据工作流示意图”。Markdown 图片不会自动压缩或去元数据。检查路径大小写，同时提交配图和文章：
+
+```powershell
+git add -- _notes/my-new-note.md assets/images/note-diagram.webp
+git diff --cached --stat
+git commit -m "Update note with illustration"
+git push origin main
+```
+
+<a id="homepage"></a>
+## 如何修改首页文案？ / Homepage
+
+打开 [_data/home.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/home.yml)，点击铅笔按钮编辑；或在 VS Code 修改。无需编辑 JavaScript。
+
+| 字段 | 页面位置及操作 |
+| --- | --- |
+| eyebrow.en / zh | 小标题；分别填英文/中文个人工程研究空间说明。 |
+| headline.en / zh | 稳定主标题；刷新和 Shuffle 不会改变它。 |
+| subtitle.en / zh | 副标题；可体现冷笑话、谐音或双关的个人气质，不会自动加入收藏库。 |
+| intro.en / zh | 首页专业介绍，保留研究方向和摄影信息，不用笑话代替全部介绍。 |
+| disciplines | 专业方向字符串数组，按列表顺序显示。当前领域名称保留英文。 |
+
+完整当前配置示例：
+
+```yaml
+eyebrow:
+  en: A PERSONAL ENGINEERING LAB
+  zh: 个人工程研究空间
+headline:
+  en: Jerry's Engineering Lab.
+  zh: Jerry 的工程实验室。
+subtitle:
+  en: Engineering notes, photographs, and the occasional pun.
+  zh: 工程笔记、摄影记录，偶尔也认真讲个冷笑话。
+intro:
+  en: Notes on data engineering, AI systems, and software architecture — with a camera close by.
+  zh: 记录数据工程、AI 系统与软件架构，也带着相机观察工程之外的世界。
+disciplines:
+  - Data Engineering
+  - AI Systems
+  - Software Architecture
+  - Photography
+```
+
+YAML 使用空格缩进，文本含英文冒号加空格等特殊字符时加引号。About 的姓名、头像和个人简介仍由 profile.yml 管理，首页简介已独立。About 入口保留 A little about me ↗ / 关于我 ↗。
+
+保存后 Commit changes；本地则 git add _data/home.yml、commit、push。等待 Actions 的 build/deploy 成功，打开首页切换中英文，检查桌面/手机换行。仅改首页文案无需运行图片脚本。统一站名的修改方法见“站名、副标题与地址”。
+
+<a id="thoughts"></a>
+## How to Manage Jerry's Silly Thoughts
+
+**Curated, Not Generated. 收藏真实短句，不生成笑话充数。** 入口是 [_data/quotes.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/quotes.yml)。冷笑话、中文谐音、英文 puns、双关、荒诞短句都可以，不要求与技术相关。网站只展示收藏，不联网抓取、不调用翻译 API、不自动把 Hero 或普通技术文案加入收藏。
+
+当前完整数据如下，可复制结构维护；personal_collection 表示用户提供的个人收藏，**不声称为作者原创**，不编造作者、点赞数或来源：
+
+```yaml
+- id: chocolate
+  text: "以柔克刚，以巧克力。🍫"
+  lang: zh
+  placement: both
+  source_type: personal_collection
+  source_url:
+  author:
+```
+
+### 添加、修改和删除收藏
+
+1. 在 quotes.yml 点 Edit。新增时在末尾照上面结构追加一个以 - id 开始的对象，保留旧记录；不要覆盖整份文件。给新条目取唯一的英文短横线 ID。
+2. 将用户提供或已核实的原句原样填入 text。含引号或冒号时注意 YAML 转义。使用双引号包裹时，内部双引号需加反斜线；使用单引号时，内部单引号需写成两个单引号。
+3. lang 填 zh、en；混合句可填主要语言或 und。这个字段只用于语义和屏幕阅读器，不按网站语言过滤。中文不生成英文对应版，英文不翻译成中文；切换 UI 不会更换当前收藏。
+4. placement 填 home、footer 或 both。首页加载随机选一条，多条时 Shuffle 换另一条，不自动轮播；单条隐藏 Shuffle，空集合隐藏模块。首页两处避免重复：仅一条 both 时只在首页正文显示，其它页面 Footer 仍可显示。
+5. 来源和作者按下表填写。修改时编辑原对象；删除时删除对应完整对象，保持其它条目不变。核对所有 ID 唯一和 placement 拼写。
+6. Commit changes，或本地提交 _data/quotes.yml 后 push。等 Actions 成功，再打开首页、About 等其它页面检查原句语言、显示位置、来源和键盘 Shuffle。仅一条时无法真正换句是预期行为。
+
+| 字段 | 含义与填写要求 |
+| --- | --- |
+| id | 唯一标识。重复或无效记录会被展示层忽略，不应依赖忽略行为整理数据。 |
+| text | 原文纯文本；不支持嵌入 HTML，标签按文字显示。 |
+| lang | 原文语言标记，仅提供语义，不影响 UI 语言和随机范围。 |
+| placement | home：仅首页；footer：仅全站 Footer；both：两处均可。拼错/不填不会展示。 |
+| source_type | personal_collection、reddit、tieba、douban 等；不表示网站已自动验证出处。 |
+| source_url | 可选真实完整 HTTP(S) 原帖链接。个人提供且无原帖时留空；网络引用应保存可核实原帖。相对路径、脚本地址或含账号密码的 URL 不会成为链接。 |
+| author | 已核实原作者，可选；不知道留空，不要填 Jerry 暗示所有收藏为原创。 |
+
+### 保存 Reddit、贴吧等真实来源
+
+先在浏览器打开原帖，核实对应原句。Reddit 可用 Share → Copy link，贴吧复制具体贴文地址。将实际复制的完整地址粘贴到 source_url（可用引号包裹），source_type 填 reddit 或 tieba；作者已核实且适合公开时再填 author。社区首页/搜索结果不替代具体原帖。打不开或无法核实时，不作为“已验证社区内容”发布，可暂存在个人笔记等待确认。本指南不提供虚构的示例原帖地址。
+
+优先短句或简短语言双关，不批量复制长篇原创段子；较长内容更适合自己的简短摘要和原帖链接。不要把 AI 生成的摘要/笑话当成社区原句，不能冒充原作者。URL 检查只验证格式/协议，**不会自动验证作者、版权或出处真实性**，这些仍需收藏者确认。当前唯一初始内容由用户给定，没有虚构网络来源。
+
 <a id="photos"></a>
-## 4. 摄影作品：从原片到线上画廊
+## 摄影作品：从原片到线上画廊
 
 当前 [_data/photography.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/photography.yml) 虽然扩展名是 yml，内容实际为 **JSON 数组**；分类和标签文件是 **JSON 对象**。JSON 可由 Jekyll 的 YAML 读取器处理。本手册统一保留现有 JSON 写法，这样 Node 的 JSON 校验和现有 Demo 脚本都适用。不要混用 YAML 的短横线写法与 JSON 逗号。
 
@@ -569,11 +631,11 @@ git push origin main
 | Actions 构建/测试失败 | 打开本次提交失败步骤日志；先修复首个明确错误。JSON 错误可能导致 Jekyll 失败或画廊脚本异常，未提交图片也可能表现为浏览器测试失败。不要只根据 Commit 成功判断上线。 |
 
 <a id="profile"></a>
-## 5. About、个人资料、邮箱与头像
+## About、个人资料、邮箱与头像
 
-主要入口：[profile.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml)、[about.md](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/about.md)。profile 中的 intro 同时用于首页与 About 顶部，修改会影响两处；教育、工作经历、兴趣及联系说明在 about.md 的英文/中文容器中分别维护，保留现有 include 与 script 标签。
+主要入口：[profile.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml)、[about.md](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/about.md)。profile 中的 intro 现在只用于 About 顶部；首页简介单独由 _data/home.yml 的 intro 管理；教育、工作经历、兴趣及联系说明在 about.md 的英文/中文容器中分别维护，保留现有 include 与 script 标签。
 
-profile.yml 是普通 YAML，**用空格缩进，不用 Tab**。以下仅为填写示例，请用自己的真实资料替换；专用联系别名也要换为自己拥有的地址：
+profile.yml 是普通 YAML，**用空格缩进，不用 Tab**。以下仅为填写示例，请用自己的真实资料替换；当前公开联系邮箱使用已确认的 Outlook 别名 hi.jerrywong@outlook.com；姓名、简介等请换为自己的真实资料：
 
 ```yaml
 name:
@@ -582,7 +644,7 @@ name:
 intro:
   en: "I write about data engineering and systems."
   zh: "我记录数据工程与系统实践。"
-email: "blog-contact@example.com"
+email: "hi.jerrywong@outlook.com"
 linkedin: "https://www.linkedin.com/in/your-profile/"
 github: "https://github.com/kaetowjj"
 avatar:
@@ -602,7 +664,7 @@ avatar:
 <a id="email"></a>
 ### 公开联系邮箱
 
-email 非空时，About 页底部生成 mailto 联系链接，站点不会代发邮件。留空 `email: ""` 可隐藏该链接；About 正文中的联系说明需要自己相应修改。
+当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，About 页底部及 Footer 都由此字段生成 mailto 联系链接；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏该链接；About 正文中的联系说明需要自己相应修改。
 
 **建议使用专门的公开联系别名**，不要公开私人主邮箱。仓库及网站是公开的；不要把邮箱密码、验证码、GitHub token、相机云服务凭据或其它账号秘密写入任何文件。把别名写入 email 不会自动在邮箱服务商处创建它，须先确认该别名已配置并可收信。
 
@@ -618,34 +680,37 @@ email 非空时，About 页底部生成 mailto 联系链接，站点不会代发
 不要把头像原图放入公开仓库后再假定页面裁剪等于隐私保护：下载者仍可取得整个原文件。无需运行摄影的批处理脚本来更换头像，该脚本输出到摄影目录并生成摄影清单。
 
 <a id="settings"></a>
-## 6. 网站设置：哪些改数据，哪些要改模板？
+## 网站设置：哪些改数据，哪些要改模板？
 
 | 需求 | 修改位置 | 只改数据即可？ |
 | --- | --- | --- |
 | 默认界面语言 | [_config.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_config.yml)：default_language 为 en 或 zh | 是；重新构建，本地需重启 Jekyll。 |
+| 首页文案与专业标签 | [_data/home.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/home.yml) | 是；不随机改变主标题。 |
+| 收藏短句及显示位置 | [_data/quotes.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/quotes.yml) | 是；保留原文，不自动翻译。 |
 | 个人资料、头像、公开邮箱 | [_data/profile.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/profile.yml)；履历正文在 [about.md](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/about.md) | 资料/头像改数据，履历改 Markdown。 |
 | 摄影、分类、标签 | [_data/](https://github.com/kaetowjj/kaetowjj.github.io/tree/main/_data) 对应三个摄影数据文件 | 是；同时提交相关图片。 |
 | 导航名称、链接和顺序 | [_data/navigation.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
 | 主题颜色 | [assets/css/main.css](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
-| 可见站名和副标题 | [index.html](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/index.html) 与 [_layouts/default.html](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/_layouts/default.html) | 当前需修改模板中的文字，没有统一 subtitle 数据字段。 |
+| 页眉/页脚站名、Hero 与副标题 | _config.yml 的 title；_data/home.yml 的 headline/subtitle；页脚标语在 _layouts/default.html | 站名统一读 title；Hero 独立配置，页脚标语仍需修改模板。 |
 
 ### 默认语言与个人偏好
 
 在 _config.yml 找到并修改 `default_language: zh`，其它配置保持不变。它控制首次访问的页面语言；**浏览器已保存的 lab-language 偏好优先**，因此已有访客可能仍看到英文。右上角切换即可；若要测试真正的首次默认状态，使用新的隐私浏览窗口。`lang: en` 是另一项站点配置，不替代 default_language；RSS 等插件可能读取站点语言元数据，可按站点主语言一并检查。当前为单 URL 双语，canonical 不因切换语言改变，head 中标题/description 也不是按语言即时切换的。
 
+<a id="themes"></a>
 ### Light / Dark / System
 
 无需修改配置即可使用右上角主题按钮，循环顺序为 System → Light → Dark → System。首次跟随系统，选择后本地保存；System 会实时响应操作系统明暗变化。清除站点存储会清除语言、主题和照片排序偏好。需要改配色才编辑 CSS Variables，同时检查两个主题中的表格、代码、文字对比和 prefers-reduced-motion。
 
 ### 站名、副标题与地址
 
-_config.yml 的 title 主要影响浏览器标题与 Open Graph 的站名；description 影响默认 SEO 描述。当前页头 wordmark 与页脚中的 Engineering Lab、首页大标题 Thinking, Building & Learning、页脚副标题是模板中的静态文字。要完整改名，需同时检查 index.html 与 _layouts/default.html，不能假定只改配置就全站替换。
+_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 独立配置，若希望与站名相同，改名时同步检查 home.yml。页脚 Thinking, Building & Learning 标语仍在 _layouts/default.html 中，不属于随机收藏。
 
 当前发布根地址为 `https://kaetowjj.github.io`，baseurl 为 `""`。这是用户主页仓库，不需要在 URL 中加仓库名。若未来迁移成项目子路径站点，需要同步调整 url/baseurl 并检查所有资源；日常写文章、上传图片无需改它们。时区配置为 Asia/Shanghai。
 
 <a id="deploy"></a>
-## 7. GitHub Actions 部署与故障排查
+## GitHub Actions 部署与故障排查
 
 [工作流文件](https://github.com/kaetowjj/kaetowjj.github.io/blob/main/.github/workflows/pages.yml)是真实执行依据。它在推送 main、提交 PR 或手动 workflow_dispatch 时运行；PR 只构建测试，合并/推送 main 后才执行部署。流程为：安装 Ruby/Node 与依赖 → npm test → Jekyll 生产构建 → 资源检查 → 安装 Chromium → 浏览器测试 → 打包 → deploy。
 
@@ -669,8 +734,49 @@ _config.yml 的 title 主要影响浏览器标题与 Open Graph 的站名；desc
 
 canonical、Open Graph、Sitemap 由模板/插件生成。可用订阅地址：[Notes RSS](https://kaetowjj.github.io/notes/feed.xml)、[Essays RSS](https://kaetowjj.github.io/essays/feed.xml)，以及 [Sitemap](https://kaetowjj.github.io/sitemap.xml)。
 
+<a id="setup"></a>
+## Windows 本地准备（只做一次）
+
+只在 GitHub 网页修改文字不必安装这些工具。批量处理照片或长期本地写作需要：
+
+- [Git for Windows](https://git-scm.com/downloads/win)；[VS Code](https://code.visualstudio.com/)。
+- [Node.js](https://nodejs.org/en/download) 22 或更新的受支持版本；当前 CI 使用 Node 22。npm 随 Node 安装。图片处理依赖 Sharp，必须安装开发依赖，不要使用省略 devDependencies 的安装方式。
+- 本地预览 Jekyll 另需 [RubyInstaller with Devkit](https://rubyinstaller.org/downloads/)（推荐与 CI 一致的 Ruby 3.3）及 Bundler。Windows 原生依赖需要 MSYS2/DevKit；安装时按 RubyInstaller 提示完成工具链安装。
+
+安装后重新打开 PowerShell，检查版本：
+
+```powershell
+git --version
+node --version
+npm --version
+ruby --version
+bundle --version
+```
+
+如果仅缺 Bundler，运行 `gem install bundler`。如果命令找不到，先重新打开终端并检查安装时是否添加到 PATH；不要在不明终端目录里继续操作。
+
+在希望存放项目的父目录执行以下命令。已克隆过仓库则直接打开已有目录，不要再次嵌套克隆：
+
+```powershell
+git clone https://github.com/kaetowjj/kaetowjj.github.io.git
+Set-Location ./kaetowjj.github.io
+npm ci
+bundle install
+code .
+```
+
+`code .` 需要 VS Code 已添加到 PATH；也可以在 VS Code 用 File → Open Folder 打开该目录。检查当前位置有 `package.json`、`Gemfile`、`_config.yml`。本文后续命令均在这里执行。
+
+本地预览：
+
+```powershell
+bundle exec jekyll serve --livereload
+```
+
+打开 http://127.0.0.1:4000/ 。终端需保持运行；按 Ctrl+C 停止。修改 `_config.yml` 后停止并重新启动。普通 Markdown 和图片修改可等待重建后刷新。完整测试命令见[验证](#checks)。
+
 <a id="checks"></a>
-## 8. 本地检查与开发资料（保留给需要时查阅）
+## 本地检查与开发资料（保留给需要时查阅）
 
 检查依赖后，在 PowerShell 的仓库根目录执行：
 
@@ -702,7 +808,7 @@ Remove-Item Env:JEKYLL_ENV
 - 官方参考：[Jekyll](https://jekyllrb.com/docs/)、[GitHub Pages 自定义工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)。
 
 <a id="routine"></a>
-## 9. 推荐的日常维护方式
+## 推荐的日常维护方式
 
 | 工具 | 适合做什么 | 完成后确认什么 |
 | --- | --- | --- |

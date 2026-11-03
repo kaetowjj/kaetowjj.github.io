@@ -1,0 +1,17 @@
+eyebrow:
+  en: A PERSONAL ENGINEERING LAB
+  zh: 个人工程研究空间
+headline:
+  en: Jerry's Engineering Lab.
+  zh: Jerry 的工程实验室。
+subtitle:
+  en: Engineering notes, photographs, and the occasional pun.
+  zh: 工程笔记、摄影记录，偶尔也认真讲个冷笑话。
+intro:
+  en: Notes on data engineering, AI systems, and software architecture — with a camera close by.
+  zh: 记录数据工程、AI 系统与软件架构，也带着相机观察工程之外的世界。
+disciplines:
+  - Data Engineering
+  - AI Systems
+  - Software Architecture
+  - Photography

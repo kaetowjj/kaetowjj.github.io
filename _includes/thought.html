@@ -1,0 +1,4 @@
+<section class="thought thought-{{ include.placement }}" data-thought="{{ include.placement }}" aria-labelledby="thought-heading-{{ include.placement }}" hidden>
+  <div class="thought-heading"><h2 id="thought-heading-{{ include.placement }}" class="eyebrow">{% if include.placement == 'home' %}{% include bi.html en="A LITTLE NONSENSE" zh="一点胡言乱语" %}{% else %}{% include bi.html en="Jerry's Silly Thoughts" zh="Jerry 的胡言乱语" %}{% endif %}</h2><button type="button" class="thought-shuffle" hidden>{% include bi.html en="Shuffle ↻" zh="换一句 ↻" %}</button></div>
+  <div class="thought-content" aria-live="polite" aria-atomic="true"><p class="thought-text"></p><div class="thought-credit"><span class="thought-author"></span><a class="thought-source" target="_blank" rel="noopener noreferrer" hidden></a></div></div>
+</section>

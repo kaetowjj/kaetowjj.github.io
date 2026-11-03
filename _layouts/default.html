@@ -12,6 +12,8 @@
 {% if page.stylesheet %}<link rel="stylesheet" href="{{ page.stylesheet | relative_url | escape }}">{% endif %}
 <link rel="alternate" type="application/atom+xml" title="Engineering Notes" href="{{ '/notes/feed.xml' | relative_url }}">
 <script type="module" src="{{ '/assets/js/site.mjs' | relative_url }}"></script>
+<link rel="stylesheet" href="{{ '/assets/css/thoughts.css' | relative_url }}">
+<script type="module" src="{{ '/assets/js/thoughts.mjs' | relative_url }}"></script>
 {% if page.math %}<script>window.MathJax={startup:{ready:()=>{document.querySelectorAll('script[type^="math/tex"]').forEach(s=>{const d=document.createElement('span');d.textContent=(s.type.includes('display')?'\\[':'\\(')+s.textContent+(s.type.includes('display')?'\\]':'\\)');s.replaceWith(d)});MathJax.startup.defaultReady()}},tex:{inlineMath:[['$','$'],['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>{% endif %}
 </head>
 <body>
@@ -19,5 +21,6 @@
 <header class="site-header"><div class="header-inner"><a class="wordmark" href="{{ '/' | relative_url }}">{{ site.title }}<span class="brand-dot">.</span></a><div class="header-actions"><button id="language-toggle" type="button" aria-label="Switch language / 切换语言">中 / EN</button><button id="theme-toggle" type="button" aria-label="Theme" title="System">◐</button><button id="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation">☰<span class="sr-only">Menu</span></button></div>
 <nav id="navigation" aria-label="Main navigation">{% for item in site.data.navigation %}<a href="{{ item.url | relative_url }}" {% if page.nav == item.id %}aria-current="page"{% endif %}>{% include bi.html en=item.en zh=item.zh %}</a>{% endfor %}</nav></div></header>
 <main id="main" class="page {{ page.page_class }}">{{ content }}</main>
-<footer class="site-footer"><span>© {{ site.time | date: '%Y' }} {{ site.title }}<span>Thinking, Building & Learning</span><div><a href="{{ site.data.profile.github }}">GitHub ↗</a> <a href="{{ '/notes/feed.xml' | relative_url }}">RSS ↗</a>{% if site.data.profile.linkedin != '' %} <a href="{{ site.data.profile.linkedin | escape }}">LinkedIn ↗</a>{% endif %}</div></footer>
+<footer class="site-footer site-footer-thoughts"><span>© {{ site.time | date: '%Y' }} {{ site.title }}</span><span>Thinking, Building & Learning</span><div>{% if site.data.profile.email != '' %}<a href="mailto:{{ site.data.profile.email | escape }}">{% include bi.html en="Email ↗" zh="邮箱 ↗" %}</a> {% endif %}<a href="{{ site.data.profile.github }}">GitHub ↗</a> <a href="{{ '/notes/feed.xml' | relative_url }}">RSS ↗</a>{% if site.data.profile.linkedin != '' %} <a href="{{ site.data.profile.linkedin | escape }}">LinkedIn ↗</a>{% endif %}</div>{% include thought.html placement="footer" %}</footer>
+<script type="application/json" id="quotes-data">{{ site.data.quotes | jsonify | replace: '<', '\u003c' }}</script>
 </body></html>

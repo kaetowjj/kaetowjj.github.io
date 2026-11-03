@@ -15,3 +15,7 @@ Every photograph has equal visual priority. Combine one category and one tag, so
 Use npm test for pure logic, bundle exec jekyll build --strict_front_matter for Liquid/Markdown, npm run check:site for generated links, and npm run test:browser for desktop/mobile interactions. Browser tests require a built _site and Playwright Chromium. See README for setup commands and docs/validation.md for recorded evidence.
 
 Before reporting deployment, inspect actual workflow/deployment success or the live site. A commit alone proves no deployment. Keep original photos and coordinates private; the optimization pipeline strips metadata by default. Add content through collections and YAML rather than hard-coded HTML lists.
+
+## Documentation synchronization
+
+Any change affecting content management or user-facing configuration must be reflected in README.md.

@@ -14,7 +14,7 @@ stylesheet: /assets/css/about.css
 ### Beyond engineering
 [Your interests and photography practice.]
 ### Contact
-[Add an email address and LinkedIn URL in _data/profile.yml.]
+For a conversation about engineering or photography, use the email link below.
 </div>
 <div class="prose" data-lang="zh" markdown="1">
 ### 教育经历
@@ -24,7 +24,7 @@ stylesheet: /assets/css/about.css
 ### 工程之外
 [介绍你的兴趣与摄影实践。]
 ### 联系方式
-[在 _data/profile.yml 中添加邮箱和 LinkedIn 链接。]
+关于工程实践或摄影交流，欢迎通过下方邮箱联系。
 </div>
 {% if site.data.profile.email != '' %}<p><a href="mailto:{{ site.data.profile.email | escape }}">{{ site.data.profile.email | escape }}</a></p>{% endif %}
 
