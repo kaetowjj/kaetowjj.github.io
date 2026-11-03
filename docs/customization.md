@@ -108,7 +108,7 @@ avatar:
 | 个人资料、头像、公开邮箱 | [_data/profile.yml](../_data/profile.yml)；履历正文在 [about.md](../about.md) | 资料/头像改数据，履历改 Markdown。 |
 | 摄影、分类、标签 | [_data/](../_data) 对应三个摄影数据文件 | 是；同时提交相关图片。 |
 | 导航名称、链接和顺序 | [_data/navigation.yml](../_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
-| 主题颜色 | [assets/css/main.css](../assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code。 |
+| 主题颜色 | [assets/css/main.css](../assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code；交互色见下文 --interactive-hover。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](../_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
 | 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 仅保留版权和彩蛋。 |
 
@@ -121,9 +121,30 @@ avatar:
 
 无需修改配置即可使用右上角主题按钮，循环顺序为 System → Light → Dark → System。首次跟随系统，选择后本地保存；System 会实时响应操作系统明暗变化。清除站点存储会清除语言、主题和照片排序偏好。需要改配色才编辑 CSS Variables，同时检查两个主题中的表格、代码、文字对比和 prefers-reduced-motion。
 
+### Hover、当前位置与键盘焦点
+
+统一交互色在 [main.css](../assets/css/main.css) 的主题变量中维护：
+
+```css
+:root { --interactive-hover: #B45309; }
+html[data-theme="dark"] { --interactive-hover: #A7D7A4; }
+```
+
+它们只控制交互反馈，不替换 --accent 或背景变量。正文仍为 Light #272D2B、Dark #E5E8E1；普通链接的默认强调色、导航未选项的灰色沿用原样。支持 Hover 的设备上，链接和普通控件使用 180ms 的 color / border-color / background-color 过渡：
+
+- 顶部非当前导航、Logo、Home 的 About 链接、正文链接、目录、文章标签、邮箱和来源链接变色。
+- 整块可点击的文章条目及 Projects / Photography 入口，仅标题和边框变色；描述、日期与普通段落不变色。
+- 语言、主题、菜单按钮，摄影未选分类、Tag / Sort 下拉框、清除筛选、查看器按钮、照片标签及 Shuffle 均有反馈。
+- 当前页面通过 aria-current="page" 表示，文字始终使用 --text，底线保持 --accent；Hover 不覆盖它。手机菜单同样保留短底线。不要用 :active 表示当前页面，:active 只是按下瞬间。
+- 摄影 aria-pressed="true" 的已选分类保持现有实心背景与反色文字，Hover 不改颜色。照片本身使用轻微边缘提示和现有标题浮层；浮层白字保持原样，避免暖橙色在照片暗部对比不足。原生下拉菜单的选项保持正文色与页面背景色。
+- 文章标签链接和照片标签按钮 Hover 时，标签底色轻微变为 --bg；这让浅色模式的橙色小字对比度达到约 4.68:1（原 --surface 灰底仅约 4.32:1）。整站背景色保持原样。
+- Tab 聚焦仍显示 2px 轮廓和间距，不只靠颜色区分；原生 Disabled 控件降低透明度、使用默认光标，且不应用 Hover 颜色。
+
+Hover 样式限定在 @media (hover: hover)，无 Hover 的手机继续正常点击。prefers-reduced-motion: reduce 时取消过渡；这不改变按钮功能，也不增加 JavaScript。变更颜色后请同时检查两个主题、已选状态、键盘焦点和触屏操作。
+
 ### 轻微过渡与减少动画
 
-[main.css](../assets/css/main.css) 为导航链接颜色添加 180ms hover 过渡；[home.css](../assets/css/home.css) 与 [about.css](../assets/css/about.css) 为这两个页面的内容添加 180ms、opacity 0.88 到 1 的轻微进入效果。没有新增 JavaScript、路由拦截或 View Transitions；导航仍为原生页面跳转，前进、后退及滚动恢复由浏览器处理。prefers-reduced-motion: reduce 时关闭这些效果。不需要给每个区块增加滚动动画。
+[main.css](../assets/css/main.css) 统一维护上述 180ms 交互过渡；[home.css](../assets/css/home.css) 与 [about.css](../assets/css/about.css) 为这两个页面的内容添加 180ms、opacity 0.88 到 1 的轻微进入效果。没有新增 JavaScript、路由拦截或 View Transitions；导航仍为原生页面跳转，前进、后退及滚动恢复由浏览器处理。prefers-reduced-motion: reduce 时关闭这些效果。不需要给每个区块增加滚动动画。
 
 ### 站名与发布地址
 
