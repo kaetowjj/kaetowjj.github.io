@@ -1,18 +1,24 @@
+
 name:
-  en: "[Your name]"
-  zh: "[你的姓名]"
+  en: "Jerry Wong"
+  zh: "王杰瑞"
+
+
 intro:
-  en: "[Add a short introduction to your engineering interests and practice.]"
-  zh: "[在这里介绍你的工程兴趣与实践方向。]"
+  en: "I'm exploring how to make AI more useful and how to build the systems behind it. Here I share my engineering questions, experiments, and occasional detours beyond technology."
+  zh: "我在探索如何更好地运用 AI，以及如何建设支撑它的底层系统。这里记录我的工程思考、技术实验，以及偶尔跑题的生活观察。"
+
+
 email: "hi.jerrywong@outlook.com"
 linkedin: ""
 github: https://github.com/kaetowjj
+
 avatar:
   src: "/assets/images/avatar.webp"
   position: "center 35%"
   alt:
-    en: "Profile portrait"
-    zh: "个人头像"
+    en: "Portrait of Jerry Wong"
+    zh: "Jerry Wong 的个人头像"
   initials:
-    en: "YN"
-    zh: "名"
+    en: "JW"
+    zh: "杰"
