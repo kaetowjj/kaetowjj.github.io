@@ -1,8 +1,9 @@
 ---
 nav: home
 stylesheet: /assets/css/home.css
+page_class: home-refined
 ---
-<section class="hero hero-personal"><p class="eyebrow">{% include bi.html en=site.data.home.eyebrow.en zh=site.data.home.eyebrow.zh %}</p><h1>{% include bi.html en=site.data.home.headline.en zh=site.data.home.headline.zh %}</h1>{% include home-copy.html en=site.data.home.hero.en zh=site.data.home.hero.zh %}<a class="text-link" href="{{ '/about/' | relative_url }}">{% include bi.html en="A little about me" zh="关于我" %} ↗</a></section>
+<section class="hero hero-personal"><h1>{% include bi.html en=site.data.home.headline.en zh=site.data.home.headline.zh %}</h1><a class="text-link" href="{{ '/about/' | relative_url }}">{% include bi.html en="A little about me" zh="关于我" %} ↗</a></section>
 <section class="home-section home-exploring"><div class="section-heading"><h2>{% include bi.html en=site.data.home.exploring.title.en zh=site.data.home.exploring.title.zh %}</h2></div>{% include home-copy.html en=site.data.home.exploring.en zh=site.data.home.exploring.zh %}</section>
 <section class="home-section home-beyond"><div class="section-heading"><h2>{% include bi.html en=site.data.home.beyond.title.en zh=site.data.home.beyond.title.zh %}</h2></div>{% include home-copy.html en=site.data.home.beyond.en zh=site.data.home.beyond.zh %}</section>
 <section class="home-section"><div class="section-heading"><h2>{% include bi.html en="Recent notes" zh="最近的笔记" %}</h2><a class="text-link" href="{{ '/notes/' | relative_url }}">{% include bi.html en="All notes" zh="全部笔记" %} ↗</a></div>{% include entries.html entries=site.notes %}</section>

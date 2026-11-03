@@ -1,55 +1,48 @@
-eyebrow:
-  en: "A PERSONAL SPACE"
-  zh: "一处个人空间"
+---
 headline:
-  en: "Still branching out."
-  zh: "还在探索，也还在生长。"
-hero:
-  en: |
-    I don't want to be defined by a job title, a field, or a single version of myself.
-
-    I'm more interested in following questions, building things, and figuring out what matters to me along the way.
-  zh: |
-    我不想被某个职业头衔、某个技术领域，或者某个阶段的自己所定义。
-
-    比起急着回答「我是什么样的人」，我更愿意跟着真正感兴趣的问题走，动手做点东西，再慢慢弄清楚什么对自己重要。
+  en: Still branching out.
+  zh: 还在探索。
 exploring:
   title:
-    en: "What I'm Exploring"
-    zh: "我在探索什么"
+    en: What I'm Exploring
+    zh: 我在探索什么
   en: |
-    I'm interested in **making AI more useful and building the systems behind it**. I'm currently exploring AI agents, data engineering, and AI infrastructure—particularly how these technologies can move beyond impressive demos to become reliable tools in the real world.
+    I'm interested in making AI more useful and building the systems behind it. I'm currently exploring AI agents, data engineering, and AI infrastructure—particularly how these technologies can move beyond impressive demos to become reliable tools in the real world.
 
     I'm also interested in the questions behind engineering decisions. What should we delegate to AI? What should remain deterministic and verifiable? How might software architecture change as AI makes building software easier?
 
-    I'm inspired by engineers like **Jeff Dean and Sanjay Ghemawat**. I hope to develop better *technical taste*: the ability to recognize important problems, understand trade-offs, find elegant solutions, and gradually form my own perspective on where technology is heading.
+    I'm inspired by engineers like Jeff Dean and Sanjay Ghemawat. I hope to develop better technical taste: the ability to recognize important problems, understand trade-offs, find elegant solutions, and gradually form my own perspective on where technology is heading.
   zh: |
-    我对**如何更好地运用 AI，以及如何建设支撑它的底层系统**很感兴趣。目前，我正在探索 AI Agent、数据工程和 AI 基础设施，也很好奇如何让这些技术不只停留在 Demo，而是真正成为可靠、实用的工具。
+    我对如何更好地运用 AI，以及如何建设支撑它的底层系统很感兴趣。目前，我正在探索 AI Agent、数据工程和 AI 基础设施，也很好奇如何让这些技术不只停留在 Demo，而是真正成为可靠、实用的工具。
 
     我也关心工程决策背后的问题：哪些事情适合交给 AI？哪些应该保留给确定性、可验证的程序？当 AI 不断降低软件开发成本，我们设计系统的方式又会发生什么变化？
 
-    我很喜欢 **Jeff Dean 和 Sanjay Ghemawat** 这样的工程师。我希望慢慢培养自己的 *Technical Taste（技术品味）*：识别真正重要的问题，理解设计背后的权衡，找到简洁而有效的解决方案，并逐渐形成自己对未来技术发展的判断。
+    我很喜欢 Jeff Dean 和 Sanjay Ghemawat 这样的工程师。我希望慢慢培养自己的 Technical Taste（技术品味）：识别真正重要的问题，理解设计背后的权衡，找到简洁而有效的解决方案，并逐渐形成自己对未来技术发展的判断。
 beyond:
   title:
-    en: "Beyond Engineering"
-    zh: "工程之外"
-  en: |
-    My curiosity doesn't stop at technology.
+    en: Beyond Engineering
+    zh: 工程之外
+  en: |-
+    I've always loved wildlife, birdwatching, and photography. When I'm outdoors, I'm often struck by how vast nature is and how small we are. The more time I spend observing wildlife, the more I think about our responsibility to protect it. Patagonia's mission, "We're in business to save our home planet," has always meant a lot to me. I hope I can contribute to that in my own way.
 
-    I love wildlife, birdwatching, and photography. I'm interested in wildlife conservation, public spaces, and how our actions affect the environment around us.
+    I'd also like to spend more time on documentary and street photography. I'm drawn to the work of Alex Webb, and I'd love to take a wide-angle lens into streets and villages, observing how people live and how they relate to the places around them. I'm interested in public spaces, everyday life, and social issues. A photography personality test once compared me to Annie Leibovitz, though I don't really see myself that way. I'm more interested in people within their surroundings than in portraiture alone.
 
-    I'm also trying to understand myself better—to think more independently, express my opinions more openly, and become more comfortable sharing ideas that aren't fully formed.
+    Sometimes I can't help thinking about people in engineering terms. Everyone has their own experiences, choices, and directions, almost like vectors in a high-dimensional space. I'd like to understand more of those different lives without rushing to conclusions. I've never been particularly good at putting my thoughts into words, so I hope photography can help me express things I find difficult to say, including my observations about society.
 
-    **I don't want to wait until I have everything figured out before speaking up.**
+    I also want to photograph more of my family. Not just holidays or special occasions, but ordinary moments together—meals, conversations, and everyday life. Growing up as an only child in China in the 1990s, I've become increasingly aware that my parents are getting older, and that sooner or later I'll have to face parting. I don't think I'm ready, and I'm not sure how anyone really prepares for it. For now, I just want to spend more time together, share more experiences, and keep more of those moments.
 
-    This website is a record of that process: things I've built, questions I'm exploring, opinions I might change, and the occasional nonsense I find amusing.
-  zh: |
-    我的好奇心并不只停留在技术上。
+    Beyond photography, I'm also trying to understand myself better. I want to think more independently and speak more openly, especially in public. My opinions may be incomplete or change over time, but I'd rather learn to express them than stay silent because I'm afraid of being wrong.
 
-    我喜欢野生动物、观鸟和摄影，也关注野生动物保护、公共空间，以及人类的行为如何影响周围的环境。
+    That's part of why I started this website. Alongside my engineering work, I want somewhere to keep a record of how I see the world, how I understand others, and how my thinking changes.
+  zh: |-
+    我一直很喜欢野生动物，也喜欢观鸟和摄影。在户外拍摄时，我常常感叹自然的广阔和人类的渺小。越是接近自然，越觉得我们应该学着尊重它，而不只是欣赏它。我也因此越来越关注野生动物保护，以及人类活动对自然环境的影响。Patagonia 的使命一直很打动我：保护我们唯一的家园。我很认同这种理念，也希望自己能够为此做些什么。
 
-    我同样在尝试更好地认识自己：更独立地思考，更坦诚地表达观点，也更愿意分享那些尚未成熟、甚至可能被反驳的想法。
+    除了野生动物，我还想拍更多人文摄影。我想像喜欢的摄影师 Alex Webb 那样，带上一支广角镜头，走上街头，走进乡村，看看不同的人都在过着怎样的生活。我想记录真实的当下，观察人们如何使用公共空间、如何与彼此相处，也想更多地关注发生在身边的公共议题。之前做过一个摄影风格测试，结果说我像 Annie Leibovitz，但我自己并不这么觉得。比起单纯拍摄人像，我似乎更喜欢记录人与环境之间的关系。
 
-    **我不希望只有在一切都想清楚之后，才敢表达自己。**
+    有时候我会忍不住用工程师的思维去理解人。每个人都有自己的经历、选择和方向，就像高维空间里的向量，彼此不同，也有着各种各样的可能性。我想多看看这些不同的人和生活，试着理解他们，而不是急着得出什么结论。我不是一个很善于表达的人，很多想法到了嘴边反而说不清楚。所以我希望摄影能成为另一种表达方式，让我慢慢学会通过照片表达自己对社会的观察和看法。
 
-    这个网站就是我记录这一过程的地方：做过的项目、正在探索的问题、未来可能改变的观点，以及一些我觉得莫名其妙但很好笑的东西。
+    我也想用镜头多记录一些家人的故事。不只是节日和旅行，还有平时吃饭、聊天、相处的那些普通瞬间。作为一个 90 后独生子女，我越来越意识到，父母正在变老，而离别是迟早需要面对的事情。我想自己还没有做好准备，也不知道究竟该怎么准备。现在能做的，大概就是多陪伴、多经历、多拍一些照片，把那些以后可能再也无法重来的时刻留下来。
+
+    除了摄影，我也在努力更好地认识自己。我希望能够更独立地思考，更坦诚地表达自己的意见，尤其是在公共场合。我的观点可能不成熟，也可能会改变，但我不想因为担心说错，就一直保持沉默。
+
+    我想，这些也是我建立这个网站的原因之一。除了记录技术上的探索，我也希望在这里留下自己观察世界、理解他人，以及不断认识自己的过程。

@@ -15,51 +15,52 @@
 
 | 字段 | 修改内容 |
 | --- | --- |
-| eyebrow.en / zh | 小号说明。 |
-| headline.en / zh | 主标题：Still branching out. / 还在探索，也还在生长。 |
-| hero.en / zh | Hero 两段完整个人介绍，保留 About 入口；不再使用 subtitle、intro 或 disciplines 字段。 |
+| headline.en / zh | Hero 主标题：Still branching out. / 还在探索。 |
 | exploring.title.en / zh | 探索方向章节标题。 |
 | exploring.en / zh | AI、数据工程、架构决策与技术品味的完整段落。 |
 | beyond.title.en / zh | 工程之外章节标题。 |
-| beyond.en / zh | 野生动物、摄影、环境与自我认知等段落。 |
+| beyond.en / zh | 中英文各六个自然段：野生动物、人文摄影、表达、家人、自我认识与建站缘由。 |
 
-长正文使用 YAML 的竖线块；每行相对字段多缩进两个空格，空行分隔段落。不要改成大于号折叠块。普通 Markdown 的 **加粗**、*强调* 与段落会由 Jekyll markdownify 解析；不要给这些长段落加 data-en/data-zh 属性或重复粘贴到 profile.yml。
-
-以下 Hero 是可复制的完整配置片段；只替换文件内对应字段，保留其它 exploring、beyond 字段：
+Hero 只显示主标题和 About 链接，不显示 eyebrow、个人介绍或技术标签；旧的 eyebrow、hero 字段已移除。链接文字在 [index.html](../index.html) 中维护，当前为 A little about me ↗ / 关于我 ↗。主标题配置示例：
 
 ```yaml
 headline:
   en: "Still branching out."
-  zh: "还在探索，也还在生长。"
-hero:
-  en: |
-    I don't want to be defined by a job title, a field, or a single version of myself.
-
-    I'm more interested in following questions, building things, and figuring out what matters to me along the way.
-  zh: |
-    我不想被某个职业头衔、某个技术领域，或者某个阶段的自己所定义。
-
-    比起急着回答「我是什么样的人」，我更愿意跟着真正感兴趣的问题走，动手做点东西，再慢慢弄清楚什么对自己重要。
+  zh: "还在探索。"
 ```
 
-What I'm Exploring 与 Beyond Engineering 的 en/zh 正文使用同样的竖线写法，直接编辑相应语言段落即可。About 姓名、头像和简短个人介绍仍在 profile.yml，与首页长文案独立。
+What I'm Exploring 与 Beyond Engineering 的 en/zh 长正文使用 YAML 竖线块；每行相对字段多缩进两个空格，空行分隔段落。例如只替换 exploring.en 的正文时：
 
-保存后 Commit changes；本地则 git add _data/home.yml、commit、push。等待 Actions 的 build/deploy 成功后检查双语加粗、段落及手机换行，无需处理照片。站点统一名称仍由 _config.yml 的 title 控制页眉和版权信息，Hero 主标题是独立的个人表达。
+```yaml
+exploring:
+  title:
+    en: "What I'm Exploring"
+    zh: "我在探索什么"
+  en: |
+    My first paragraph.
+
+    My second paragraph.
+  zh: |
+    我的第一段。
+
+    我的第二段。
+```
+
+不要用这段演示文案覆盖真实内容。保留 Beyond Engineering 的六个自然段，不混为一段，不为每段加子标题或粗体关键词；中英文独立维护。正文由 Jekyll markdownify 解析，不要给长段落加 data-en/data-zh 属性。英文直引号可能由现有 Markdown 排版转换为弯引号，原始文案仍保存在 YAML 中。
+
+保存后 Commit changes；本地则提交 _data/home.yml 并 push。等待 Actions 的 build/deploy 成功后，检查双语段落与手机换行。正文宽度、行距、段落间距在 [home.css](../assets/css/home.css) 调整。站名仍由 _config.yml 的 title 控制，Hero 标题是独立表达。
 
 <a id="profile"></a>
 ## About、个人资料、邮箱与头像
 
-主要入口：[profile.yml](../_data/profile.yml)、[about.md](../about.md)。profile 中的 intro 现在只用于 About 顶部；首页长文单独由 _data/home.yml 的 hero、exploring、beyond 管理；教育、工作经历、兴趣及联系说明在 about.md 的英文/中文容器中分别维护，保留现有 include 与 script 标签。
+主要入口：[profile.yml](../_data/profile.yml)、[about.md](../about.md)。About 的 URL 仍是 /about/，导航仍为 About / 关于；页面标题为 A Little Background. / 一些经历。顶部只显示圆形头像和姓名，随后是 Education、Experience 和 Contact；兴趣与个人长文统一在首页维护。现有 profile.intro 数据保留，但 About 使用 hide_intro=true，不再显示它。
 
-profile.yml 是普通 YAML，**用空格缩进，不用 Tab**。以下仅为填写示例，请用自己的真实资料替换；当前公开联系邮箱使用已确认的 Outlook 别名 hi.jerrywong@outlook.com；姓名、简介等请换为自己的真实资料：
+profile.yml 是普通 YAML，**用空格缩进，不用 Tab**。以下仅为填写示例，请用自己的真实资料替换；当前公开联系邮箱使用已确认的 Outlook 别名 hi.jerrywong@outlook.com；姓名等请换为自己的真实资料：
 
 ```yaml
 name:
   en: "Your Name"
   zh: "你的姓名"
-intro:
-  en: "I write about data engineering and systems."
-  zh: "我记录数据工程与系统实践。"
 email: "hi.jerrywong@outlook.com"
 linkedin: "https://www.linkedin.com/in/your-profile/"
 github: "https://github.com/kaetowjj"
@@ -74,13 +75,14 @@ avatar:
     zh: "名"
 ```
 
-- name 控制 About 头像旁姓名；intro 控制顶部简介。教育与经历没有结构化履历数据库，直接在 about.md 替换占位内容即可。
+- name 控制头像旁姓名。教育和经历直接在 about.md 的 background-education、background-experience 区域编辑；每个条目用 background-item 包裹。标题与正文使用 bi.html 的 en/zh 参数配对维护，保留 include 与头像 script。当前为 UNSW 信息技术硕士（人工智能方向，2022–2024）、黑龙江大学网络工程本科（2017–2021），以及上海浦东发展银行广州分行（2025.07–至今）。Technology / Data 是职能描述，不是正式 HR 职称；仅按确认的真实资料更新。
+- About 标题需同步维护 front matter 的 title 和页面 h1 的双语内容；不要修改 permalink 或 navigation.yml 的 About 标识。页面不另设 Interests、Beyond Engineering 或 Misc。
 - github 与 linkedin 配置字段保留供未来使用，但当前 Footer 不显示 GitHub、LinkedIn 等社交入口。About 联系区只显示邮箱。留空请写 `linkedin: ""`，不要删除键或填一个假地址。
 
 <a id="email"></a>
 ### 公开联系邮箱
 
-当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，仅 About 联系区域由此字段生成 mailto 联系链接，Footer 不显示联系入口；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏 About 中该链接；About 正文中的联系说明需要自己相应修改。
+当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，仅 About 联系区域由此字段生成 mailto 联系链接，Footer 不显示联系入口；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏 About 中该链接；联系区没有额外社交按钮。
 
 **建议使用专门的公开联系别名**，不要公开私人主邮箱。仓库及网站是公开的；不要把邮箱密码、验证码、GitHub token、相机云服务凭据或其它账号秘密写入任何文件。把别名写入 email 不会自动在邮箱服务商处创建它，须先确认该别名已配置并可收信。
 
@@ -108,7 +110,7 @@ avatar:
 | 导航名称、链接和顺序 | [_data/navigation.yml](../_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
 | 主题颜色 | [assets/css/main.css](../assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](../_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
-| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/hero | 站名统一读 title；Hero 独立配置，Footer 仅保留版权和彩蛋。 |
+| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 仅保留版权和彩蛋。 |
 
 ### 默认语言与个人偏好
 
@@ -118,6 +120,10 @@ avatar:
 ### Light / Dark / System
 
 无需修改配置即可使用右上角主题按钮，循环顺序为 System → Light → Dark → System。首次跟随系统，选择后本地保存；System 会实时响应操作系统明暗变化。清除站点存储会清除语言、主题和照片排序偏好。需要改配色才编辑 CSS Variables，同时检查两个主题中的表格、代码、文字对比和 prefers-reduced-motion。
+
+### 轻微过渡与减少动画
+
+[main.css](../assets/css/main.css) 为导航链接颜色添加 180ms hover 过渡；[home.css](../assets/css/home.css) 与 [about.css](../assets/css/about.css) 为这两个页面的内容添加 180ms、opacity 0.88 到 1 的轻微进入效果。没有新增 JavaScript、路由拦截或 View Transitions；导航仍为原生页面跳转，前进、后退及滚动恢复由浏览器处理。prefers-reduced-motion: reduce 时关闭这些效果。不需要给每个区块增加滚动动画。
 
 ### 站名与发布地址
 
