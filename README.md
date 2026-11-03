@@ -818,7 +818,7 @@ Remove-Item Env:JEKYLL_ENV
 
 - npm test：逻辑和图片流水线测试。图片测试会读取当前真实摄影数据并检查文件与比例，不再要求八张 Demo。
 - Jekyll build：解析 Liquid、YAML、Markdown 并输出 _site。_site 是构建产物，不应手动维护或提交。
-- check:site：检查生成 HTML 中的本地 href/src 与关键页面；不代表已逐一验证照片 JSON 内每个图片路径，仍要预览照片。
+- check:site：检查生成 HTML 中的本地 href/src 与关键页面；现在也通过 checkPhotography 校验摄影 JSON 引用和其中 image/thumbnail/srcset 的本地文件；实际显示仍需预览。
 - test:browser：需先构建 _site，自动在 127.0.0.1:4173 启动测试服务器，使用桌面 1280×900 和手机 390×844 视口。摄影浏览器测试从当前真实数据推导数量、分类、标签与浏览顺序，头像测试也读取当前资料属性，不再要求 Demo ID 或占位姓名。
 - 固定版本 MathJax 依赖 CDN 网络；首次安装 Playwright 需要下载 Chromium。本地只写内容可先运行 Jekyll 预览，最终仍以 CI 的完整检查为准。
 
