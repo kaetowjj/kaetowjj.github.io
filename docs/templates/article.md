@@ -2,10 +2,10 @@
 title: "[English title]"
 title_zh: "[中文标题]"
 description: "[Short summary]"
-date: 2026-11-02
-updated: 2026-11-02
-category: Data Engineering
-tags: [pipelines]
+description_zh: "[中文摘要]"
+date: 2026-11-04
+updated: 2026-11-04
+tags: []
 math: false
 ---
 <div data-lang="en" markdown="1">

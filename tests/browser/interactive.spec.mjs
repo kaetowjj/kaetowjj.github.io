@@ -1,3 +1,4 @@
+import {routeArticle} from './article-fixture.mjs';
 import {test, expect} from '@playwright/test';
 
 const themes = [
@@ -60,26 +61,28 @@ test('current navigation keeps text and underline while other links hover', asyn
 
 test('clickable titles, text links and header controls share theme hover colors', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'Touch devices do not expose hover.');
+  await routeArticle(page);
   for (const value of themes) {
     await page.goto('/');
     await theme(page, value);
     for (const selector of ['.wordmark', '.hero a', '.section-heading a', '#language-toggle', '#theme-toggle'])
       await hoverColor(page.locator(selector).first(), value.hover);
     await expect(page.locator('.wordmark')).toHaveCSS('transition-duration', '0.18s, 0.18s, 0.18s');
-    for (const selector of ['.explore-card', '.entry']) {
+    for (const selector of ['.explore-card']) {
       const card = page.locator(selector).first();
       await card.hover();
       await expect(card.locator(selector === '.entry' ? 'h3' : 'h2')).toHaveCSS('color', value.hover);
       await expect(card).toHaveCSS('border-top-color', value.hover);
       await expect(card.locator('p')).not.toHaveCSS('color', value.hover);
     }
+    for (const title of await page.locator('.tech-entry-title').all()) await hoverColor(title, value.hover);
     const prose = page.locator('.home-beyond [data-lang="en"] p').first();
     const normal = await prose.evaluate(el => getComputedStyle(el).color);
     await prose.hover();
     await expect(prose).toHaveCSS('color', normal);
     await page.goto('/about/');
     await hoverColor(page.locator('.background-contact a'), value.hover);
-    await page.goto('/notes/reproducible-data-workflows/');
+    await page.goto('/__test_article__/');
     // Style fixture: current demo articles contain no inline prose links.
     await page.locator('#article [data-lang="en"]').evaluate(el => {
       const a = document.createElement('a'); a.href = '#main'; a.textContent = 'TEST ONLY: inline link'; el.prepend(a);
@@ -174,7 +177,7 @@ test('Shuffle, viewer actions and tag buttons retain working feedback', async ({
 test('reduced motion disables hover transitions and keeps the existing page entrance disabled', async ({page}, info) => {
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.goto('/');
-  for (const selector of ['.wordmark', '.hero a', '.explore-card', '.entry', '#language-toggle'])
+  for (const selector of ['.wordmark', '.hero a', '.explore-card', '#language-toggle'])
     await expect(page.locator(selector).first()).toHaveCSS('transition-duration', '0s');
   await expect(page.locator('#main')).toHaveCSS('animation-name', 'none');
   if (info.project.name === 'mobile') await page.locator('.hero a').tap(); else await page.locator('.hero a').click();

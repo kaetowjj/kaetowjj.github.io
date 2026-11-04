@@ -1,6 +1,0 @@
----
-title: Projects
-nav: projects
-permalink: /projects/
----
-<div class="page-heading"><p class="eyebrow">ENGINEERING LAB / PROJECTS</p><h1>{% include bi.html en="Projects" zh="项目" %}<span class="brand-dot">.</span></h1><p>{% include bi.html en="Systems in progress. Decisions made visible." zh="记录系统的构建过程与设计决策。" %}</p></div><div class="archive-controls"><label>{% include bi.html en="Category" zh="分类" %} <select id="entry-category"><option value="all" data-en="All" data-zh="全部">All</option>{% assign categories = site.projects | map: 'category' | uniq | sort %}{% for category in categories %}<option>{{ category }}</option>{% endfor %}</select></label><label>{% include bi.html en="Tag" zh="标签" %} <select id="entry-tag"><option value="all" data-en="All" data-zh="全部">All</option>{% assign tags = site.projects | map: 'tags' | join: '|' | split: '|' | uniq | sort %}{% for tag in tags %}<option>{{ tag }}</option>{% endfor %}</select></label></div>{% include entries.html entries=site.projects %}<p id="entries-empty" hidden>{% include bi.html en="No matching entries." zh="没有符合条件的文章。" %}</p>

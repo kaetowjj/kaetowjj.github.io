@@ -1,10 +1,10 @@
 # Engineering Lab
 
-Implement the requirements in docs/requirements-v2.md. Keep the site static: Jekyll/Liquid + YAML + native JS. Personal facts remain explicit placeholders until supplied; demo articles and images stay visibly labeled.
+Current owner manuals in docs describe active behavior; docs/requirements-v2.md is historical. Keep the site static: Jekyll/Liquid + YAML + native JS. Personal facts remain explicit placeholders until supplied; demo articles and images stay visibly labeled.
 
 ## Architecture and boundaries
 
-Layouts compose pages; collections own bilingual Markdown content. _data owns profile, navigation and photography taxonomies/records. assets/js/gallery-core.mjs owns selection and proportional row geometry; gallery.mjs consumes that logic and owns the DOM/dialog. site.mjs owns preferences and article TOC. CSS variables are the source of theme colors.
+Layouts compose pages; _tech and _essays own bilingual Markdown articles. Technical posts use only _tech with /tech/:name/ URLs and optional lowercase-normalized Tags; preserve date-based archive ordering and URL/history filtering. Never recreate _notes or _projects collections, require technical Category/type fields, or nest tag links inside title links. Build sitemap and basic SEO; reintroducing RSS/Atom requires an explicit owner request. _data owns profile, navigation and photography taxonomies/records. assets/js/gallery-core.mjs owns selection and proportional row geometry; gallery.mjs consumes that logic and owns the DOM/dialog. site.mjs owns preferences and article TOC. CSS variables are the source of theme colors.
 
 Both language sections live in one Markdown file with markdown="1" and blank lines around containers. Headings in the inactive section must not enter the TOC. Language fallback preserves available text. Preference access must tolerate storage denial.
 

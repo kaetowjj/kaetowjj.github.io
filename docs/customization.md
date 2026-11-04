@@ -11,7 +11,7 @@
 
 打开 [_data/home.yml](../_data/home.yml) 编辑；所有长文案在这里，不放入 profile.yml 的短 intro。首页呈现持续探索的个人，不使用职业头衔或一排技术标签定义作者；AI 基础设施是当前兴趣，不是固定身份。
 
-首页顺序为 Hero → What I'm Exploring / 我在探索什么 → Beyond Engineering / 工程之外 → Recent Notes → Projects / Photography → Jerry's Silly Thoughts。
+首页顺序为 Hero → What I'm Exploring / 我在探索什么 → Beyond Engineering / 工程之外 → Recent Tech Posts → Tech Blog / Photography → Jerry's Silly Thoughts。
 
 | 字段 | 修改内容 |
 | --- | --- |
@@ -114,7 +114,7 @@ avatar:
 
 ### 默认语言与个人偏好
 
-在 _config.yml 找到并修改 `default_language: zh`，其它配置保持不变。它控制首次访问的页面语言；**浏览器已保存的 lab-language 偏好优先**，因此已有访客可能仍看到英文。右上角切换即可；若要测试真正的首次默认状态，使用新的隐私浏览窗口。`lang: en` 是另一项站点配置，不替代 default_language；RSS 等插件可能读取站点语言元数据，可按站点主语言一并检查。当前为单 URL 双语，canonical 不因切换语言改变，head 中标题/description 也不是按语言即时切换的。
+在 _config.yml 找到并修改 `default_language: zh`，其它配置保持不变。它控制首次访问的页面语言；**浏览器已保存的 lab-language 偏好优先**，因此已有访客可能仍看到英文。右上角切换即可；若要测试真正的首次默认状态，使用新的隐私浏览窗口。`lang: en` 是另一项站点配置，不替代 default_language；可按站点主语言检查元数据。当前为单 URL 双语，canonical 不因切换语言改变，head 中标题/description 也不是按语言即时切换的。
 
 <a id="themes"></a>
 ### Light / Dark / System
@@ -133,7 +133,7 @@ html[data-theme="dark"] { --interactive-hover: #A7D7A4; }
 它们只控制交互反馈，不替换 --accent 或背景变量。正文仍为 Light #272D2B、Dark #E5E8E1；普通链接的默认强调色、导航未选项的灰色沿用原样。支持 Hover 的设备上，链接和普通控件使用 180ms 的 color / border-color / background-color 过渡：
 
 - 顶部非当前导航、Logo、Home 的 About 链接、正文链接、目录、文章标签、邮箱和来源链接变色。
-- 整块可点击的文章条目及 Projects / Photography 入口，仅标题和边框变色；描述、日期与普通段落不变色。
+- 整块可点击的文章条目及 Tech Blog / Photography 入口，仅标题和边框变色；描述、日期与普通段落不变色。
 - 语言、主题、菜单按钮，摄影未选分类、Tag / Sort 下拉框、清除筛选、查看器按钮、照片标签及 Shuffle 均有反馈。
 - 当前页面通过 aria-current="page" 表示，文字始终使用 --text，底线保持 --accent；Hover 不覆盖它。手机菜单同样保留短底线。不要用 :active 表示当前页面，:active 只是按下瞬间。
 - 摄影 aria-pressed="true" 的已选分类保持现有实心背景与反色文字，Hover 不改颜色。照片本身使用轻微边缘提示和现有标题浮层；浮层白字保持原样，避免暖橙色在照片暗部对比不足。原生下拉菜单的选项保持正文色与页面背景色。
@@ -142,13 +142,15 @@ html[data-theme="dark"] { --interactive-hover: #A7D7A4; }
 
 Hover 样式限定在 @media (hover: hover)，无 Hover 的手机继续正常点击。prefers-reduced-motion: reduce 时取消过渡；这不改变按钮功能，也不增加 JavaScript。变更颜色后请同时检查两个主题、已选状态、键盘焦点和触屏操作。
 
+链接的右上装饰箭头统一使用 [_includes/arrow-up-right.html](../_includes/arrow-up-right.html) 的细线 SVG，尺寸为 1em，stroke 使用 currentColor，随链接文字继承颜色和 Hover 过渡。图标通过 aria-hidden 和 focusable=false 避免重复朗读或成为 Tab 焦点；短句来源链接更新文字时保留同一个 SVG。请复用这个 include，不再用 Unicode ↗ 充当界面图标，以避免 iOS 的 Emoji 字体渲染；正文中有意义的符号保持原文。
+
 ### 轻微过渡与减少动画
 
 [main.css](../assets/css/main.css) 统一维护上述 180ms 交互过渡；[home.css](../assets/css/home.css) 与 [about.css](../assets/css/about.css) 为这两个页面的内容添加 180ms、opacity 0.88 到 1 的轻微进入效果。没有新增 JavaScript、路由拦截或 View Transitions；导航仍为原生页面跳转，前进、后退及滚动恢复由浏览器处理。prefers-reduced-motion: reduce 时关闭这些效果。不需要给每个区块增加滚动动画。
 
 ### 站名与发布地址
 
-_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 是独立的个人表达，无需与站名相同。Footer 只保留版权与 Jerry 的收藏彩蛋，已移除旧标语及 Email、GitHub、RSS、LinkedIn 可见入口；RSS Feed 与 head 元数据仍然保留。
+_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 是独立的个人表达，无需与站名相同。Footer 只保留版权与 Jerry 的收藏彩蛋，已移除旧标语及 Email、GitHub、LinkedIn 可见入口；head 中的基础 SEO 元数据与 Sitemap 保留。
 
 当前发布根地址为 `https://kaetowjj.github.io`，baseurl 为 `""`。这是用户主页仓库，不需要在 URL 中加仓库名。若未来迁移成项目子路径站点，需要同步调整 url/baseurl 并检查所有资源；日常写文章、上传图片无需改它们。时区配置为 Asia/Shanghai。
 

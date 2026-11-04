@@ -1,0 +1,1 @@
+{% assign tag_keys = include.tags | tech_tag_keys %}{% for key in tag_keys %}<a href="{{ '/tech/' | relative_url }}?tag={{ key | url_encode }}" data-tech-tag="{{ key | escape }}">{{ key | escape }}</a>{% endfor %}

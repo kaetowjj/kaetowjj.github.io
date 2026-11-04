@@ -5,7 +5,6 @@ description: "Demo — a working example of bilingual engineering documentation.
 description_zh: "Demo：中英文工程文档示例。"
 date: 2026-10-20
 updated: 2026-11-02
-category: Data Engineering
 tags: ["python","architecture"]
 demo: true
 math: false

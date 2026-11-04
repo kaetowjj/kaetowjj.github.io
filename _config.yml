@@ -1,5 +1,5 @@
 title: "Jerry's Engineering Lab"
-description: Thinking, Building & Learning — engineering notes, projects, essays and photography.
+description: Thinking, Building & Learning — tech writing, essays and photography.
 url: https://kaetowjj.github.io
 baseurl: ""
 default_language: en
@@ -12,15 +12,12 @@ kramdown:
   syntax_highlighter: rouge
   parse_block_html: true
 collections:
-  notes:
+  tech:
     output: true
-    permalink: /notes/:name/
+    permalink: /tech/:name/
   essays:
     output: true
     permalink: /essays/:name/
-  projects:
-    output: true
-    permalink: /projects/:name/
 defaults:
   - scope:
       path: ""
@@ -28,26 +25,15 @@ defaults:
       layout: default
   - scope:
       path: ""
-      type: notes
+      type: tech
     values:
       layout: article
+      nav: tech
   - scope:
       path: ""
       type: essays
     values:
       layout: article
-  - scope:
-      path: ""
-      type: projects
-    values:
-      layout: article
 plugins:
-  - jekyll-feed
   - jekyll-sitemap
-feed:
-  collections:
-    notes:
-      path: /notes/feed.xml
-    essays:
-      path: /essays/feed.xml
 exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, node_modules, package.json, package-lock.json, scripts, tests, playwright.config.mjs, test-results, playwright-report, docs, originals, vendor]

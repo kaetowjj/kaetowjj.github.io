@@ -8,18 +8,18 @@
 
 ## 这个项目有什么？
 
-- Engineering Notes、Essays、Projects：以 Markdown 维护的笔记、随笔和项目记录。
+- Tech Blog：统一维护技术笔记、实验和项目，通过可选的多个 Tags 聚合；Essays 独立记录随笔。
 - 个人首页与 About：独立维护的双语介绍、头像和公开联系邮箱。
 - Photography：保留照片比例的画廊、分类/标签筛选、拍摄时间排序和 Lightbox。
 - 中文 / English 切换，以及 Light / Dark / System 主题。
 - Jerry's Silly Thoughts：真实短句收藏，原文展示；Curated, Not Generated。
-- GitHub Actions 构建、验证与 GitHub Pages 部署，保留 RSS 和 Sitemap。
+- GitHub Actions 构建、验证与 GitHub Pages 部署，保留 Sitemap 与基本 SEO。
 
 ## 我要做什么？
 
 | 目的 | 详细手册 |
 | --- | --- |
-| 发表、编辑或删除工程笔记 / 随笔 / 项目 | [文章发布](docs/publishing.md#articles) |
+| 发表、编辑或删除技术文章 / 随笔 | [文章发布](docs/publishing.md#articles) |
 | 写中英文正文、代码、表格、公式和配图 | [双语写作](docs/publishing.md#bilingual) |
 | 上传照片、生成 WebP、合并摄影数据 | [摄影管理](docs/photography.md#photos) |
 | 检查 Category / Tag ID 与筛选问题 | [摄影校验与排错](docs/photography.md) |

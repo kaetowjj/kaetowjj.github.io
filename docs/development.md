@@ -47,6 +47,23 @@ bundle exec jekyll serve --livereload
 
 打开 http://127.0.0.1:4000/ 。终端需保持运行；按 Ctrl+C 停止。修改 `_config.yml` 后停止并重新启动。普通 Markdown 和图片修改可等待重建后刷新。完整测试命令见[验证](#checks)。
 
+## 当前文章结构与安全同步预览
+
+技术文章只使用 [_tech/](../_tech)，地址为 /tech/:name/；个人随笔使用 [_essays/](../_essays)，地址为 /essays/:name/。技术 Tag 的规范键由 [_plugins/tech_tags.rb](../_plugins/tech_tags.rb) 统一生成，汇总与列表由 Liquid 构建，客户端仅处理 DOM 筛选、查询参数和浏览器历史。发布操作见[文章手册](publishing.md)。修改 Collection、默认布局或插件后必须重启 Jekyll。
+
+如果页面仍像旧版本，先在项目根目录执行：
+
+```powershell
+git status --short --branch
+git log -1 --oneline
+git fetch origin
+git rev-list --left-right --count HEAD...origin/main
+```
+
+确认没有未处理改动后可用 `git pull --ff-only` 安全快进；有改动时先查看 diff，保存/提交或自行暂存，不要用 reset、clean 或强推覆盖。确认 VS Code 打开的目录与启动服务的目录一致，避免打开旧副本。
+
+`bundle exec jekyll serve --livereload` 会重新构建并监听源文件，通常使用 http://127.0.0.1:4000/。测试的 `node scripts/serve.mjs` 仅把已有 _site 提供在 http://127.0.0.1:4173/，**不会重新构建，也不会监听**；使用它前必须重新运行 Jekyll build。_site 不应手工编辑。核对终端生成成功的记录，再刷新正确端口；若有缓存，使用 Ctrl+F5 或新隐私窗口检查。不要把直接打开 _site 文件与运行本地服务混为一谈。
+
 <a id="checks"></a>
 ## 本地检查与开发资料（保留给需要时查阅）
 
@@ -66,8 +83,9 @@ Remove-Item Env:JEKYLL_ENV
 
 - npm test：逻辑和图片流水线测试。图片测试会读取当前真实摄影数据并检查文件与比例，不再要求八张 Demo。
 - Jekyll build：解析 Liquid、YAML、Markdown 并输出 _site。_site 是构建产物，不应手动维护或提交。
-- check:site：检查生成 HTML 中的本地 href/src 与关键页面；现在也通过 checkPhotography 校验摄影 JSON 引用和其中 image/thumbnail/srcset 的本地文件；实际显示仍需预览。
+- check:site：检查生成 HTML 中的本地 href/src、关键页面、SEO、Sitemap 与无 Feed 输出；现在也通过 checkPhotography 校验摄影 JSON 引用和其中 image/thumbnail/srcset 的本地文件；实际显示仍需预览。
 - test:browser：需先构建 _site，自动在 127.0.0.1:4173 启动测试服务器，使用桌面 1280×900 和手机 390×844 视口。摄影浏览器测试从当前真实数据推导数量、分类、标签与浏览顺序，头像测试也读取当前资料属性，不再要求 Demo ID 或占位姓名。
+- 浏览器用例会用当前布局和 Tag 过滤器在临时目录构建专用双语文章，验证可选 updated 回退、Unicode Tag、代码、表格与公式；夹具缓存位于 .jekyll-cache，不写入生产 _site，也不要求保留任何 Demo 文章或空集合目录。
 - 固定版本 MathJax 依赖 CDN 网络；首次安装 Playwright 需要下载 Chromium。本地只写内容可先运行 Jekyll 预览，最终仍以 CI 的完整检查为准。
 
 开发者/后续 Coding Agent 参考：
@@ -102,7 +120,7 @@ Remove-Item Env:JEKYLL_ENV
 | 浏览器用例失败 | 读取日志和可用的 test-results artifact；通过构建不等于所有交互正常。 |
 | 部署成功却内容旧 / 资源 404 | 核对线上 URL、对应提交、大小写、baseurl 和所有资源是否提交；等待 CDN 更新并强制刷新。GitHub Pages 缓存头由平台控制，重要图片更新建议换文件名。 |
 
-canonical、Open Graph、Sitemap 由模板/插件生成。可用订阅地址：[Notes RSS](https://kaetowjj.github.io/notes/feed.xml)、[Essays RSS](https://kaetowjj.github.io/essays/feed.xml)，以及 [Sitemap](https://kaetowjj.github.io/sitemap.xml)。
+canonical、Open Graph、发布日期与更新日期由文章模板生成；[Sitemap](https://kaetowjj.github.io/sitemap.xml) 由 jekyll-sitemap 生成并收录 /tech/ 新文章。构建不再生成 RSS / Atom Feed；check:site 同时拒绝旧技术路径与 Feed 输出。
 
 <a id="routine"></a>
 ## 推荐的日常维护方式
@@ -125,6 +143,6 @@ canonical、Open Graph、Sitemap 由模板/插件生成。可用订阅地址：[
 
 原片导出、命名去重、选择本批文件、合并 photography-import.json、填写真实元数据/双语文本、检查并提交文件、必要时后台配置 Pages、实际浏览验收都需要作者操作。当前没有自动扫描仓库补图、自动翻译、EXIF 日期导入或自动元数据合并。
 
-最值得后续自动化的是一个**先预览差异、检查 ID/目标文件冲突、校验路径/分类/标签、备份后再合并**的照片导入工具；当前摄影端到端测试已依据真实数据生成预期，不再要求固定 Demo。本次只编写使用说明，没有新增这些功能或改变现有上传流程。
+最值得后续自动化的是一个**先预览差异、检查 ID/目标文件冲突、校验路径/分类/标签、备份后再合并**的照片导入工具；当前摄影端到端测试已依据真实数据生成预期，不再要求固定 Demo。这些自动化仍未实现；当前图片流程保持原样。
 
 [← 返回 README](../README.md)

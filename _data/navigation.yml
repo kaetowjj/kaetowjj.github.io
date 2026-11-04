@@ -2,14 +2,10 @@
   url: /
   en: Home
   zh: 首页
-- id: notes
-  url: /notes/
-  en: Engineering Notes
-  zh: 工程笔记
-- id: projects
-  url: /projects/
-  en: Projects
-  zh: 项目
+- id: tech
+  url: /tech/
+  en: Tech Blog
+  zh: 技术博客
 - id: essays
   url: /essays/
   en: Essays
