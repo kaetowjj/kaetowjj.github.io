@@ -62,7 +62,7 @@ name:
   en: "Your Name"
   zh: "你的姓名"
 email: "hi.jerrywong@outlook.com"
-linkedin: "https://www.linkedin.com/in/your-profile/"
+linkedin: "https://www.linkedin.com/in/junjie-jerry-wang"
 github: "https://github.com/kaetowjj"
 avatar:
   src: "/assets/images/avatar.webp"
@@ -77,12 +77,21 @@ avatar:
 
 - name 控制头像旁姓名。教育和经历直接在 about.md 的 background-education、background-experience 区域编辑；每个条目用 background-item 包裹。标题与正文使用 bi.html 的 en/zh 参数配对维护，保留 include 与头像 script。当前为 UNSW 信息技术硕士（人工智能方向，2022–2024）、黑龙江大学网络工程本科（2017–2021），以及上海浦东发展银行广州分行（2025.07–至今）。Technology / Data 是职能描述，不是正式 HR 职称；仅按确认的真实资料更新。
 - About 标题需同步维护 front matter 的 title 和页面 h1 的双语内容；不要修改 permalink 或 navigation.yml 的 About 标识。页面不另设 Interests、Beyond Engineering 或 Misc。
-- github 与 linkedin 配置字段保留供未来使用，但当前 Footer 不显示 GitHub、LinkedIn 等社交入口。About 联系区只显示邮箱。留空请写 `linkedin: ""`，不要删除键或填一个假地址。
+- Footer 按 GitHub → LinkedIn → Email 的顺序读取 github、linkedin、email；About 联系区仍只显示邮箱。留空字符串可隐藏对应图标，例如 `linkedin: ""`，不要填假地址。地址只在 profile.yml 维护，不在模板中重复粘贴。
+
+<a id="footer"></a>
+### Footer 社交图标与留白
+
+修改上面 profile.yml 中的 github、linkedin、email，提交并等待部署即可同步全站 Footer。GitHub 和 LinkedIn 在新标签页打开并带 noopener noreferrer；Email 是 mailto 链接，不另开标签。当前 LinkedIn 是 https://www.linkedin.com/in/junjie-jerry-wang，公开邮箱仍为 hi.jerrywong@outlook.com。
+
+Footer 按社交图标 → 版权 → 随机语录垂直居中。[_includes/social-icon.html](../_includes/social-icon.html) 提供无障碍隐藏的单色 SVG；[main.css](../assets/css/main.css) 控制46px圆形链接与间距，背景使用 --surface、默认图标使用 --muted，Hover / 键盘 Focus 使用既定 --interactive-hover。年份从 site.time 自动获取，站名读取 _config.yml 的 title。图标不使用 Emoji、外部图片或 CDN。
+
+[thoughts.css](../assets/css/thoughts.css) 只调整 Footer 语录的居中和较小字号，移除 Footer 顶部、语录上方及 Home 语录下方的旧横线。保留 Focus 轮廓、180ms过渡和减少动画支持。语录的显示与去重规则见[收藏指南](silly-thoughts.md#thoughts)，未改变随机逻辑。
 
 <a id="email"></a>
 ### 公开联系邮箱
 
-当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，仅 About 联系区域由此字段生成 mailto 联系链接，Footer 不显示联系入口；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可隐藏 About 中该链接；联系区没有额外社交按钮。
+当前 email 为 **hi.jerrywong@outlook.com**。email 非空时，About 联系区域和 Footer 的 Email 图标都由此字段生成 mailto 联系链接；不涉及 Git 提交邮箱或账号登录设置。留空 `email: ""` 可同时隐藏 About 邮箱链接和 Footer 邮箱图标；联系区没有额外社交按钮。
 
 **建议使用专门的公开联系别名**，不要公开私人主邮箱。仓库及网站是公开的；不要把邮箱密码、验证码、GitHub token、相机云服务凭据或其它账号秘密写入任何文件。把别名写入 email 不会自动在邮箱服务商处创建它，须先确认该别名已配置并可收信。
 
@@ -110,7 +119,7 @@ avatar:
 | 导航名称、链接和顺序 | [_data/navigation.yml](../_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
 | 主题颜色 | [assets/css/main.css](../assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code；交互色见下文 --interactive-hover。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](../_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
-| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 仅保留版权和彩蛋。 |
+| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 保留社交图标、版权和彩蛋。 |
 
 ### 默认语言与个人偏好
 
@@ -150,7 +159,7 @@ Hover 样式限定在 @media (hover: hover)，无 Hover 的手机继续正常点
 
 ### 站名与发布地址
 
-_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 是独立的个人表达，无需与站名相同。Footer 只保留版权与 Jerry 的收藏彩蛋，已移除旧标语及 Email、GitHub、LinkedIn 可见入口；head 中的基础 SEO 元数据与 Sitemap 保留。
+_config.yml 的 title 当前为 Jerry's Engineering Lab，控制默认浏览器站名、Open Graph 站名、页眉 wordmark 与页脚版权站名；页眉和页脚均读取 site.title，避免硬编码不一致。首页 Hero 的 headline 是独立的个人表达，无需与站名相同。Footer 居中显示 GitHub / LinkedIn / Email SVG 图标、自动年份版权与 Jerry 的收藏彩蛋，不显示额外标语或横线；head 中的基础 SEO 元数据与 Sitemap 保留。
 
 当前发布根地址为 `https://kaetowjj.github.io`，baseurl 为 `""`。这是用户主页仓库，不需要在 URL 中加仓库名。若未来迁移成项目子路径站点，需要同步调整 url/baseurl 并检查所有资源；日常写文章、上传图片无需改它们。时区配置为 Asia/Shanghai。
 
