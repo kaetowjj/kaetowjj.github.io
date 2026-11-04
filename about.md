@@ -7,6 +7,16 @@ page_class: about-refined
 ---
 <div class="page-heading"><h1>{% include bi.html en="A Little Background." zh="一些经历。" %}</h1></div>
 {% include about-profile.html hide_intro=true %}
+<div class="about-personal">
+<section class="about-exploring" markdown="0">
+<h2>{% include bi.html en=site.data.about.exploring.title.en zh=site.data.about.exploring.title.zh %}</h2>
+{% include bilingual-copy.html class="about-copy" en=site.data.about.exploring.en zh=site.data.about.exploring.zh %}
+</section>
+<section class="about-beyond" markdown="0">
+<h2>{% include bi.html en=site.data.about.beyond.title.en zh=site.data.about.beyond.title.zh %}</h2>
+{% include bilingual-copy.html class="about-copy" en=site.data.about.beyond.en zh=site.data.about.beyond.zh %}
+</section>
+</div>
 <div class="background">
 <section class="background-education" markdown="0">
 <h2>{% include bi.html en="Education" zh="教育经历" %}</h2>

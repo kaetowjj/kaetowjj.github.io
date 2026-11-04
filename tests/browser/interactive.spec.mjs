@@ -76,7 +76,7 @@ test('clickable titles, text links and header controls share theme hover colors'
       await expect(card.locator('p')).not.toHaveCSS('color', value.hover);
     }
     for (const title of await page.locator('.tech-entry-title').all()) await hoverColor(title, value.hover);
-    const prose = page.locator('.home-beyond [data-lang="en"] p').first();
+    const prose = page.locator('.hero-intro [data-lang="en"] p').first();
     const normal = await prose.evaluate(el => getComputedStyle(el).color);
     await prose.hover();
     await expect(prose).toHaveCSS('color', normal);

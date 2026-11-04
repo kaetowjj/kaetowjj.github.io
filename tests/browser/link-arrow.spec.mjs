@@ -23,9 +23,9 @@ test('decorative arrows are scalable hidden SVGs and follow theme hover colors',
     for (let i = 0; i < 3 && await page.locator('html').getAttribute('data-mode') !== mode; i++)
       await page.locator('#theme-toggle').click();
     const hover = mode === 'light' ? 'rgb(180, 83, 9)' : 'rgb(167, 215, 164)';
-    for (const selector of ['.hero>a', '.section-heading>a', '.explore-card', '.tech-entry-title']) {
+    for (const selector of ['.hero>a', '.recent-links>a', '.explore-card', '.recent-post']) {
       const links = page.locator(selector);
-      if (selector !== '.tech-entry-title') expect(await links.count()).toBeGreaterThan(0);
+      if (selector !== '.recent-post') expect(await links.count()).toBeGreaterThan(0);
       for (const link of await links.all()) {
         if (info.project.name === 'desktop') {
           await link.hover();
@@ -38,12 +38,12 @@ test('decorative arrows are scalable hidden SVGs and follow theme hover colors',
     await checkIcon(page.locator('.hero>a'));
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   }
-  if (!await page.locator('.tech-entry-title').count()) return;
-  const entryURL = await page.locator('.tech-entry-title').first().getAttribute('href');
+  if (!await page.locator('.recent-post').count()) return;
+  const entryURL = await page.locator('.recent-post').first().getAttribute('href');
   await page.goto(entryURL);
   const archiveURL = await page.locator('.article-heading>a').getAttribute('href');
   await page.goto(archiveURL);
-  for (const link of await page.locator('.tech-entry-title').all()) await checkIcon(link);
+  for (const link of await page.locator('.tech-entry-title,a.entry').all()) await checkIcon(link);
 });
 
 test('dynamic source links keep one decorative SVG through language changes without altering content symbols', async ({page}) => {

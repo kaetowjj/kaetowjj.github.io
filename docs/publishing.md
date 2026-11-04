@@ -42,9 +42,18 @@ Tech Blog 统一收录技术问题、笔记、实验和项目记录，不再区�
 | tags | 可选字符串数组，例如 [python, concurrency]；省略或 [] 表示无 Tag。技术文章自动汇总 Tag，不需要预先登记；显示与筛选使用构建期统一的规范键：去除 Unicode 首尾空白、NFKC 兼容规范化并折叠大小写；常见英文 Tag 显示为小写。 |
 | math | 有公式时用 true；只在此类页面加载固定版本 MathJax CDN。 |
 | changelog | 可选更新记录数组，含 date、en、zh；修改文章时手动维护，不会自动生成。 |
-| demo | 仅示例用 true，页面显示 Demo 标识；真实文章删掉或设 false。 |
+| demo | 仅示例用 true，归档页保留 Demo 标识，首页 Recent Posts 会排除它；真实文章删掉或设 false。 |
 
 本仓库使用 Jekyll collections，不是 `_posts` 的日期命名规则。简单 ASCII 文件名的基本名称决定 `:name`，例如 `_tech/repeatable-data-task.md` 对应 `/tech/repeatable-data-task/`。修改 title、date、updated 或 tags 不改变该 URL；重命名/移动文件则可能改变 URL，旧链接不会自动重定向。无需给文件名加发布日期。示例 URL 只在创建并发布该文件后存在。
+
+<a id="recent-posts"></a>
+### 首页 Recent Posts 如何选择文章？
+
+首页把 _tech 和 _essays 的文章合并，先排除 `demo: true`，再按 `date` 发布日期从新到旧排序，最多取3篇；Photography 不参与。修改旧文的 updated 只更新文章元数据，不会让它排到首页最前。每项自动显示日期、双语标题、摘要与 Tech Blog / Essays 来源标签，链接仍指向原 Collection 的文章地址。
+
+不足3篇显示实际数量；全部是 Demo 或没有文章时显示简洁空状态，不自动生成占位文章。目前仓库原有3篇都是 Demo，因此首页为空是预期行为，示例仍可从 Tech Blog / Essays 归档查看。发布真实文章时移除 demo 或设为 false，填写真实 date，不要为占据首页位置虚构发布日期。
+
+此规则在 [_includes/recent-posts.html](../_includes/recent-posts.html) 维护；没有新增 Collection 或独立聚合页面。Tech Blog 归档继续按 date 排序，Essays 归档保留原有 updated 排序，与首页混合列表分开。
 
 ### 用 Tag 聚合技术文章
 

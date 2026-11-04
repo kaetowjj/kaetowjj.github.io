@@ -3,10 +3,18 @@ nav: home
 stylesheet: /assets/css/home.css
 page_class: home-refined
 ---
-<section class="hero hero-personal"><h1>{% include bi.html en=site.data.home.headline.en zh=site.data.home.headline.zh %}</h1><a class="text-link" href="{{ '/about/' | relative_url }}">{% include bi.html en="A little about me" zh="关于我" %}{% include arrow-up-right.html %}</a></section>
-<section class="home-section home-exploring"><div class="section-heading"><h2>{% include bi.html en=site.data.home.exploring.title.en zh=site.data.home.exploring.title.zh %}</h2></div>{% include home-copy.html en=site.data.home.exploring.en zh=site.data.home.exploring.zh %}</section>
-<section class="home-section home-beyond"><div class="section-heading"><h2>{% include bi.html en=site.data.home.beyond.title.en zh=site.data.home.beyond.title.zh %}</h2></div>{% include home-copy.html en=site.data.home.beyond.en zh=site.data.home.beyond.zh %}</section>
-<section class="home-section"><div class="section-heading"><h2>{% include bi.html en="Recent Tech Posts" zh="最近的技术文章" %}</h2><a class="text-link" href="{{ '/tech/' | relative_url }}">{% include bi.html en="All tech posts" zh="全部技术文章" %}{% include arrow-up-right.html %}</a></div>{% assign recent_tech = site.tech | sort: 'date' | reverse | slice: 0, 5 %}{% include tech-entries.html entries=recent_tech %}</section>
+<section class="hero hero-personal">
+  <h1>{% include bi.html en=site.data.home.headline.en zh=site.data.home.headline.zh %}</h1>
+  {% include bilingual-copy.html class="hero-intro" en=site.data.home.intro.en zh=site.data.home.intro.zh %}
+  <a class="text-link" href="{{ '/about/' | relative_url }}">{% include bi.html en="A little about me" zh="关于我" %}{% include arrow-up-right.html %}</a>
+</section>
+<section class="home-section home-recent">
+  <div class="section-heading recent-heading">
+    <h2>{% include bi.html en="Recent Posts" zh="最近的文章" %}</h2>
+    <div class="recent-links"><a class="text-link" href="{{ '/tech/' | relative_url }}">{% include bi.html en="Tech Blog" zh="技术博客" %}{% include arrow-up-right.html %}</a><a class="text-link" href="{{ '/essays/' | relative_url }}">{% include bi.html en="Essays" zh="随笔" %}{% include arrow-up-right.html %}</a></div>
+  </div>
+  {% include recent-posts.html %}
+</section>
 <section class="explore-grid"><a class="explore-card" href="{{ '/tech/' | relative_url }}"><span class="eyebrow">02 / BUILDING</span><h2>{% include bi.html en="Tech Blog" zh="技术博客" %}{% include arrow-up-right.html %}</h2><p>{% include bi.html en="Engineering questions, experiments, and things I’ve built." zh="技术问题、实验与构建记录。" %}</p></a><a class="explore-card" href="{{ '/photography/' | relative_url }}"><span class="eyebrow">03 / OBSERVING</span><h2>{% include bi.html en="Photography" zh="摄影记录" %}{% include arrow-up-right.html %}</h2><p>{% include bi.html en="An ordinary collection of moments, places, and light. In chronological order." zh="记录日常的瞬间、地点与光线，按拍摄时间浏览。" %}</p></a></section>
 
 {% include thought.html placement="home" %}

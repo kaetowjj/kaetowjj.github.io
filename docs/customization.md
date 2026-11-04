@@ -1,59 +1,58 @@
 # 个人网站配置
 
-解决如何修改站名、首页长文、About、头像、公开邮箱、默认语言、主题和导航的问题。内容配置优先改数据文件；样式与交互的边界在后文列明。
+解决如何修改站名、首页短介绍、About 长文与履历、头像、公开邮箱、默认语言、主题和导航的问题。内容配置优先改数据文件；样式与交互的边界在后文列明。
 
 [← 返回项目入口](../README.md)
 
 需要本地命令时，先完成[环境准备](development.md#setup)。 **本文所有终端命令均在仓库根目录执行，不是在 docs 目录中。**
 
 <a id="homepage"></a>
-## 如何维护个人首页？ / Homepage
+## Home：简短介绍、最新文章与导航
 
-打开 [_data/home.yml](../_data/home.yml) 编辑；所有长文案在这里，不放入 profile.yml 的短 intro。首页呈现持续探索的个人，不使用职业头衔或一排技术标签定义作者；AI 基础设施是当前兴趣，不是固定身份。
+编辑 [_data/home.yml](../_data/home.yml)。这个文件只保存 headline 和 intro 的 en / zh：首页标题和一段简短个人介绍；不要把完整兴趣与思考重新放回 Home。长文在 About，见[下节](#about-copy)。
 
-首页顺序为 Hero → What I'm Exploring / 我在探索什么 → Beyond Engineering / 工程之外 → Recent Tech Posts → Tech Blog / Photography → Jerry's Silly Thoughts。
+首页顺序为标题 → 简短介绍 → About 链接 → Recent Posts → Tech Blog / Photography 卡片 → A Little Nonsense。Home 与 Footer 的语录、社交图标、主题和语言机制保持原样。
 
 | 字段 | 修改内容 |
 | --- | --- |
-| headline.en / zh | Hero 主标题：Still branching out. / 还在探索。 |
-| exploring.title.en / zh | 探索方向章节标题。 |
-| exploring.en / zh | AI、数据工程、架构决策与技术品味的完整段落。 |
-| beyond.title.en / zh | 工程之外章节标题。 |
-| beyond.en / zh | 中英文各六个自然段：野生动物、人文摄影、表达、家人、自我认识与建站缘由。 |
+| headline.en / zh | 主标题：Still branching out. / 还在探索。 |
+| intro.en / zh | 标题下方普通正文字号的短介绍；分别维护中英文。 |
 
-Hero 只显示主标题和 About 链接，不显示 eyebrow、个人介绍或技术标签；旧的 eyebrow、hero 字段已移除。链接文字在 [index.html](../index.html) 中维护，当前为 A little about me ↗ / 关于我 ↗。主标题配置示例：
+当前首页配置结构如下；编辑对应字段后 Commit changes，等待 Actions 部署，再检查两种语言与手机换行。站名仍由 _config.yml 的 title 控制，Hero 标题是独立表达。
 
 ```yaml
 headline:
   en: "Still branching out."
   zh: "还在探索。"
-```
-
-What I'm Exploring 与 Beyond Engineering 的 en/zh 长正文使用 YAML 竖线块；每行相对字段多缩进两个空格，空行分隔段落。例如只替换 exploring.en 的正文时：
-
-```yaml
-exploring:
-  title:
-    en: "What I'm Exploring"
-    zh: "我在探索什么"
+intro:
   en: |
-    My first paragraph.
-
-    My second paragraph.
+    I'm Jerry. I enjoy figuring out how technology works, but I'm just as curious about the world beyond the screen. These days, I'm exploring how to make AI genuinely useful, photographing wildlife and everyday life, and learning to put my own thoughts into words.
   zh: |
-    我的第一段。
-
-    我的第二段。
+    我是 Jerry。我喜欢琢磨技术背后的原理，也喜欢走出屏幕，用相机观察自然和身边的生活。最近在探索怎样让 AI 真正派上用场，也在慢慢学习如何更好地表达自己的观察和想法。
 ```
 
-不要用这段演示文案覆盖真实内容。保留 Beyond Engineering 的六个自然段，不混为一段，不为每段加子标题或粗体关键词；中英文独立维护。正文由 Jekyll markdownify 解析，不要给长段落加 data-en/data-zh 属性。英文直引号可能由现有 Markdown 排版转换为弯引号，原始文案仍保存在 YAML 中。
+About、Tech Blog、Essays 和 Photography 入口在 [index.html](../index.html) 中维护，保留已有 SVG 与 relative_url。首页最新文章自动生成，数量、Demo 排除与发布日期规则见[Recent Posts 发布规则](publishing.md#recent-posts)，无需手动填写列表，也没有单独的 /posts/ 页面。
 
-保存后 Commit changes；本地则提交 _data/home.yml 并 push。等待 Actions 的 build/deploy 成功后，检查双语段落与手机换行。正文宽度、行距、段落间距在 [home.css](../assets/css/home.css) 调整。站名仍由 _config.yml 的 title 控制，Hero 标题是独立表达。
+<a id="about-copy"></a>
+## About：完整个人探索与思考
+
+编辑 [_data/about.yml](../_data/about.yml) 的 exploring 和 beyond；这是原 Home 长文的唯一维护位置。当前 What I'm Exploring 两种语言各3段，Beyond Engineering 各6段，迁移时完整保留了原文。
+
+| 字段 | 修改内容 |
+| --- | --- |
+| exploring.title.en / zh | What I'm Exploring / 我在探索什么章节标题。 |
+| exploring.en / zh | 完整工程探索正文。 |
+| beyond.title.en / zh | Beyond Engineering / 工程之外章节标题。 |
+| beyond.en / zh | 完整自然、摄影、家庭、社会观察与个人表达正文。 |
+
+长正文使用 YAML 竖线块，正文行相对字段缩进两个空格，空行分隔自然段；保留中英文各自的段落与措辞，不为段落随意加粗或添加子标题。不需要把长文复制到 about.md 或 profile.yml。[_includes/bilingual-copy.html](../_includes/bilingual-copy.html) 负责两种语言的 Markdown 渲染，也用于 Home 短介绍。英文智能引号属于现有排版行为，原始文案仍保存在 YAML。
+
+About 顺序为标题 → 头像与姓名 → Exploring → Beyond → Education → Experience → Contact。长文在正常页面流中展开，没有固定高度滚动框、折叠按钮或悬浮目录。[about.css](../assets/css/about.css) 控制740px最大正文宽度、17px桌面/16px手机字号、1.9行高与自然段间距；修改样式时同时检查浅色/深色和中英文。
 
 <a id="profile"></a>
 ## About、个人资料、邮箱与头像
 
-主要入口：[profile.yml](../_data/profile.yml)、[about.md](../about.md)。About 的 URL 仍是 /about/，导航仍为 About / 关于；页面标题为 A Little Background. / 一些经历。顶部只显示圆形头像和姓名，随后是 Education、Experience 和 Contact；兴趣与个人长文统一在首页维护。现有 profile.intro 数据保留，但 About 使用 hide_intro=true，不再显示它。
+主要入口：[profile.yml](../_data/profile.yml)、[about.md](../about.md)。About 的 URL 仍是 /about/，导航仍为 About / 关于；页面标题为 A Little Background. / 一些经历。顶部显示圆形头像和姓名，随后为 Exploring、Beyond、Education、Experience 和 Contact；兴趣与个人长文统一在 _data/about.yml 维护。现有 profile.intro 数据保留，但 About 使用 hide_intro=true，不再显示它。
 
 profile.yml 是普通 YAML，**用空格缩进，不用 Tab**。以下仅为填写示例，请用自己的真实资料替换；当前公开联系邮箱使用已确认的 Outlook 别名 hi.jerrywong@outlook.com；姓名等请换为自己的真实资料：
 
@@ -76,7 +75,7 @@ avatar:
 ```
 
 - name 控制头像旁姓名。教育和经历直接在 about.md 的 background-education、background-experience 区域编辑；每个条目用 background-item 包裹。标题与正文使用 bi.html 的 en/zh 参数配对维护，保留 include 与头像 script。当前为 UNSW 信息技术硕士（人工智能方向，2022–2024）、黑龙江大学网络工程本科（2017–2021），以及上海浦东发展银行广州分行（2025.07–至今）。Technology / Data 是职能描述，不是正式 HR 职称；仅按确认的真实资料更新。
-- About 标题需同步维护 front matter 的 title 和页面 h1 的双语内容；不要修改 permalink 或 navigation.yml 的 About 标识。页面不另设 Interests、Beyond Engineering 或 Misc。
+- About 标题需同步维护 front matter 的 title 和页面 h1 的双语内容；不要修改 permalink 或 navigation.yml 的 About 标识。页面不额外增设 Interests 或 Misc 栏目。
 - Footer 按 GitHub → LinkedIn → Email 的顺序读取 github、linkedin、email；About 联系区仍只显示邮箱。留空字符串可隐藏对应图标，例如 `linkedin: ""`，不要填假地址。地址只在 profile.yml 维护，不在模板中重复粘贴。
 
 <a id="footer"></a>
@@ -112,14 +111,15 @@ Footer 按社交图标 → 版权 → 随机语录垂直居中。[_includes/soci
 | 需求 | 修改位置 | 只改数据即可？ |
 | --- | --- | --- |
 | 默认界面语言 | [_config.yml](../_config.yml)：default_language 为 en 或 zh | 是；重新构建，本地需重启 Jekyll。 |
-| 首页文案与探索章节 | [_data/home.yml](../_data/home.yml) | 是；不随机改变主标题。 |
+| 首页标题与短介绍 | [_data/home.yml](../_data/home.yml) 的 headline / intro | 是；不随机改变主标题。 |
+| About 个人长文 | [_data/about.yml](../_data/about.yml) 的 exploring / beyond | 是；中英文独立维护，保留自然段。 |
 | 收藏短句及显示位置 | [_data/quotes.yml](../_data/quotes.yml) | 是；保留原文，不自动翻译。 |
 | 个人资料、头像、公开邮箱 | [_data/profile.yml](../_data/profile.yml)；履历正文在 [about.md](../about.md) | 资料/头像改数据，履历改 Markdown。 |
 | 摄影、分类、标签 | [_data/](../_data) 对应三个摄影数据文件 | 是；同时提交相关图片。 |
 | 导航名称、链接和顺序 | [_data/navigation.yml](../_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
 | 主题颜色 | [assets/css/main.css](../assets/css/main.css) 的 :root 与 html[data-theme=dark] 变量 | 需修改 CSS；重点是 --bg、--surface、--text、--muted、--line、--accent、--code；交互色见下文 --interactive-hover。 |
 | SEO 站名、站点说明及发布地址 | [_config.yml](../_config.yml) 的 title、description、url、baseurl | 配置部分是；可见文字另见下文。 |
-| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 保留社交图标、版权和彩蛋。 |
+| 页眉/页脚站名、Hero 与正文 | _config.yml 的 title；_data/home.yml 的 headline/intro；_data/about.yml 的 exploring/beyond | 站名统一读 title；Hero 独立配置，Footer 保留社交图标、版权和彩蛋。 |
 
 ### 默认语言与个人偏好
 

@@ -14,8 +14,8 @@ async function socialLayout(page){
     if(name==='email')await expect(link).not.toHaveAttribute('target',/.+/);
     else{await expect(link).toHaveAttribute('target','_blank');await expect(link).toHaveAttribute('rel','noopener noreferrer');}
     const svg=link.locator('svg');await expect(svg).toHaveCount(1);await expect(svg).toHaveAttribute('aria-hidden','true');await expect(svg).toHaveAttribute('focusable','false');
-    const style=await svg.evaluate(el=>{const s=getComputedStyle(el);return {color:s.color,fill:s.fill,stroke:s.stroke,width:parseFloat(s.width),height:parseFloat(s.height)}});
-    expect(style.fill==='none'?style.stroke:style.fill).toBe(await link.evaluate(el=>getComputedStyle(el).color));expect(style.width).toBe(style.height);
+    const style=await svg.evaluate(el=>{const s=getComputedStyle(el);return {color:s.color,fill:s.fill,stroke:s.stroke,width:parseFloat(s.width),height:parseFloat(s.height),linkColor:getComputedStyle(el.parentElement).color}});
+    expect(style.fill==='none'?style.stroke:style.fill).toBe(style.linkColor);expect(style.width).toBe(style.height);
     const box=await link.boundingBox();expect(box.width).toBeGreaterThanOrEqual(44);expect(box.height).toBeGreaterThanOrEqual(44);await expect(link).toHaveCSS('border-radius','50%');boxes.push(box);
   }
   if(boxes.length){expect(new Set(boxes.map(b=>b.y)).size).toBe(1);const row=await footer.locator('.footer-social').boundingBox();expect(Math.abs(center(row)-page.viewportSize().width/2)).toBeLessThan(2);}

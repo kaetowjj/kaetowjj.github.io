@@ -9,7 +9,8 @@
 ## 这个项目有什么？
 
 - Tech Blog：统一维护技术笔记、实验和项目，通过可选的多个 Tags 聚合；Essays 独立记录随笔。
-- 个人首页与 About：独立维护的双语介绍、头像和公开联系邮箱。
+- Home：简短双语介绍、技术文章与随笔的 Recent Posts，以及栏目入口。
+- About：完整个人探索与思考、教育工作经历、头像和公开联系邮箱。
 - Photography：保留照片比例的画廊、分类/标签筛选、拍摄时间排序和 Lightbox。
 - 中文 / English 切换，以及 Light / Dark / System 主题。
 - Jerry's Silly Thoughts：真实短句收藏，原文展示；Curated, Not Generated。
@@ -23,7 +24,8 @@
 | 写中英文正文、代码、表格、公式和配图 | [双语写作](docs/publishing.md#bilingual) |
 | 上传照片、生成 WebP、合并摄影数据 | [摄影管理](docs/photography.md#photos) |
 | 检查 Category / Tag ID 与筛选问题 | [摄影校验与排错](docs/photography.md) |
-| 修改 Hero、What I'm Exploring、Beyond Engineering | [首页个性化](docs/customization.md#homepage) |
+| 修改 Home 标题、短介绍或入口 | [首页个性化](docs/customization.md#homepage) |
+| 修改 About 的 Exploring / Beyond 长文 | [About 长文](docs/customization.md#about-copy) |
 | 修改 About、姓名、头像和公开邮箱 | [个人资料](docs/customization.md#profile) |
 | 修改默认语言、主题配色或导航 | [网站设置](docs/customization.md#settings) |
 | 添加笑话、保存真实来源、配置 Home / Footer | [Jerry's Silly Thoughts](docs/silly-thoughts.md) |

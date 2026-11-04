@@ -6,7 +6,9 @@ Current owner manuals in docs describe active behavior; docs/requirements-v2.md 
 
 Layouts compose pages; _tech and _essays own bilingual Markdown articles. Technical posts use only _tech with /tech/:name/ URLs and optional lowercase-normalized Tags; preserve date-based archive ordering and URL/history filtering. Never recreate _notes or _projects collections, require technical Category/type fields, or nest tag links inside title links. Build sitemap and basic SEO; reintroducing RSS/Atom requires an explicit owner request. _data owns profile, navigation and photography taxonomies/records. assets/js/gallery-core.mjs owns selection and proportional row geometry; gallery.mjs consumes that logic and owns the DOM/dialog. site.mjs owns preferences and article TOC. CSS variables are the source of theme colors.
 
-Both language sections live in one Markdown file with markdown="1" and blank lines around containers. Headings in the inactive section must not enter the TOC. Language fallback preserves available text. Preference access must tolerate storage denial.
+Article language sections live in one Markdown file with markdown="1" and blank lines around containers. Headings in the inactive section must not enter the TOC. Language fallback preserves available text. Preference access must tolerate storage denial.
+
+Home owns only headline/intro in _data/home.yml; About owns full exploring/beyond text in _data/about.yml. Preserve complete bilingual paragraphs when moving personal copy. Home Recent Posts concatenates tech + essays, excludes demo:true before sorting date descending and taking at most three; keep an empty state and source labels. updated and photography never determine this list. Footer social layout and curated-thought selection remain independent.
 
 Every photograph has equal visual priority. Combine one category and one tag, sort on capture date, use ID for ties, and put undated photos last in both directions. Viewer order follows visible results. Preserve aspect ratio, keyboard focus, touch navigation and native dialog focus trapping.
 
