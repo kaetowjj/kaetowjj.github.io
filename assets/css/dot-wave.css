@@ -1,0 +1,13 @@
+/* Shared decorative field; titles keep their existing size and document flow. */
+.page-heading,.article-heading{position:relative;isolation:isolate}
+.page-heading>:not(.hero-wave),.article-heading>:not(.hero-wave){position:relative;z-index:1}
+.hero-wave{--wave-shadow:158 115 56;--wave-mid:191 139 64;--wave-light:225 190 117;position:absolute;inset:0;z-index:0;pointer-events:none;user-select:none;overflow:hidden}
+html[data-theme=dark] .hero-wave{--wave-shadow:106 134 116;--wave-mid:154 180 156;--wave-light:219 230 216}
+.hero-wave canvas,.hero-wave-fallback{position:absolute;inset:0;width:100%;height:100%}
+.hero-wave canvas{display:none}
+.hero-wave.is-ready canvas{display:block}
+.hero-wave.is-ready .hero-wave-fallback{display:none}
+.hero-wave-fallback{color:rgb(var(--wave-mid));opacity:.42;mask-image:linear-gradient(100deg,transparent 54%,#000 92%),linear-gradient(transparent 70%,#000);mask-composite:intersect}
+
+@media(max-width:600px){.hero-wave-fallback{mask-image:linear-gradient(transparent 78%,#000 94%,transparent)}}
+.hero-wave[data-wave-context=heading] .hero-wave-fallback{min-height:320px;top:50%;transform:translateY(-50%);mask-image:linear-gradient(100deg,transparent 55%,#000 90%),linear-gradient(transparent 35%,#000 85%);mask-composite:intersect}

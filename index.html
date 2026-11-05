@@ -1,4 +1,5 @@
 ---
+wave: true
 nav: home
 stylesheet: /assets/css/home.css
 page_class: home-refined
@@ -19,5 +20,3 @@ page_class: home-refined
 <section class="explore-grid"><a class="explore-card" href="{{ '/tech/' | relative_url }}"><span class="eyebrow">02 / BUILDING</span><h2>{% include bi.html en="Tech Blog" zh="技术博客" %}{% include arrow-up-right.html %}</h2><p>{% include bi.html en="Engineering questions, experiments, and things I’ve built." zh="技术问题、实验与构建记录。" %}</p></a><a class="explore-card" href="{{ '/photography/' | relative_url }}"><span class="eyebrow">03 / OBSERVING</span><h2>{% include bi.html en="Photography" zh="摄影记录" %}{% include arrow-up-right.html %}</h2><p>{% include bi.html en="An ordinary collection of moments, places, and light. In chronological order." zh="记录日常的瞬间、地点与光线，按拍摄时间浏览。" %}</p></a></section>
 
 {% include thought.html placement="home" %}
-
-<script type="module" src="{{ '/assets/js/hero-wave.mjs' | relative_url }}?v={{ site.time | date: '%s' }}"></script>

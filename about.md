@@ -1,11 +1,12 @@
 ---
 title: A Little Background.
+wave: true
 nav: about
 permalink: /about/
 stylesheet: /assets/css/about.css
 page_class: about-refined
 ---
-<div class="page-heading"><h1>{% include bi.html en="A Little Background." zh="一些经历。" %}</h1></div>
+<div class="page-heading">{% include hero-wave.html context="heading" %}<h1>{% include bi.html en="A Little Background." zh="一些经历。" %}</h1></div>
 {% include about-profile.html hide_intro=true %}
 <div class="about-personal">
 <section class="about-exploring" markdown="0">

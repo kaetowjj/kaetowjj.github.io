@@ -17,7 +17,7 @@ test('Hero dots are decorative, responsive and follow light/dark/system without 
   await page.emulateMedia({colorScheme:'dark'});await changed(page,first);
   await page.locator('#language-toggle').click();await expect(page.locator('.hero-intro [data-lang="zh"]')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
-  await page.locator('.hero>a').click();await expect(page).toHaveURL('http://127.0.0.1:4173/about/');await expect(page.locator('.hero-wave')).toHaveCount(0);
+  await page.locator('.hero>a').click();await expect(page).toHaveURL('http://127.0.0.1:4173/about/');await expect(page.locator('.hero-personal .hero-wave')).toHaveCount(0);await expect(page.locator('.page-heading>.hero-wave')).toHaveCount(1);
 });
 
 test('animation pauses offscreen and for reduced motion, resumes without resetting terrain',async({page})=>{

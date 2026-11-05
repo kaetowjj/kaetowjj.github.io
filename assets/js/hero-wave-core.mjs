@@ -37,6 +37,15 @@ export function createTerrain(width, height, mobile = false) {
     spacing*=Math.max(1.08, Math.sqrt(points.length/budget));
   }
 }
+// Short headings crop a full-scale terrain patch; dots are never scaled down.
+export function createHeadingTerrain(width, height, mobile = false) {
+  if(!(width>0&&height>0))return [];
+  const fieldHeight=Math.max(height,mobile?260:320),offset=(fieldHeight-height)*.45;
+  const points=createTerrain(width,fieldHeight,mobile);
+  // Wind keeps virtual-field v; only the on-screen y coordinate is cropped.
+  for(const point of points)point.y-=offset;
+  return points;
+}
 export const WAVE_DEFAULTS = Object.freeze({mode:'double',strength:2,speed:1.5});
 export const WIND_PERIOD = 12;
 

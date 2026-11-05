@@ -1,9 +1,10 @@
 ---
 title: Tech Blog
+wave: true
 nav: tech
 permalink: /tech/
 ---
-<div class="page-heading"><h1>{% include bi.html en="Tech Blog" zh="技术博客" %}<span class="brand-dot">.</span></h1><p>{% include bi.html en="Questions, experiments, and things I've built. Connected by tags." zh="技术问题、实验与构建记录，通过标签自然组织。" %}</p></div>
+<div class="page-heading">{% include hero-wave.html context="heading" %}<h1>{% include bi.html en="Tech Blog" zh="技术博客" %}<span class="brand-dot">.</span></h1><p>{% include bi.html en="Questions, experiments, and things I've built. Connected by tags." zh="技术问题、实验与构建记录，通过标签自然组织。" %}</p></div>
 <div id="tech-archive">
 <nav class="tag-list tech-tags" aria-label="Filter tech posts by tag"><a href="{{ '/tech/' | relative_url }}" data-tech-tag="" aria-current="true">{% include bi.html en="All" zh="全部" %}</a>{% assign all_tags = '' | split: ',' %}{% for post in site.tech %}{% for raw_tag in post.tags %}{% assign key = raw_tag | strip | downcase %}{% unless key == '' %}{% assign all_tags = all_tags | push: key %}{% endunless %}{% endfor %}{% endfor %}{% include tech-tags.html tags=all_tags %}</nav>
 <p id="tech-current-filter" class="metadata" aria-live="polite"></p>

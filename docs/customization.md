@@ -34,13 +34,13 @@ intro:
 About、Tech Blog、Essays 和 Photography 入口在 [index.html](../index.html) 中维护，保留已有 SVG 与 relative_url。首页最新文章自动生成，数量、Demo 排除与发布日期规则见[Recent Posts 发布规则](publishing.md#recent-posts)，无需手动填写列表，也没有单独的 /posts/ 页面。
 
 <a id="hero-wave"></a>
-## Home Hero：Dot Contour Wave 点阵草浪
+## Dot Contour Wave：Home 与标题区域
 
-首页装饰由 [hero-wave.html](../_includes/hero-wave.html)、[home.css](../assets/css/home.css)、[hero-wave-core.mjs](../assets/js/hero-wave-core.mjs) 和 [hero-wave.mjs](../assets/js/hero-wave.mjs) 维护；它不读取摄影图片，也不需要上传 GIF 或安装动画库。标题和简介仍只编辑 home.yml，无需接触动画代码。
+全站标题背景共用 [hero-wave.html](../_includes/hero-wave.html)、[dot-wave.css](../assets/css/dot-wave.css)、[hero-wave-core.mjs](../assets/js/hero-wave-core.mjs) 和 [hero-wave.mjs](../assets/js/hero-wave.mjs)；[home.css](../assets/css/home.css) 仅保留首页原有构图和间距。它不读取摄影图片，也不需要上传 GIF 或安装动画库。标题和简介仍只编辑 home.yml，无需接触动画代码。
 
 两种主题共享一组曲线与风场，只切换圆点配色：Light 为麦金/琥珀/浅金，Dark 为灰绿/鼠尾草绿/月光银白。整站背景、正文颜色和 Hover 变量不变。高光来自圆点自身的颜色变化，没有独立实线、发光丝带或背景色块。
 
-如需调整装饰颜色，在 home.css 中修改三组 RGB 数值（用空格分隔，不带逗号）：
+如需调整装饰颜色，在 dot-wave.css 中修改三组 RGB 数值（用空格分隔，不带逗号）：
 
 ```css
 .hero-wave {
@@ -60,10 +60,26 @@ html[data-theme=dark] .hero-wave {
 工程边界与检查步骤：
 
 1. 点阵按平滑曲线弧长近似等距采样，仅在尺寸、字体或语言变化时重新计算；不是每帧随机撒点。桌面最多5250个缓存点，窄屏最多2000个缓存点（含渐隐及画布外的采样点，不等于可见数量），Canvas 的像素比上限分别为2和1.5，绘制上限仍为30/24帧每秒。均匀缩减沿线和线间采样间距，可见圆点比前版增加约20%–30%；地形公式和昼夜配色不变。每帧只遍历可绘制圆点，公共阵风参数按帧缓存，绘制使用连续的分数帧时间，避免无意漏帧。
-2. 桌面图案偏右/右下，真实文字和 About 链接区域会渐隐避让。窄屏重新构图至 Hero 下方，并仅增加44px底部留白，不把整个桌面图案等比压缩。Canvas 不占文档流、不接收点击，也不进入屏幕阅读器或 Tab 顺序。
+2. Home 保留已确认的构图、文字避让和窄屏44px底部留白。其他页面在原有标题区域内展开，不新增高度或留白；说明见下节。Canvas 不占文档流、不接收点击，也不进入屏幕阅读器或 Tab 顺序。
 3. 切换 Light / Dark / System、中文/英文后检查正文清晰与构图；系统主题自动变化会同步点阵配色。无需修改 profile、About 或 Footer。
 4. 系统开启“减少动态效果”后停止连续动画，保留当前静态帧；滚出 Hero 或切到后台后暂停，返回时接着播放，不补跑后台动画。Canvas 不可用或关闭 JavaScript 时显示内联 SVG 的静态点状曲线。
 5. 本地按[开发指南](development.md)构建后预览；修改动画时运行 npm test、严格 Jekyll 构建、npm run check:site 以及 npm run test:browser。浏览器测试覆盖配色、文字避让、尺寸变化、暂停恢复、降级与原生 About 链接；真实手机的流畅度和耗电仍需设备实测。
+
+### 复用到栏目页与文章标题
+
+Tech Blog、Essays、Photography、About 直接在现有 .page-heading 内放置共享 include；文章由 [_layouts/article.html](../_layouts/article.html) 在 .article-heading 内统一放置。没有额外的 Compact 横幅，也不改变原有标题、介绍、日期、标签及后续内容的位置。
+
+栏目页及Home的 Front Matter 使用 wave: true；[_layouts/default.html](../_layouts/default.html) 为这些页面和文章布局统一加载一次共享CSS与脚本。以后若为新的栏目页复用，在其 Front Matter 加入 wave: true，再在原有标题容器内部添加：
+
+```liquid
+{% include hero-wave.html context="heading" %}
+```
+
+保持原来的 .page-heading 标题与正文结构，不额外包裹横幅或增加padding/min-height；不要在页面里再次添加脚本标签。文章模板已统一包含，无需逐篇添加。Home使用默认context，保持原构图。
+
+背景是绝对定位的装饰层，可延展到主内容区右缘，但父标题原有790px/850px最大宽度与高度保留。短标题容器使用完整尺寸的地形片段裁切、重新构图，点半径/均匀间距保持同一体系；不是把Home Canvas等比压小。脚本按实际可见文字行、日期及链接/标签区域设置渐隐与位移安全边距；语言、字体或容器尺寸变化后重新计算。手机较长标题占用更多区域时，可见范围随文字自然调整，优先保留可读性。
+
+Canvas不可用时保留静态SVG，JavaScript可用时同样为文字区建立遮罩；关闭JavaScript时仍有CSS控制的右下渐隐静态图案。颜色、Double gust/2×/1.5×、减少动态和离屏/后台暂停均由同一套共享代码维护。
 
 ### 本机动画诊断：wave-debug=1
 
@@ -73,7 +89,7 @@ html[data-theme=dark] .hero-wave {
 bundle exec jekyll serve --livereload
 ```
 
-2. 打开 [http://127.0.0.1:4000/?wave-debug=1](http://127.0.0.1:4000/?wave-debug=1)。如果使用已构建的 scripts/serve.mjs 测试服务器，则端口为4173；它不会自动重新构建源文件。
+2. 打开 [http://127.0.0.1:4000/?wave-debug=1](http://127.0.0.1:4000/?wave-debug=1)。栏目页或文章也可直接附加该参数，例如 /tech/?wave-debug=1；面板显示当前页面的背景。如果使用已构建的 scripts/serve.mjs 测试服务器，则端口为4173；它不会自动重新构建源文件。
 3. 右下角本地面板显示 Canvas / SVG fallback、实际绘制 FPS、模拟时间与帧数。running 表示连续动画；paused: reduced-motion、hidden tab、offscreen、static 分别表示系统减少动态、后台标签页、Hero 离屏或主动静态。Canvas unavailable 表示正在使用静态 SVG，控件会禁用。
 4. Mode 可选 Auto、Static、Breeze、Single gust、Double gust；打开和刷新时默认选Double gust/2×/1.5×。Auto沿用同一双阵风节奏。切换模式或按 Replay from start 会重放；强度为0–2倍、速度为0.5–2倍。单/双阵风仍保留周期中的平静阶段。刷新页面恢复上面这组正式默认值，不保存这些实验参数。
 5. 调试模式也不绕过系统减少动态和可见性暂停。开启减少动态时 FPS 为0属于预期；要观察运动，应在测试环境的系统/浏览器偏好中选择允许动态，而不是删除无障碍逻辑。
@@ -81,7 +97,7 @@ bundle exec jekyll serve --livereload
 
 [hero-wave-debug.mjs](../assets/js/hero-wave-debug.mjs) 和 [hero-wave-debug.css](../assets/css/hero-wave-debug.css) 是独立的按需开发工具。入口脚本 URL 带构建版本 v，核心模块沿用同一版本，避免更新时混用旧核心代码；本机面板会显示入口 URL。在 DevTools → Network 检查入口/核心模块是否成功加载、版本是否一致；Console 检查运行时错误。若 Canvas 持续运行但感觉静止，应对照 Replay 后2–6秒的波峰，而不只检查两帧文件是否不同。
 
-如需移除装饰，在 [index.html](../index.html) 删除 hero-wave.html 的 include 和 hero-wave.mjs 的 script 引用，再移除 home.css 中对应装饰规则（包括窄屏新增底部留白）；保留原有 Hero 文案和链接。不要为关闭装饰去修改全站主题或语录逻辑。
+如需移除某个页面的装饰，删除该页标题内的 hero-wave.html include，栏目页同时移除 wave: true。文章标题由共享article布局统一管理。Home若移除装饰，再检查home.css中原有的窄屏额外底部留白；保留文案和链接。共享资源在default布局加载，不在各页面重复添加或删除全站脚本。不要为关闭装饰去修改主题或语录逻辑。
 
 <a id="about-copy"></a>
 ## About：完整个人探索与思考
