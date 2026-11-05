@@ -5,3 +5,10 @@
   source_type: personal_collection
   source_url:
   author:
+- id: mcdonalds
+  text: "别人吃苦耐劳，我吃麦当劳。"
+  lang: zh
+  placement: both
+  source_type: guancha_user_article
+  source_url: "https://user.guancha.cn/main/content?id=1501441"
+  author:
