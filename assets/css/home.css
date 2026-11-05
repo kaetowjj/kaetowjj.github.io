@@ -5,3 +5,15 @@
 @keyframes refined-content-enter{from{opacity:.88}to{opacity:1}}
 @media(max-width:520px){.hero-intro p{font-size:16px}.recent-heading{display:block}.recent-links{margin-top:14px}}
 @media(prefers-reduced-motion:reduce){.home-refined{animation:none!important}}
+
+/* One contour field, two lighting palettes. Copy and layout remain in normal flow. */
+.hero-personal{position:relative;isolation:isolate;overflow:hidden}
+.hero-personal>:not(.hero-wave){position:relative;z-index:1}
+.hero-wave{--wave-shadow:158 115 56;--wave-mid:191 139 64;--wave-light:225 190 117;position:absolute;inset:0;z-index:0;pointer-events:none;user-select:none}
+html[data-theme=dark] .hero-wave{--wave-shadow:106 134 116;--wave-mid:154 180 156;--wave-light:219 230 216}
+.hero-wave canvas,.hero-wave-fallback{position:absolute;inset:0;width:100%;height:100%}
+.hero-wave canvas{display:none}
+.hero-wave.is-ready canvas{display:block}
+.hero-wave.is-ready .hero-wave-fallback{display:none}
+.hero-wave-fallback{color:rgb(var(--wave-mid));opacity:.42;mask-image:linear-gradient(100deg,transparent 54%,#000 92%),linear-gradient(transparent 70%,#000);mask-composite:intersect}
+@media(max-width:600px){.hero-personal{padding-bottom:84px}.hero-wave-fallback{mask-image:linear-gradient(transparent 78%,#000 94%,transparent)}}

@@ -33,6 +33,40 @@ intro:
 
 About、Tech Blog、Essays 和 Photography 入口在 [index.html](../index.html) 中维护，保留已有 SVG 与 relative_url。首页最新文章自动生成，数量、Demo 排除与发布日期规则见[Recent Posts 发布规则](publishing.md#recent-posts)，无需手动填写列表，也没有单独的 /posts/ 页面。
 
+<a id="hero-wave"></a>
+## Home Hero：Dot Contour Wave 点阵草浪
+
+首页装饰由 [hero-wave.html](../_includes/hero-wave.html)、[home.css](../assets/css/home.css)、[hero-wave-core.mjs](../assets/js/hero-wave-core.mjs) 和 [hero-wave.mjs](../assets/js/hero-wave.mjs) 维护；它不读取摄影图片，也不需要上传 GIF 或安装动画库。标题和简介仍只编辑 home.yml，无需接触动画代码。
+
+两种主题共享一组曲线与风场，只切换圆点配色：Light 为麦金/琥珀/浅金，Dark 为灰绿/鼠尾草绿/月光银白。整站背景、正文颜色和 Hover 变量不变。高光来自圆点自身的颜色变化，没有独立实线、发光丝带或背景色块。
+
+如需调整装饰颜色，在 home.css 中修改三组 RGB 数值（用空格分隔，不带逗号）：
+
+```css
+.hero-wave {
+  --wave-shadow: 158 115 56;
+  --wave-mid: 191 139 64;
+  --wave-light: 225 190 117;
+}
+html[data-theme=dark] .hero-wave {
+  --wave-shadow: 106 134 116;
+  --wave-mid: 154 180 156;
+  --wave-light: 219 230 216;
+}
+```
+
+默认行为是轻微持续风场，每38秒的节奏中安排两阵先后经过的风，其余时间保持平静。暂停或减少动画时仍能看到静态起伏。节奏和小幅位移在上述两个 JS 模块中调整，当前没有首页调试按钮、鼠标追踪或后台配置界面。
+
+工程边界与检查步骤：
+
+1. 点阵按平滑曲线弧长近似等距采样，仅在尺寸、字体或语言变化时重新计算；不是每帧随机撒点。桌面最多4200点，窄屏最多1600点，Canvas 的像素比上限分别为2和1.5，绘制上限约30/24帧每秒。
+2. 桌面图案偏右/右下，真实文字和 About 链接区域会渐隐避让。窄屏重新构图至 Hero 下方，并仅增加44px底部留白，不把整个桌面图案等比压缩。Canvas 不占文档流、不接收点击，也不进入屏幕阅读器或 Tab 顺序。
+3. 切换 Light / Dark / System、中文/英文后检查正文清晰与构图；系统主题自动变化会同步点阵配色。无需修改 profile、About 或 Footer。
+4. 系统开启“减少动态效果”后停止连续动画，保留当前静态帧；滚出 Hero 或切到后台后暂停，返回时接着播放，不补跑后台动画。Canvas 不可用或关闭 JavaScript 时显示内联 SVG 的静态点状曲线。
+5. 本地按[开发指南](development.md)构建后预览；修改动画时运行 npm test、严格 Jekyll 构建、npm run check:site 以及 npm run test:browser。浏览器测试覆盖配色、文字避让、尺寸变化、暂停恢复、降级与原生 About 链接；真实手机的流畅度和耗电仍需设备实测。
+
+如需移除装饰，在 [index.html](../index.html) 删除 hero-wave.html 的 include 和 hero-wave.mjs 的 script 引用，再移除 home.css 中对应装饰规则（包括窄屏新增底部留白）；保留原有 Hero 文案和链接。不要为关闭装饰去修改全站主题或语录逻辑。
+
 <a id="about-copy"></a>
 ## About：完整个人探索与思考
 
