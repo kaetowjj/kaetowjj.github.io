@@ -38,13 +38,19 @@ export function createTerrain(width, height, mobile = false) {
   }
 }
 function packet(u, v, phase, start, width, strength) {
-  const travel = (phase-start)*.105-.18;
+  const travel = (phase-start)*.18+.18;
   const bend = .065*Math.sin(v*4+u*2);
-  const distance = (u-travel+bend)/width;
-  return strength*Math.exp(-distance*distance)*smooth(start,start+1.5,phase)*(1-smooth(start+13,start+16,phase));
+  const distance = u-travel+bend;
+  // A soft trailing trough makes the crest readable without drawing a separate line.
+  const crest = Math.exp(-1*(distance/width)**2);
+  const trough = .3*Math.exp(-1*((distance+.19)/(width*1.2))**2);
+  return strength*(crest-trough)*smooth(start,start+1.2,phase)*(1-smooth(start+7.5,start+10,phase));
 }
-export function windAt(u, v, seconds) {
-  const phase = ((seconds%38)+38)%38;
-  const breeze = .065*Math.sin(u*8+v*4+seconds*.55)+.035*Math.cos(v*9-u*3+seconds*.32);
-  return breeze+packet(u,v,phase,4,.14,.95)+packet(u,v,phase,8.2,.18,.78);
+export function windAt(u, v, seconds, mode = 'auto') {
+  if (mode === 'static') return 0;
+  const breeze = .13*Math.sin(u*8+v*4+seconds*.8)+.09*Math.cos(v*9-u*3+seconds*.55);
+  if (mode === 'breeze') return breeze;
+  const phase = ((seconds%26)+26)%26;
+  const first = packet(u,v,phase,.7,.14,1.05);
+  return breeze+first+(mode==='single'?0:packet(u,v,phase,4.1,.18,.88));
 }

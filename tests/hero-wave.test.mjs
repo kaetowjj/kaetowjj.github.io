@@ -20,10 +20,10 @@ test('terrain is deterministic, curved and sampled at even distances within a bo
 
 test('wind has local travelling double gusts, calm intervals and continuous bounded displacement',()=>{
   let max=0,peak=0,calm=0;
-  for(let t=0;t<38;t+=.025){
+  for(let t=0;t<52;t+=.025){
     const w=windAt(.65,.5,t);assert.ok(Number.isFinite(w));max=Math.max(max,Math.abs(w));
     assert.ok(Math.abs(w-windAt(.65,.5,t+.001))<.01,'no loop/reset jump');
-    if(t<3)calm=Math.max(calm,Math.abs(w));else peak=Math.max(peak,Math.abs(w));
+    if(t>16&&t<25)calm=Math.max(calm,Math.abs(w));else peak=Math.max(peak,Math.abs(w));
   }
   assert.ok(max<1.6&&peak>calm+ .5);
   const strengths=Array.from({length:240},(_,i)=>windAt(.65,.5,3+i*.1));
@@ -37,4 +37,13 @@ test('very wide and tall viewports still respect the decoration point budget',()
     const points=createTerrain(w,h,mobile);assert.ok(points.length<=(mobile?1600:4200));
   }
   assert.deepEqual(createTerrain(0,100),[]);
+});
+
+test('an early local crest reaches the visible right side and a second follows it',()=>{
+  assert.ok(windAt(.65,.5,3.5,'single')>.6);
+  assert.ok(windAt(.65,.5,7,'double')-windAt(.65,.5,7,'single')>.45);
+  const peak=u=>{let t=0,value=-Infinity;for(let s=1;s<6;s+=.02){const w=windAt(u,.5,s,'single');if(w>value){value=w;t=s;}}return t;};
+  assert.ok(peak(.85)>peak(.45)+1,'crest travels across the field instead of shifting it all together');
+  assert.equal(windAt(.65,.5,3.5,'static'),0);
+  assert.ok(Math.abs(windAt(.65,.5,3.5,'breeze'))<.3);
 });
