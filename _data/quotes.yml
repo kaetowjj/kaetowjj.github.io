@@ -12,3 +12,73 @@
   source_type: guancha_user_article
   source_url: "https://user.guancha.cn/main/content?id=1501441"
   author:
+- id: willow-orange
+  text: "无心插柳，柳橙汁。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: corn-soup
+  text: "遇水则发，玉米浓汤。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: boat-porridge
+  text: "水能载舟，亦能煮粥。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: night-sandwich
+  text: "夜路走多，总汇三明治。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: yoshinoya
+  text: "想吃吉野家，但吉野不在家。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: roosevelt
+  text: "儿孙自有儿孙福，螺丝自有罗斯福。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: tiger-mountain
+  text: "明知山有虎，别去明知山。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: doraemon
+  text: "一人做事一人当，小丁做事小叮当。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: bandai
+  text: "钱不是万能的，是万代的。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: wise-words
+  text: "听君一席话，如听一席话。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:

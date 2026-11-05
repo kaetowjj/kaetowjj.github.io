@@ -11,7 +11,7 @@
 
 **Curated, Not Generated. 收藏真实短句，不生成笑话充数。** 入口是 [_data/quotes.yml](../_data/quotes.yml)。冷笑话、中文谐音、英文 puns、双关、荒诞短句都可以，不要求与技术相关。网站只展示收藏，不联网抓取、不调用翻译 API、不自动把 Hero 或普通技术文案加入收藏。
 
-当前完整数据如下，可复制结构维护；personal_collection 表示用户提供的个人收藏，**不声称为作者原创**，不编造作者、点赞数或来源：
+当前共 **12 条**收藏：原有2条与本次新增的10条中文冷笑话，均为 zh / both。下面是与 _data/quotes.yml 同步的完整数据，可复制结构维护；personal_collection 表示用户提供的个人收藏，**不声称为作者原创**，不编造作者、点赞数或来源：
 
 ```yaml
 - id: chocolate
@@ -28,7 +28,79 @@
   source_type: guancha_user_article
   source_url: "https://user.guancha.cn/main/content?id=1501441"
   author:
+- id: willow-orange
+  text: "无心插柳，柳橙汁。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: corn-soup
+  text: "遇水则发，玉米浓汤。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: boat-porridge
+  text: "水能载舟，亦能煮粥。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: night-sandwich
+  text: "夜路走多，总汇三明治。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: yoshinoya
+  text: "想吃吉野家，但吉野不在家。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: roosevelt
+  text: "儿孙自有儿孙福，螺丝自有罗斯福。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: tiger-mountain
+  text: "明知山有虎，别去明知山。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: doraemon
+  text: "一人做事一人当，小丁做事小叮当。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: bandai
+  text: "钱不是万能的，是万代的。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
+- id: wise-words
+  text: "听君一席话，如听一席话。"
+  lang: zh
+  placement: both
+  source_type: ptt
+  source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
+  author:
 ```
+
+新增10条由用户选自 [PTT joke 板的主帖或评论](https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html)，按用户确认的中文文本和标点保存，不改写或自动翻译。统一使用 source_type: ptt 和该帖 source_url；author 保持为空。PTT 发言账号仅表示发布或评论账号，不能据此认定为原创作者。当前Home和Footer都从这12条收藏中随机选择，优先避免重复，Home的Shuffle可切换到其他收藏。
 
 Footer 语录位于居中的社交图标和版权下方，字号比 Home 语录小；两处的原文、来源、随机选择与去重规则保持一致。只有一条 both 时，首页 Footer 隐藏重复内容属于预期行为。图标地址和布局维护见[Footer 个性化](customization.md#footer)。
 
@@ -47,13 +119,13 @@ Footer 语录位于居中的社交图标和版权下方，字号比 Home 语录�
 | text | 原文纯文本；不支持嵌入 HTML，标签按文字显示。 |
 | lang | 原文语言标记，仅提供语义，不影响 UI 语言和随机范围。 |
 | placement | home：仅首页；footer：仅全站 Footer；both：两处均可。拼错/不填不会展示。 |
-| source_type | personal_collection、reddit、tieba、douban 等；不表示网站已自动验证出处。 |
+| source_type | personal_collection、ptt、reddit、tieba、douban 等；不表示网站已自动验证出处。 |
 | source_url | 可选真实完整 HTTP(S) 原帖链接。个人提供且无原帖时留空；网络引用应保存可核实原帖。相对路径、脚本地址或含账号密码的 URL 不会成为链接。 |
 | author | 已核实原作者，可选；不知道留空，不要填 Jerry 暗示所有收藏为原创。 |
 
-### 保存 Reddit、贴吧等真实来源
+### 保存 PTT、Reddit、贴吧等真实来源
 
-先在浏览器打开原帖，核实对应原句。Reddit 可用 Share → Copy link，贴吧复制具体贴文地址。将实际复制的完整地址粘贴到 source_url（可用引号包裹），source_type 填 reddit 或 tieba；作者已核实且适合公开时再填 author。社区首页/搜索结果不替代具体原帖。打不开或无法核实时，不作为“已验证社区内容”发布，可暂存在个人笔记等待确认。本指南不提供虚构的示例原帖地址。
+先在浏览器打开原帖，核实对应原句。Reddit 可用 Share → Copy link，贴吧复制具体贴文地址。将实际复制的完整地址粘贴到 source_url（可用引号包裹），source_type 填 reddit 或 tieba；作者已核实且适合公开时再填 author。PTT可保存主帖或包含所选评论的具体帖子URL，source_type填ptt；不要把发言账号直接填为原创作者，无法确定时author留空。社区首页/搜索结果不替代具体原帖。打不开或无法核实时，不作为“已验证社区内容”发布，可暂存在个人笔记等待确认。本指南不提供虚构的示例原帖地址。
 
 优先短句或简短语言双关，不批量复制长篇原创段子；较长内容更适合自己的简短摘要和原帖链接。不要把 AI 生成的摘要/笑话当成社区原句，不能冒充原作者。URL 检查只验证格式/协议，**不会自动验证作者、版权或出处真实性**，这些仍需收藏者确认。现有短句由用户挑选，来源链接用于记录发现位置；无法核实原创者时保持 author 为空，不应据此认定引用页面作者为原作者。
 
