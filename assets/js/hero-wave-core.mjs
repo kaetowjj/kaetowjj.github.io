@@ -5,8 +5,8 @@ function curve(u, v, height) {
 }
 export function createTerrain(width, height, mobile = false) {
   if (!(width > 0 && height > 0)) return [];
-  const budget = mobile ? 1600 : 4200;
-  let spacing = Math.max(mobile ? 14 : 10.5, Math.sqrt(width*height*1.7/budget));
+  const budget = mobile ? 2000 : 5250;
+  let spacing = Math.max(mobile ? 12.3 : 9.39, Math.sqrt(width*height*1.7/budget));
   const fieldHeight = mobile ? height*.64 : height;
   const top = mobile ? height*.36 : 0;
   for (;;) {
@@ -37,20 +37,39 @@ export function createTerrain(width, height, mobile = false) {
     spacing*=Math.max(1.08, Math.sqrt(points.length/budget));
   }
 }
-function packet(u, v, phase, start, width, strength) {
-  const travel = (phase-start)*.18+.18;
-  const bend = .065*Math.sin(v*4+u*2);
-  const distance = u-travel+bend;
-  // A soft trailing trough makes the crest readable without drawing a separate line.
-  const crest = Math.exp(-1*(distance/width)**2);
-  const trough = .3*Math.exp(-1*((distance+.19)/(width*1.2))**2);
-  return strength*(crest-trough)*smooth(start,start+1.2,phase)*(1-smooth(start+7.5,start+10,phase));
+export const WAVE_DEFAULTS = Object.freeze({mode:'double',strength:2,speed:1.5});
+export const WIND_PERIOD = 12;
+
+// Keep a fractional frame deadline; resetting it to now loses frames at60Hz.
+export function paintTime(now, last, interval) {
+  return last+Math.max(0,Math.floor((now-last+.5)/interval))*interval;
+}
+
+// Reuse this frame object. Pulse timing/envelopes are shared by every dot.
+export function prepareWind(seconds, mode = 'auto', target = {}) {
+  target.seconds=seconds;target.mode=mode;target.a=seconds*.8;target.b=seconds*.55;target.lightPhase=seconds*.4;
+  const phase=((seconds%WIND_PERIOD)+WIND_PERIOD)%WIND_PERIOD;
+  target.pulses ||= [{},{},{}];
+  for(let i=0;i<3;i++){
+    const second=i!==0,start=second?4.1:.7,t=i===2?phase+WIND_PERIOD:phase,p=target.pulses[i];
+    p.travel=(t-start)*.18+.18;p.width=second?.18:.14;
+    const enabled=mode!=='static'&&mode!=='breeze'&&!(mode==='single'&&second);
+    p.amplitude=enabled?(second?.88:1.05)*smooth(start,start+1.2,t)*(1-smooth(start+7.5,start+10,t)):0;
+  }
+  return target;
+}
+function packetAt(u, bend, p) {
+  if(!p.amplitude)return 0;
+  const d=u-p.travel+bend;
+  return p.amplitude*(Math.exp(-1*(d/p.width)**2)-.3*Math.exp(-1*((d+.19)/(p.width*1.2))**2));
+}
+export function sampleWind(point, field) {
+  if(field.mode==='static')return 0;
+  const {u,v}=point;
+  const breeze=.13*Math.sin((point.breezeA??u*8+v*4)+field.a)+.09*Math.cos((point.breezeB??v*9-u*3)+field.b);
+  const bend=point.bend??.065*Math.sin(v*4+u*2);
+  return breeze+packetAt(u,bend,field.pulses[0])+packetAt(u,bend,field.pulses[1])+packetAt(u,bend,field.pulses[2]);
 }
 export function windAt(u, v, seconds, mode = 'auto') {
-  if (mode === 'static') return 0;
-  const breeze = .13*Math.sin(u*8+v*4+seconds*.8)+.09*Math.cos(v*9-u*3+seconds*.55);
-  if (mode === 'breeze') return breeze;
-  const phase = ((seconds%26)+26)%26;
-  const first = packet(u,v,phase,.7,.14,1.05);
-  return breeze+first+(mode==='single'?0:packet(u,v,phase,4.1,.18,.88));
+  return sampleWind({u,v},prepareWind(seconds,mode));
 }

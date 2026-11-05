@@ -1,17 +1,17 @@
 // Share the entry's build version with its dependency, avoiding mixed cached generations.
 const version=new URL(import.meta.url).search;
-const {createTerrain, windAt, smooth}=await import(new URL('./hero-wave-core.mjs'+version,import.meta.url));
+const {createTerrain, prepareWind, sampleWind, paintTime, smooth, WAVE_DEFAULTS}=await import(new URL('./hero-wave-core.mjs'+version,import.meta.url));
 
 const layer = document.querySelector('.hero-wave');
 if (layer) {
   const local=['localhost','127.0.0.1','[::1]'].includes(location.hostname);
   const debug=local&&new URLSearchParams(location.search).get('wave-debug')==='1'
-    ? (await import(new URL('./hero-wave-debug.mjs'+version,import.meta.url))).createDebug(import.meta.url) : null;
+    ? (await import(new URL('./hero-wave-debug.mjs'+version,import.meta.url))).createDebug(import.meta.url,WAVE_DEFAULTS) : null;
   start(layer,debug);
 }
 
 function start(layer, debug) {
-  const options=debug?.settings||{mode:'auto',strength:1,speed:1};
+  const options=debug?.settings||{...WAVE_DEFAULTS};
   const canvas = layer.querySelector('canvas');
   let ctx;
   try { ctx = canvas.getContext('2d'); } catch {}
@@ -22,7 +22,7 @@ function start(layer, debug) {
   let width=0, height=0, mobile=false, points=[], palette=[], frame=0;
   let visible=false, time=0, previous=0, lastPaint=0;
   let frames=0, measuredFrames=0, fps=0, measuredAt=0;
-  const colors = 64, shades = new Array(colors);
+  const colors = 64, shades = new Array(colors), flow={};
 
   function readPalette() {
     const style = getComputedStyle(layer);
@@ -51,15 +51,17 @@ function start(layer, debug) {
         alpha*=smooth(0,mobile?22:46,Math.hypot(dx,dy));
       }
       p.alpha=alpha;
+      p.bend=.065*Math.sin(p.v*4+p.u*2);p.breezeA=p.u*8+p.v*4;p.breezeB=p.v*9-p.u*3;p.lightPhase=p.u*4+p.v*2;
     }
+    points=points.filter(p=>p.alpha>=.004);
     readPalette();paint();layer.classList.add('is-ready');
   }
   function paint() {
+    prepareWind(time,options.mode,flow);
     ctx.clearRect(0,0,width,height);
     for (const p of points) {
-      if (p.alpha<.004) continue;
-      const wind=windAt(p.u,p.v,time,options.mode)*options.strength;
-      const light=Math.max(0,Math.min(1,p.light*.78+wind*.55+.12*Math.sin(time*.4+p.u*4+p.v*2)));
+      const wind=sampleWind(p,flow)*options.strength;
+      const light=Math.max(0,Math.min(1,p.light*.78+wind*.55+.12*Math.sin(flow.lightPhase+p.lightPhase)));
       ctx.fillStyle=shades[Math.round(light*(colors-1))];
       ctx.globalAlpha=p.alpha*(.48+light*.42);
       ctx.beginPath();ctx.arc(p.x+wind*(mobile?1.6:2),p.y+wind*(mobile?4.5:5.5),p.radius,0,Math.PI*2);ctx.fill();
@@ -71,7 +73,8 @@ function start(layer, debug) {
     frame=0;
     if (previous) time+=Math.min((now-previous)/1000,.1)*options.speed;
     previous=now;
-    if (now-lastPaint>=(mobile?1000/24:1000/30)) {paint();lastPaint=now;}
+    const deadline=paintTime(now,lastPaint,mobile?1000/24:1000/30);
+    if(deadline!==lastPaint){paint();lastPaint=deadline;}
     if(debug&&now-measuredAt>=1000){fps=(frames-measuredFrames)*1000/(now-measuredAt);measuredFrames=frames;measuredAt=now;report();}
     frame=requestAnimationFrame(tick);
   }

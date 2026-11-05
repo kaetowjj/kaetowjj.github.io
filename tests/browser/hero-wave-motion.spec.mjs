@@ -40,6 +40,7 @@ test('a rendered crest travels from left to right over the cached contour dots',
     CanvasRenderingContext2D.prototype.arc=function(x,y,...a){window.drawnDots.push([x,y,this.globalAlpha]);return arc.call(this,x,y,...a)};
   });
   await page.clock.install();await page.goto('/?wave-debug=1');const mode=page.locator('#wave-debug select');
+  await page.locator('#wave-debug input[name=strength]').fill('1');await page.locator('#wave-debug input[name=speed]').fill('1');
   await mode.selectOption('static');const base=await page.evaluate(()=>window.drawnDots);const width=await page.locator('.hero-wave canvas').evaluate(c=>c.clientWidth);
   const crest=async()=>{const dots=await page.evaluate(()=>window.drawnDots);expect(dots.length).toBe(base.length);let sum=0,weight=0;for(let i=0;i<dots.length;i++){const dy=dots[i][1]-base[i][1];if(dy>2.5&&dots[i][2]>.12){sum+=base[i][0]/width*dy;weight+=dy;}}expect(weight).toBeGreaterThan(20);return sum/weight;};
   await mode.selectOption('single');await page.clock.runFor(2500);const first=await crest();

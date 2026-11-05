@@ -55,11 +55,11 @@ html[data-theme=dark] .hero-wave {
 }
 ```
 
-默认行为是持续微风，每26秒安排两阵先后经过的风，其余时间保持平静。首阵通常在打开页面后的约3–5秒进入右侧可见区域，第二阵随后到来；波峰带有柔和的明暗变化和局部小幅位移，不整体平移地形。暂停或减少动画时仍能看到静态起伏。风场参数在上述两个 JS 模块中调整，正式首页不显示调试按钮，也没有鼠标追踪或后台配置界面。
+正式默认参数为 **Double gust、Wind strength 2×、Speed 1.5×**，统一保存在 hero-wave-core.mjs 的 WAVE_DEFAULTS 中，本地面板也读取同一配置。每12秒模拟时间形成一组双阵风，在1.5×速度下约为8秒实际时间；微风持续，双阵风之间保留短暂呼吸，不再有长时间等待。跨周期继续计算上一组尾部，让它自然消退，避免强行跳回初始帧。首阵约2–3秒进入右侧可见区域，第二阵随后传播；波峰有局部位移和圆点自身的亮暗变化。正式首页不显示调试按钮，也没有鼠标追踪或后台配置界面。
 
 工程边界与检查步骤：
 
-1. 点阵按平滑曲线弧长近似等距采样，仅在尺寸、字体或语言变化时重新计算；不是每帧随机撒点。桌面最多4200点，窄屏最多1600点，Canvas 的像素比上限分别为2和1.5，绘制上限约30/24帧每秒。
+1. 点阵按平滑曲线弧长近似等距采样，仅在尺寸、字体或语言变化时重新计算；不是每帧随机撒点。桌面最多5250个缓存点，窄屏最多2000个缓存点（含渐隐及画布外的采样点，不等于可见数量），Canvas 的像素比上限分别为2和1.5，绘制上限仍为30/24帧每秒。均匀缩减沿线和线间采样间距，可见圆点比前版增加约20%–30%；地形公式和昼夜配色不变。每帧只遍历可绘制圆点，公共阵风参数按帧缓存，绘制使用连续的分数帧时间，避免无意漏帧。
 2. 桌面图案偏右/右下，真实文字和 About 链接区域会渐隐避让。窄屏重新构图至 Hero 下方，并仅增加44px底部留白，不把整个桌面图案等比压缩。Canvas 不占文档流、不接收点击，也不进入屏幕阅读器或 Tab 顺序。
 3. 切换 Light / Dark / System、中文/英文后检查正文清晰与构图；系统主题自动变化会同步点阵配色。无需修改 profile、About 或 Footer。
 4. 系统开启“减少动态效果”后停止连续动画，保留当前静态帧；滚出 Hero 或切到后台后暂停，返回时接着播放，不补跑后台动画。Canvas 不可用或关闭 JavaScript 时显示内联 SVG 的静态点状曲线。
@@ -75,11 +75,11 @@ bundle exec jekyll serve --livereload
 
 2. 打开 [http://127.0.0.1:4000/?wave-debug=1](http://127.0.0.1:4000/?wave-debug=1)。如果使用已构建的 scripts/serve.mjs 测试服务器，则端口为4173；它不会自动重新构建源文件。
 3. 右下角本地面板显示 Canvas / SVG fallback、实际绘制 FPS、模拟时间与帧数。running 表示连续动画；paused: reduced-motion、hidden tab、offscreen、static 分别表示系统减少动态、后台标签页、Hero 离屏或主动静态。Canvas unavailable 表示正在使用静态 SVG，控件会禁用。
-4. Mode 可选 Auto、Static、Breeze、Single gust、Double gust。切换模式或按 Replay from start 会重放；强度为0–2倍、速度为0.5–2倍。单/双阵风仍保留周期中的平静阶段。刷新页面恢复默认，不保存这些实验参数。
+4. Mode 可选 Auto、Static、Breeze、Single gust、Double gust；打开和刷新时默认选Double gust/2×/1.5×。Auto沿用同一双阵风节奏。切换模式或按 Replay from start 会重放；强度为0–2倍、速度为0.5–2倍。单/双阵风仍保留周期中的平静阶段。刷新页面恢复上面这组正式默认值，不保存这些实验参数。
 5. 调试模式也不绕过系统减少动态和可见性暂停。开启减少动态时 FPS 为0属于预期；要观察运动，应在测试环境的系统/浏览器偏好中选择允许动态，而不是删除无障碍逻辑。
 6. 调试入口只接受 localhost、127.0.0.1 和 [::1]；公开网站即使带 wave-debug=1 也不会加载面板模块或样式。正常本机页面不带参数时同样不加载它们。不要将面板添加到首页模板。
 
-[hero-wave-debug.mjs](../assets/js/hero-wave-debug.mjs) 和 [hero-wave-debug.css](../assets/css/hero-wave-debug.css) 是独立的按需开发工具。入口脚本 URL 带构建版本 v，核心模块沿用同一版本，避免更新时混用旧核心代码；本机面板会显示入口 URL。在 DevTools → Network 检查入口/核心模块是否成功加载、版本是否一致；Console 检查运行时错误。若 Canvas 持续运行但感觉静止，应对照 Replay 后3–8秒的波峰，而不只检查两帧文件是否不同。
+[hero-wave-debug.mjs](../assets/js/hero-wave-debug.mjs) 和 [hero-wave-debug.css](../assets/css/hero-wave-debug.css) 是独立的按需开发工具。入口脚本 URL 带构建版本 v，核心模块沿用同一版本，避免更新时混用旧核心代码；本机面板会显示入口 URL。在 DevTools → Network 检查入口/核心模块是否成功加载、版本是否一致；Console 检查运行时错误。若 Canvas 持续运行但感觉静止，应对照 Replay 后2–6秒的波峰，而不只检查两帧文件是否不同。
 
 如需移除装饰，在 [index.html](../index.html) 删除 hero-wave.html 的 include 和 hero-wave.mjs 的 script 引用，再移除 home.css 中对应装饰规则（包括窄屏新增底部留白）；保留原有 Hero 文案和链接。不要为关闭装饰去修改全站主题或语录逻辑。
 

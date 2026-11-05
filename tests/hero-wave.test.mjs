@@ -6,7 +6,7 @@ test('terrain is deterministic, curved and sampled at even distances within a bo
   for(const [width,height,mobile] of [[1040,390,false],[346,500,true]]){
     const a=createTerrain(width,height,mobile),b=createTerrain(width,height,mobile);
     assert.deepEqual(a,b);
-    assert.ok(a.length>200&&a.length<=(mobile?1600:4200));
+    assert.ok(a.length>200&&a.length<=(mobile?2000:5250));
     let pairs=0,curved=0;
     for(let i=1;i<a.length;i++)if(a[i].row===a[i-1].row){
       const d=Math.hypot(a[i].x-a[i-1].x,a[i].y-a[i-1].y);
@@ -23,7 +23,7 @@ test('wind has local travelling double gusts, calm intervals and continuous boun
   for(let t=0;t<52;t+=.025){
     const w=windAt(.65,.5,t);assert.ok(Number.isFinite(w));max=Math.max(max,Math.abs(w));
     assert.ok(Math.abs(w-windAt(.65,.5,t+.001))<.01,'no loop/reset jump');
-    if(t>16&&t<25)calm=Math.max(calm,Math.abs(w));else peak=Math.max(peak,Math.abs(w));
+    calm=Math.max(calm,Math.abs(windAt(.65,.5,t,'breeze')));peak=Math.max(peak,Math.abs(w));
   }
   assert.ok(max<1.6&&peak>calm+ .5);
   const strengths=Array.from({length:240},(_,i)=>windAt(.65,.5,3+i*.1));
@@ -34,7 +34,7 @@ test('wind has local travelling double gusts, calm intervals and continuous boun
 
 test('very wide and tall viewports still respect the decoration point budget',()=>{
   for(const [w,h,mobile] of [[6000,100,false],[320,1600,true],[720,1600,false]]){
-    const points=createTerrain(w,h,mobile);assert.ok(points.length<=(mobile?1600:4200));
+    const points=createTerrain(w,h,mobile);assert.ok(points.length<=(mobile?2000:5250));
   }
   assert.deepEqual(createTerrain(0,100),[]);
 });
