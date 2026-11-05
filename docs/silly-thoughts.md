@@ -21,6 +21,13 @@
   source_type: personal_collection
   source_url:
   author:
+- id: mcdonalds
+  text: "别人吃苦耐劳，我吃麦当劳。"
+  lang: zh
+  placement: both
+  source_type: guancha_user_article
+  source_url: "https://user.guancha.cn/main/content?id=1501441"
+  author:
 ```
 
 Footer 语录位于居中的社交图标和版权下方，字号比 Home 语录小；两处的原文、来源、随机选择与去重规则保持一致。只有一条 both 时，首页 Footer 隐藏重复内容属于预期行为。图标地址和布局维护见[Footer 个性化](customization.md#footer)。
@@ -48,6 +55,6 @@ Footer 语录位于居中的社交图标和版权下方，字号比 Home 语录�
 
 先在浏览器打开原帖，核实对应原句。Reddit 可用 Share → Copy link，贴吧复制具体贴文地址。将实际复制的完整地址粘贴到 source_url（可用引号包裹），source_type 填 reddit 或 tieba；作者已核实且适合公开时再填 author。社区首页/搜索结果不替代具体原帖。打不开或无法核实时，不作为“已验证社区内容”发布，可暂存在个人笔记等待确认。本指南不提供虚构的示例原帖地址。
 
-优先短句或简短语言双关，不批量复制长篇原创段子；较长内容更适合自己的简短摘要和原帖链接。不要把 AI 生成的摘要/笑话当成社区原句，不能冒充原作者。URL 检查只验证格式/协议，**不会自动验证作者、版权或出处真实性**，这些仍需收藏者确认。当前唯一初始内容由用户给定，没有虚构网络来源。
+优先短句或简短语言双关，不批量复制长篇原创段子；较长内容更适合自己的简短摘要和原帖链接。不要把 AI 生成的摘要/笑话当成社区原句，不能冒充原作者。URL 检查只验证格式/协议，**不会自动验证作者、版权或出处真实性**，这些仍需收藏者确认。现有短句由用户挑选，来源链接用于记录发现位置；无法核实原创者时保持 author 为空，不应据此认定引用页面作者为原作者。
 
 [← 返回 README](../README.md)
