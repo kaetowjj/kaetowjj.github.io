@@ -1,4 +1,4 @@
 export function safeSourceURL(value) { try { const u=new URL(value); return ['https:','http:'].includes(u.protocol)&&u.hostname&&!u.username&&!u.password?u.href:null; } catch { return null; } }
 export function normalizeQuotes(data) { const seen=new Set();return (Array.isArray(data)?data:[]).filter(q=>{if(!q||typeof q.id!=='string'||!q.id||seen.has(q.id)||typeof q.text!=='string'||!q.text.trim()||!['home','footer','both'].includes(q.placement))return false;seen.add(q.id);return true}).map(q=>({...q,lang:typeof q.lang==='string'&&/^[a-zA-Z]{2,8}(-[a-zA-Z0-9]{1,8})*$/.test(q.lang)?q.lang:'und'})); }
-export function eligible(quotes,placement) { return quotes.filter(q=>q.placement===placement||q.placement==='both'); }
-export function pickQuote(pool,previousId=null,random=Math.random) { if(!pool.length)return null;const choices=pool.length>1?pool.filter(q=>q.id!==previousId):pool;return choices[Math.min(choices.length-1,Math.floor(Math.max(0,random())*choices.length))]; }
+export function footerQuotes(quotes) { return quotes.filter(q=>q.placement==='footer'||q.placement==='both'); }
+export function pickQuote(pool,random=Math.random) { if(!pool.length)return null;return pool[Math.min(pool.length-1,Math.floor(Math.max(0,random())*pool.length))]; }

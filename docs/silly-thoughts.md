@@ -1,6 +1,6 @@
 # Jerry's Silly Thoughts 收藏指南
 
-解决如何添加、修改、删除真实幽默收藏，保存来源并控制首页/页脚展示的问题。坚持 Curated, Not Generated，保留每条原文语言。
+解决如何添加、修改、删除真实幽默收藏，保存来源并维护全站 Footer 随机展示的问题。坚持 Curated, Not Generated，保留每条原文语言。
 
 [← 返回项目入口](../README.md)
 
@@ -100,25 +100,25 @@
   author:
 ```
 
-新增10条由用户选自 [PTT joke 板的主帖或评论](https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html)，按用户确认的中文文本和标点保存，不改写或自动翻译。统一使用 source_type: ptt 和该帖 source_url；author 保持为空。PTT 发言账号仅表示发布或评论账号，不能据此认定为原创作者。当前Home和Footer都从这12条收藏中随机选择，优先避免重复，Home的Shuffle可切换到其他收藏。
+新增10条由用户选自 [PTT joke 板的主帖或评论](https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html)，按用户确认的中文文本和标点保存，不改写或自动翻译。统一使用 source_type: ptt 和该帖 source_url；author 保持为空。PTT 发言账号仅表示发布或评论账号，不能据此认定为原创作者。全站只在 Footer 展示 Jerry's Silly Thoughts；首页正文不再有 A Little Nonsense 区域。当前12条均可在 Footer 随机展示，切换界面语言不翻译原文。
 
-Footer 语录位于居中的社交图标和版权下方，字号比 Home 语录小；两处的原文、来源、随机选择与去重规则保持一致。只有一条 both 时，首页 Footer 隐藏重复内容属于预期行为。图标地址和布局维护见[Footer 个性化](customization.md#footer)。
+Footer 语录位于居中的社交图标和版权下方，保持较小字号和较弱视觉权重。每次页面加载时随机选一条；刷新或进入另一页会重新抽取，可能再次抽到同一句。没有 Shuffle 按钮或自动轮播，也不再需要首页/页脚去重。只有一条时持续显示它，空集合隐藏语录区域。图标地址和布局维护见[Footer 个性化](customization.md#footer)。
 
 ### 添加、修改和删除收藏
 
 1. 在 quotes.yml 点 Edit。新增时在末尾照上面结构追加一个以 - id 开始的对象，保留旧记录；不要覆盖整份文件。给新条目取唯一的英文短横线 ID。
 2. 将用户提供或已核实的原句原样填入 text。含引号或冒号时注意 YAML 转义。使用双引号包裹时，内部双引号需加反斜线；使用单引号时，内部单引号需写成两个单引号。
 3. lang 填 zh、en；混合句可填主要语言或 und。这个字段只用于语义和屏幕阅读器，不按网站语言过滤。中文不生成英文对应版，英文不翻译成中文；切换 UI 不会更换当前收藏。
-4. placement 填 home、footer 或 both。首页加载随机选一条，多条时 Shuffle 换另一条，不自动轮播；单条隐藏 Shuffle，空集合隐藏模块。首页两处避免重复：仅一条 both 时只在首页正文显示，其它页面 Footer 仍可显示。
+4. 新增条目的 placement 填 footer。现有 both 继续兼容 Footer，不必批量修改收藏数据；旧 home 值仍可保存在数据中，但不再有对应展示区域，不会出现在 Footer。
 5. 来源和作者按下表填写。修改时编辑原对象；删除时删除对应完整对象，保持其它条目不变。核对所有 ID 唯一和 placement 拼写。
-6. Commit changes，或本地提交 _data/quotes.yml 后 push。等 Actions 成功，再打开首页、About 等其它页面检查原句语言、显示位置、来源和键盘 Shuffle。仅一条时无法真正换句是预期行为。
+6. Commit changes，或本地提交 _data/quotes.yml 后 push。等 Actions 成功，再打开首页、About 等其它页面，检查 Footer 原句、来源链接及换行。多刷新几次检查随机抽取；切换中英文后原句应保持不变。
 
 | 字段 | 含义与填写要求 |
 | --- | --- |
 | id | 唯一标识。重复或无效记录会被展示层忽略，不应依赖忽略行为整理数据。 |
 | text | 原文纯文本；不支持嵌入 HTML，标签按文字显示。 |
 | lang | 原文语言标记，仅提供语义，不影响 UI 语言和随机范围。 |
-| placement | home：仅首页；footer：仅全站 Footer；both：两处均可。拼错/不填不会展示。 |
+| placement | footer：全站 Footer；both：兼容现有收藏，同样只显示在 Footer。home：旧数据值保留但不再展示。拼错/不填不会展示。 |
 | source_type | personal_collection、ptt、reddit、tieba、douban 等；不表示网站已自动验证出处。 |
 | source_url | 可选真实完整 HTTP(S) 原帖链接。个人提供且无原帖时留空；网络引用应保存可核实原帖。相对路径、脚本地址或含账号密码的 URL 不会成为链接。 |
 | author | 已核实原作者，可选；不知道留空，不要填 Jerry 暗示所有收藏为原创。 |

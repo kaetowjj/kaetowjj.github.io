@@ -1,7 +1,7 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {normalizeQuotes,eligible,pickQuote,safeSourceURL} from '../assets/js/thoughts-core.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import {normalizeQuotes,footerQuotes,pickQuote,safeSourceURL} from '../assets/js/thoughts-core.mjs';
 const q=[{id:'a',text:'以柔克刚，以巧克力。🍫',lang:'zh',placement:'both'},{id:'b',text:'TEST ONLY: English text',lang:'en',placement:'home'},{id:'c',text:'TEST ONLY: footer',lang:'en',placement:'footer'}];
-test('placement is independent of language',()=>{assert.deepEqual(eligible(q,'home').map(x=>x.id),['a','b']);assert.deepEqual(eligible(q,'footer').map(x=>x.id),['a','c'])});
-test('empty and single collections work',()=>{assert.equal(pickQuote([],null),null);assert.equal(pickQuote([q[0]],'a').id,'a')});
-test('shuffle excludes previous choice when possible',()=>{for(const n of [0,.4,.999])assert.equal(pickQuote(q.slice(0,2),'a',()=>n).id,'b')});
+test('footer eligibility is independent of language and keeps legacy metadata intact',()=>{const normalized=normalizeQuotes(q);assert.deepEqual(footerQuotes(normalized).map(x=>x.id),['a','c']);assert.deepEqual(normalized,q)});
+test('empty and single collections work',()=>{assert.equal(pickQuote([]),null);assert.equal(pickQuote([q[0]]).id,'a')});
+test('a page-load draw can choose every footer record without prior-page exclusions',()=>{for(const [n,id] of [[0,'a'],[.5,'c'],[.999,'c']]){let calls=0;assert.equal(pickQuote(footerQuotes(q),()=>{calls++;return n}).id,id);assert.equal(calls,1)}});
 test('normalization preserves original text and rejects invalid/duplicate IDs',()=>{const out=normalizeQuotes([...q,q[0],{id:'bad',text:' ',placement:'both'},{id:'bad2',text:'x',placement:'other'}]);assert.equal(out.length,3);assert.equal(out[0].text,q[0].text)});
 test('sources require absolute public http(s) URLs without credentials',()=>{for(const s of ['javascript:alert(1)','data:text/html,x','/relative','https://user:secret@example.com','not a url'])assert.equal(safeSourceURL(s),null);assert.equal(safeSourceURL('https://www.reddit.com/r/dadjokes/'),'https://www.reddit.com/r/dadjokes/')});

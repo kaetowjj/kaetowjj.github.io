@@ -5,7 +5,7 @@ test('brief homepage shows short introduction and the new section order',async({
   await expect(page.locator('.hero-intro [data-lang="en"] p')).toBeVisible();
   await expect(page.locator('.home-exploring,.home-beyond,.hero-disciplines')).toHaveCount(0);
   const sections=await page.locator('main>section').evaluateAll(es=>es.map(e=>e.className));
-  expect(sections[1]).toContain('home-recent');expect(sections[2]).toContain('explore-grid');expect(sections.at(-1)).toContain('thought-home');
+  expect(sections[1]).toContain('home-recent');expect(sections[2]).toContain('explore-grid');expect(sections).toHaveLength(3);expect(sections.at(-1)).toContain('explore-grid');
   await expect(page.locator('.recent-links a')).toHaveCount(2);
   await expect(page.locator('.recent-links a').nth(0)).toHaveAttribute('href','/tech/');
   await expect(page.locator('.recent-links a').nth(1)).toHaveAttribute('href','/essays/');

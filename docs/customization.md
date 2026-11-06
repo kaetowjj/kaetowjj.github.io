@@ -11,7 +11,7 @@
 
 编辑 [_data/home.yml](../_data/home.yml)。这个文件只保存 headline 和 intro 的 en / zh：首页标题和一段简短个人介绍；不要把完整兴趣与思考重新放回 Home。长文在 About，见[下节](#about-copy)。
 
-首页顺序为标题 → 简短介绍 → About 链接 → Recent Posts → Tech Blog / Photography 卡片 → A Little Nonsense。Home 与 Footer 的语录、社交图标、主题和语言机制保持原样。
+首页顺序为标题 → 简短介绍 → About 链接 → Recent Posts → Tech Blog / Photography 卡片。冷笑话只在全站 Footer 展示，维护方法见[收藏指南](silly-thoughts.md)。
 
 | 字段 | 修改内容 |
 | --- | --- |
@@ -151,7 +151,7 @@ avatar:
 
 Footer 按社交图标 → 版权 → 随机语录垂直居中。[_includes/social-icon.html](../_includes/social-icon.html) 提供无障碍隐藏的单色 SVG；[main.css](../assets/css/main.css) 控制46px圆形链接与间距，背景使用 --surface、默认图标使用 --muted，Hover / 键盘 Focus 使用既定 --interactive-hover。年份从 site.time 自动获取，站名读取 _config.yml 的 title。图标不使用 Emoji、外部图片或 CDN。
 
-[thoughts.css](../assets/css/thoughts.css) 只调整 Footer 语录的居中和较小字号，移除 Footer 顶部、语录上方及 Home 语录下方的旧横线。保留 Focus 轮廓、180ms过渡和减少动画支持。语录的显示与去重规则见[收藏指南](silly-thoughts.md#thoughts)，未改变随机逻辑。
+[thoughts.css](../assets/css/thoughts.css) 维护 Footer 语录的居中和较小字号，也包含已有 Hero 字体规则。Footer 顶部和语录上方不添加横线，以留白区分内容。来源链接保留 Focus 轮廓、180ms过渡和减少动画支持。语录仅在 Footer 随机展示，规则见[收藏指南](silly-thoughts.md#thoughts)。
 
 <a id="email"></a>
 ### 公开联系邮箱
@@ -179,7 +179,7 @@ Footer 按社交图标 → 版权 → 随机语录垂直居中。[_includes/soci
 | 默认界面语言 | [_config.yml](../_config.yml)：default_language 为 en 或 zh | 是；重新构建，本地需重启 Jekyll。 |
 | 首页标题与短介绍 | [_data/home.yml](../_data/home.yml) 的 headline / intro | 是；不随机改变主标题。 |
 | About 个人长文 | [_data/about.yml](../_data/about.yml) 的 exploring / beyond | 是；中英文独立维护，保留自然段。 |
-| 收藏短句及显示位置 | [_data/quotes.yml](../_data/quotes.yml) | 是；保留原文，不自动翻译。 |
+| Footer 收藏短句 | [_data/quotes.yml](../_data/quotes.yml) | 是；保留原文，不自动翻译。 |
 | 个人资料、头像、公开邮箱 | [_data/profile.yml](../_data/profile.yml)；履历正文在 [about.md](../about.md) | 资料/头像改数据，履历改 Markdown。 |
 | 摄影、分类、标签 | [_data/](../_data) 对应三个摄影数据文件 | 是；同时提交相关图片。 |
 | 导航名称、链接和顺序 | [_data/navigation.yml](../_data/navigation.yml) 的 id/url/en/zh | 是；添加菜单不会自动创建目标页面，新增页仍需单独创建。 |
@@ -209,7 +209,7 @@ html[data-theme="dark"] { --interactive-hover: #A7D7A4; }
 
 - 顶部非当前导航、Logo、Home 的 About 链接、正文链接、目录、文章标签、邮箱和来源链接变色。
 - 整块可点击的文章条目及 Tech Blog / Photography 入口，仅标题和边框变色；描述、日期与普通段落不变色。
-- 语言、主题、菜单按钮，摄影未选分类、Tag / Sort 下拉框、清除筛选、查看器按钮、照片标签及 Shuffle 均有反馈。
+- 语言、主题、菜单按钮，摄影未选分类、Tag / Sort 下拉框、清除筛选、查看器按钮、照片标签均有反馈。
 - 当前页面通过 aria-current="page" 表示，文字始终使用 --text，底线保持 --accent；Hover 不覆盖它。手机菜单同样保留短底线。不要用 :active 表示当前页面，:active 只是按下瞬间。
 - 摄影 aria-pressed="true" 的已选分类保持现有实心背景与反色文字，Hover 不改颜色。照片本身使用轻微边缘提示和现有标题浮层；浮层白字保持原样，避免暖橙色在照片暗部对比不足。原生下拉菜单的选项保持正文色与页面背景色。
 - 文章标签链接和照片标签按钮 Hover 时，标签底色轻微变为 --bg；这让浅色模式的橙色小字对比度达到约 4.68:1（原 --surface 灰底仅约 4.32:1）。整站背景色保持原样。

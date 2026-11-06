@@ -28,7 +28,7 @@
 | 修改 About 的 Exploring / Beyond 长文 | [About 长文](docs/customization.md#about-copy) |
 | 修改 About、姓名、头像和公开邮箱 | [个人资料](docs/customization.md#profile) |
 | 修改默认语言、主题配色或导航 | [网站设置](docs/customization.md#settings) |
-| 添加笑话、保存真实来源、配置 Home / Footer | [Jerry's Silly Thoughts](docs/silly-thoughts.md) |
+| 添加笑话、保存真实来源、维护 Footer 收藏 | [Jerry's Silly Thoughts](docs/silly-thoughts.md) |
 | 安装环境、本地预览、运行测试 | [开发指南](docs/development.md#setup) |
 | 查看构建、部署结果与故障排查 | [部署维护](docs/development.md#deploy) |
 

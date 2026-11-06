@@ -138,24 +138,7 @@ test('gallery selected buttons retain contrast; controls, focus and disabled sta
   }
 });
 
-test('Shuffle, viewer actions and tag buttons retain working feedback', async ({page}, info) => {
-  // Synthetic collection permits testing Shuffle without editing the real curated data.
-  await page.route('http://127.0.0.1:4173/', async route => {
-    const response = await route.fetch();
-    const fixture = [{id:'test-a', text:'TEST ONLY: A', lang:'en', placement:'home'}, {id:'test-b', text:'TEST ONLY: B', lang:'zh', placement:'home'}];
-    const body = (await response.text()).replace(/(<script type="application\/json" id="quotes-data">)[\s\S]*?(<\/script>)/, (_, a, b) => a + JSON.stringify(fixture) + b);
-    await route.fulfill({response, body});
-  });
-  await page.goto('/');
-  const shuffle = page.locator('[data-thought="home"] .thought-shuffle');
-  for (const value of themes) {
-    await theme(page, value);
-    if (info.project.name === 'desktop') await hoverColor(shuffle, value.hover);
-    await tabTo(page, shuffle);
-    const previous = await page.locator('[data-thought="home"]').getAttribute('data-quote-id');
-    await page.keyboard.press('Enter');
-    await expect(page.locator('[data-thought="home"]')).not.toHaveAttribute('data-quote-id', previous);
-  }
+test('viewer actions and tag buttons retain working feedback', async ({page}, info) => {
   await page.goto('/photography/');
   for (const value of themes) {
     await theme(page, value);

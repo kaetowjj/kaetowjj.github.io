@@ -1,7 +1,7 @@
 .hero-personal{padding-top:56px;padding-bottom:40px}.hero-personal h1{margin-bottom:28px}
 .hero-intro{max-width:680px;overflow-wrap:anywhere}.hero-intro p{font-size:17px;line-height:1.85;margin:0 0 24px}
 .recent-heading{flex-wrap:wrap;align-items:baseline;gap:12px 24px}.recent-links{display:flex;flex-wrap:wrap;gap:8px 18px}.recent-links a{white-space:nowrap}.recent-empty{font-size:14px;color:var(--muted);margin:22px 0 0}
-.home-refined{animation:refined-content-enter 180ms ease-out}
+.home-refined{min-height:0;padding-bottom:24px;animation:refined-content-enter 180ms ease-out}
 @keyframes refined-content-enter{from{opacity:.88}to{opacity:1}}
 @media(max-width:520px){.hero-intro p{font-size:16px}.recent-heading{display:block}.recent-links{margin-top:14px}}
 @media(prefers-reduced-motion:reduce){.home-refined{animation:none!important}}

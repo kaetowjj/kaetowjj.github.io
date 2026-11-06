@@ -31,7 +31,7 @@
     {% if site.data.profile.email and site.data.profile.email != '' %}<a class="footer-social-link" href="mailto:{{ site.data.profile.email | escape }}" aria-label="Email / 电子邮件">{% include social-icon.html name="email" %}</a>{% endif %}
   </nav>
   <p class="footer-copyright">© {{ site.time | date: '%Y' }} {{ site.title | escape }}</p>
-  {% include thought.html placement="footer" %}
+  {% include thought.html %}
 </footer>
 <script type="application/json" id="quotes-data">{{ site.data.quotes | jsonify | replace: '<', '\u003c' }}</script>
 </body></html>

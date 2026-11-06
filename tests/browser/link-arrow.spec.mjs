@@ -49,16 +49,16 @@ test('decorative arrows are scalable hidden SVGs and follow theme hover colors',
 test('dynamic source links keep one decorative SVG through language changes without altering content symbols', async ({page}) => {
   await page.route('http://127.0.0.1:4173/', async route => {
     const response = await route.fetch();
-    const fixture = [{id:'arrow-test',text:'TEST ONLY: ordinary ↗ symbol stays.',lang:'en',placement:'home',source_type:'test_fixture',source_url:'https://example.com/source'}];
+    const fixture = [{id:'arrow-test',text:'TEST ONLY: ordinary ↗ symbol stays.',lang:'en',placement:'footer',source_type:'test_fixture',source_url:'https://example.com/source'}];
     const body = (await response.text()).replace(/(<script type="application\/json" id="quotes-data">)[\s\S]*?(<\/script>)/, (_, a, b) => a + JSON.stringify(fixture) + b);
     await route.fulfill({response, body});
   });
   await page.goto('/');
-  const link = page.locator('[data-thought="home"] .thought-source');
+  const link = page.locator('[data-thought="footer"] .thought-source');
   for (let i = 0; i < 3; i++) {
     await checkIcon(link);
     await expect(link).toHaveAttribute('href', 'https://example.com/source');
-    await expect(page.locator('[data-thought="home"] .thought-text')).toHaveText('TEST ONLY: ordinary ↗ symbol stays.');
+    await expect(page.locator('[data-thought="footer"] .thought-text')).toHaveText('TEST ONLY: ordinary ↗ symbol stays.');
     await page.locator('#language-toggle').click();
   }
 });

@@ -34,7 +34,7 @@ test('all pages share centered SVG contacts, automatic copyright and borderless 
     const link=page.locator('.footer-social-link[href="'+url+'"]');
     const popupPromise=page.waitForEvent('popup');if(info.project.name==='mobile')await link.locator('svg').tap();else await link.locator('svg').click();const popup=await popupPromise;await expect(popup).toHaveURL(url);await popup.close();
   }
-  await page.goto('/');await expect(page.locator('.thought-home')).toHaveCSS('border-bottom-width','0px');await expect(page.locator('.site-header')).toHaveCSS('border-bottom-width','1px');
+  await page.goto('/');await expect(page.locator('main [data-thought],.thought-shuffle')).toHaveCount(0);await expect(page.locator('.site-header')).toHaveCSS('border-bottom-width','1px');
   await page.goto('/photography/');await expect(page.locator('.gallery-controls')).toHaveCSS('border-top-width','1px');
 });
 
@@ -51,12 +51,9 @@ test('social icons use theme hover, visible keyboard focus and reduced motion',a
   await page.emulateMedia({reducedMotion:'reduce'});for(const link of await page.locator('.footer-social-link').all())await expect(link).toHaveCSS('transition-duration','0s');
 });
 
-test('Home and footer preserve random selection, sources and stable shuffle layout',async({page})=>{
+test('footer keeps original sources and reserved height across random page loads',async({page})=>{
   const records=[{id:'test-short',text:'TEST ONLY: 中文短句',lang:'zh',placement:'both',source_type:'test_fixture',source_url:'https://example.com/a'},{id:'test-long',text:'TEST ONLY: A longer original sentence used to verify reserved space and natural wrapping across narrow screens without changing the real curated collection.',lang:'en',placement:'both',source_type:'test_fixture',source_url:'https://example.com/b'}];
-  await page.route('http://127.0.0.1:4173/',async route=>{const response=await route.fetch();const body=(await response.text()).replace(/(<script type="application\/json" id="quotes-data">)[\s\S]*?(<\/script>)/,(_,a,b)=>a+JSON.stringify(records)+b);await route.fulfill({response,body});});
-  await page.goto('/');const home=page.locator('[data-thought="home"]'),footer=page.locator('[data-thought="footer"]');await expect(home).toBeVisible();await expect(footer).toBeVisible();
-  await socialLayout(page);await expect(home).toHaveCSS('border-bottom-width','0px');const initialHome=await home.boundingBox(),initialFooter=await footer.boundingBox();
-  for(let i=0;i<4;i++){const id=await home.getAttribute('data-quote-id');await home.locator('.thought-shuffle').click();await expect(home).not.toHaveAttribute('data-quote-id',id);expect(await home.getAttribute('data-quote-id')).not.toBe(await footer.getAttribute('data-quote-id'));expect((await home.boundingBox()).height).toBe(initialHome.height);expect((await footer.boundingBox()).height).toBe(initialFooter.height);}
-  for(const section of [home,footer]){const id=await section.getAttribute('data-quote-id');const q=records.find(q=>q.id===id);await expect(section.locator('.thought-text')).toHaveText(q.text);await expect(section.locator('.thought-source')).toHaveAttribute('href',q.source_url);}
-  const footerID=await footer.getAttribute('data-quote-id');await page.locator('#language-toggle').click();await expect(footer).toHaveAttribute('data-quote-id',footerID);await socialLayout(page);
+  await page.route('http://127.0.0.1:4173/**',async route=>{if(route.request().resourceType()!=='document')return route.continue();const response=await route.fetch();const body=(await response.text()).replace(/(<script type="application\/json" id="quotes-data">)[\s\S]*?(<\/script>)/,(_,a,b)=>a+JSON.stringify(records)+b);await route.fulfill({response,body});});
+  await page.addInitScript(()=>{localStorage.setItem('lab-language','en');Math.random=()=>Number(new URLSearchParams(location.search).get('footer-seed'))||0;});let height;
+  for(const [seed,index] of [[0,0],[.999,1]]){await page.goto('/?footer-seed='+seed);const footer=page.locator('[data-thought=footer]');await expect(footer).toHaveAttribute('data-quote-id',records[index].id);await socialLayout(page);await expect(page.locator('main [data-thought],.thought-shuffle')).toHaveCount(0);const h=(await footer.boundingBox()).height;if(height!==undefined)expect(h).toBe(height);height=h;await expect(footer.locator('.thought-text')).toHaveText(records[index].text);await expect(footer.locator('.thought-source')).toHaveAttribute('href',records[index].source_url);await page.locator('#language-toggle').click();await expect(footer).toHaveAttribute('data-quote-id',records[index].id);await socialLayout(page);}
 });
