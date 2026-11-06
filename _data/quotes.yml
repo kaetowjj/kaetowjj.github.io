@@ -124,3 +124,24 @@
   source_type: reddit
   source_url: "https://www.reddit.com/r/dadjokes/comments/rcfc5j/"
   author:
+- id: photographer-focus
+  text: "I used to be a photographer, but I couldn't focus."
+  lang: en
+  placement: footer
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/1u65nxj/photography/"
+  author:
+- id: math-teacher-mean
+  text: "My math teacher called me average. How mean!"
+  lang: en
+  placement: footer
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/j50f41/"
+  author:
+- id: stairs-up-to-something
+  text: "I don't trust stairs. They are always up to something."
+  lang: en
+  placement: footer
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/g1vrsi/"
+  author:
