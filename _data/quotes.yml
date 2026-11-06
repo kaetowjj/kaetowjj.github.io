@@ -82,3 +82,45 @@
   source_type: ptt
   source_url: "https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html"
   author:
+- id: plain-pizza
+  text: "Nothing tops a plain pizza."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/bjuo71/"
+  author:
+- id: kids-meal
+  text: "I ate a kid's meal at McDonald's. His mom was upset."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/ut13zy/"
+  author:
+- id: misteaks
+  text: "Everybody makes misteaks."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/wxpg05/"
+  author:
+- id: steak-rare-medium
+  text: "A steak joke? That's a rare medium. Well done."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/lz5337/"
+  author:
+- id: grate-power
+  text: "With grate power comes grate responsibility."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/115k9xt/"
+  author:
+- id: large-fries
+  text: "I ordered two large fries. They gave me 75 tiny ones."
+  lang: en
+  placement: both
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/rcfc5j/"
+  author:
