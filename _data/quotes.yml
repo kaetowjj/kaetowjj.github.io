@@ -145,3 +145,10 @@
   source_type: reddit
   source_url: "https://www.reddit.com/r/dadjokes/comments/g1vrsi/"
   author:
+- id: banker-interest
+  text: "I used to be a banker, but I lost interest."
+  lang: en
+  placement: footer
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/1gg2tgy/"
+  author:
