@@ -11,7 +11,7 @@
 
 **Curated, Not Generated. 收藏真实短句，不生成笑话充数。** 入口是 [_data/quotes.yml](../_data/quotes.yml)。冷笑话、中文谐音、英文 puns、双关、荒诞短句都可以，不要求与技术相关。网站只展示收藏，不联网抓取、不调用翻译 API、不自动把 Hero 或普通技术文案加入收藏。
 
-当前共 **21 条**收藏：12 条中文（zh / both）与 9 条英文双关（其中新增 3 条为 en / footer）。下面是与 _data/quotes.yml 同步的完整数据，可复制结构维护；personal_collection 表示用户提供的个人收藏，**不声称为作者原创**，不编造作者、点赞数或来源：
+当前共 **22 条**收藏：12 条中文与 10 条英文双关。下面是与 _data/quotes.yml 同步的完整数据，可复制结构维护；personal_collection 表示用户提供的个人收藏，**不声称为作者原创**，不编造作者、点赞数或来源：
 
 ```yaml
 - id: chocolate
@@ -161,9 +161,16 @@
   source_type: reddit
   source_url: "https://www.reddit.com/r/dadjokes/comments/g1vrsi/"
   author:
+- id: banker-interest
+  text: "I used to be a banker, but I lost interest."
+  lang: en
+  placement: footer
+  source_type: reddit
+  source_url: "https://www.reddit.com/r/dadjokes/comments/1gg2tgy/"
+  author:
 ```
 
-新增10条由用户选自 [PTT joke 板的主帖或评论](https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html)，按用户确认的中文文本和标点保存，不改写或自动翻译。统一使用 source_type: ptt 和该帖 source_url；author 保持为空。PTT 发言账号仅表示发布或评论账号，不能据此认定为原创作者。英文 6 条采用所选短句版本，记录 Reddit 参考帖链接，不保证与帖文逐字相同。全站只在 Footer 展示 Jerry's Silly Thoughts；首页正文不再有 A Little Nonsense 区域。当前21条均可在 Footer 随机展示，切换界面语言不翻译原文。
+新增10条由用户选自 [PTT joke 板的主帖或评论](https://www.ptt.cc/bbs/joke/M.1699627861.A.678.html)，按用户确认的中文文本和标点保存，不改写或自动翻译。统一使用 source_type: ptt 和该帖 source_url；author 保持为空。PTT 发言账号仅表示发布或评论账号，不能据此认定为原创作者。英文 6 条采用所选短句版本，记录 Reddit 参考帖链接，不保证与帖文逐字相同。全站只在 Footer 展示 Jerry's Silly Thoughts；首页正文不再有 A Little Nonsense 区域。当前22条均可在 Footer 随机展示，切换界面语言不翻译原文。
 
 Footer 语录位于居中的社交图标和版权下方，保持较小字号和较弱视觉权重。每次页面加载时随机选一条；刷新或进入另一页会重新抽取，可能再次抽到同一句。没有 Shuffle 按钮或自动轮播，也不再需要首页/页脚去重。只有一条时持续显示它，空集合隐藏语录区域。图标地址和布局维护见[Footer 个性化](customization.md#footer)。
 
