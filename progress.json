@@ -1,0 +1,201 @@
+{
+  "last_updated": "2026-11-16",
+  "baseline": {
+    "commit": "0e48b7a3de5b907d9cbc5ad40abb8f7b8b51bebd",
+    "workflow": "https://github.com/kaetowjj/kaetowjj.github.io/actions/runs/43681791573",
+    "verification": "GitHub Actions build and deploy succeeded. The baseline passed 33 unit tests, the strict build, checks on 14 HTML pages, and 135 browser tests with 1 skipped."
+  },
+  "completed_features": [
+    {
+      "id": "bilingual-static-site",
+      "summary": "Jekyll site with shared Chinese/English routes, language preference and fallback, Light/Dark/System themes, sitemap, and SEO.",
+      "evidence": [
+        "_config.yml",
+        "assets/js/site.mjs",
+        "tests/browser/site.spec.mjs"
+      ]
+    },
+    {
+      "id": "tech-blog-and-essays",
+      "summary": "Unified technical archive with query-based tag filters and separate Essays, both using bilingual Markdown collections.",
+      "evidence": [
+        "_tech/",
+        "_essays/",
+        "_plugins/tech_tags.rb",
+        "tests/browser/tech.spec.mjs"
+      ]
+    },
+    {
+      "id": "home-and-about",
+      "summary": "Short bilingual Home, cross-collection Recent Posts, and About with full personal sections, responsive avatar fallback, and public contact.",
+      "evidence": [
+        "index.html",
+        "about.md",
+        "tests/browser/recent-posts.spec.mjs",
+        "tests/browser/avatar.spec.mjs"
+      ]
+    },
+    {
+      "id": "photography",
+      "summary": "Proportional gallery layout, category/tag filters, capture-date sorting, native lightbox, and a WebP preparation and validation pipeline.",
+      "evidence": [
+        "photography.html",
+        "tests/browser/gallery-data.spec.mjs",
+        "tests/pipeline.test.mjs",
+        "docs/photography.md"
+      ]
+    },
+    {
+      "id": "dot-wave",
+      "summary": "Theme-aware dotted terrain on Home, section headings and article headings with static fallback, motion controls, and loopback diagnostics.",
+      "evidence": [
+        "assets/js/hero-wave.mjs",
+        "tests/browser/heading-wave.spec.mjs",
+        "tests/browser/hero-wave-motion.spec.mjs"
+      ]
+    },
+    {
+      "id": "accessible-interactions",
+      "summary": "Shared hover and keyboard focus behavior, stable active navigation, and decorative link SVGs.",
+      "evidence": [
+        "tests/browser/interactive.spec.mjs",
+        "tests/browser/link-arrow.spec.mjs"
+      ]
+    },
+    {
+      "id": "footer-thoughts",
+      "summary": "Shared Footer social links, automatic copyright, and one random curated quote in its original language with optional provenance.",
+      "evidence": [
+        "_data/quotes.yml",
+        "tests/browser/footer.spec.mjs",
+        "tests/browser/footer-only.spec.mjs",
+        "docs/silly-thoughts.md"
+      ]
+    },
+    {
+      "id": "owner-manuals",
+      "summary": "Task-based guides for publishing, photography, customization, quotes and development.",
+      "evidence": [
+        "README.md",
+        "docs/"
+      ]
+    },
+    {
+      "id": "local-native-subagent-workflow",
+      "summary": "Configured and verified six project-scoped Codex roles locally. The Coordinator delegated this work to native investigation, implementation and review subagents.",
+      "evidence": [
+        "AGENTS.md",
+        ".codex/config.toml",
+        ".codex/agents/",
+        "docs/ARCHITECTURE.md",
+        "docs/DECISIONS.md"
+      ],
+      "validation": "Codex CLI 0.167.0-alpha.4.1 loaded the project AGENTS.md and all six custom roles in a strict isolated startup check and prompt preview. The workflow setup remains local. Local strict Jekyll build, 33 unit tests and generated-site checks for 14 HTML pages passed. The 48 site outputs matched the baseline after normalizing the Dot Wave build timestamp."
+    },
+    {
+      "id": "review-backlog",
+      "summary": "Recorded 14 separately scoped review tasks with priorities, prerequisites, acceptance criteria and validation. Pages is first.",
+      "evidence": [
+        "docs/BACKLOG.md"
+      ],
+      "validation": "All 14 task IDs and required fields passed structural checks. All local links and evidence paths resolved."
+    },
+    {
+      "id": "PAGES-01",
+      "summary": "Confirmed the pre-cutover production publisher was custom workflow run 43681791573, deployment 7799155309, at commit 0e48b7a. Managed branch deployment 7799142649 was inactive. Recorded the settings-only cutover plan and preflight.",
+      "evidence": [
+        "docs/PAGES-MIGRATION.md",
+        "https://api.github.com/repos/kaetowjj/kaetowjj.github.io/deployments/7799155309/statuses",
+        "https://api.github.com/repos/kaetowjj/kaetowjj.github.io/deployments/7799142649/statuses"
+      ],
+      "validation": "At investigation time, public deployment statuses and the live Home build fingerprint corroborated the pre-cutover custom deployment. Independent review verified the proposal, including approval before any potential automatic deployment and the immediate SHA recheck."
+    },
+    {
+      "id": "PAGES-02",
+      "summary": "Pages Source changed from branch main / (root) to GitHub Actions. One custom deployment succeeded at 0e48b7a3de5b907d9cbc5ad40abb8f7b8b51bebd using build artifact 14148876477. Deployment 7813669149 is active. No workflow YAML change or duplicate dispatch.",
+      "deployment": {
+        "id": 7813669149,
+        "run": 43681791573,
+        "attempt": 2,
+        "job": 133045530199,
+        "artifact": 14148876477,
+        "sha": "0e48b7a3de5b907d9cbc5ad40abb8f7b8b51bebd",
+        "source": "GitHub Actions",
+        "url": "https://kaetowjj.github.io/"
+      },
+      "validation": "Original artifact passed 33 unit tests, strict Jekyll, 14 generated pages checked, and 135 browser tests with one skip. Live post-cutover page checks passed on Home, the Tech article, Essays, Photography and About. Baseline bilingual and lightbox interactions passed on the same artifact. Math remained raw TeX in live Chrome, consistent with pre-cutover. First subsequent approved main push remains the trigger verification.",
+      "evidence": [
+        "docs/PAGES-MIGRATION.md",
+        "docs/BACKLOG.md",
+        "https://api.github.com/repos/kaetowjj/kaetowjj.github.io/deployments/7813669149/statuses",
+        "https://github.com/kaetowjj/kaetowjj.github.io/actions/runs/43681791573/job/133045530199"
+      ]
+    },
+    {
+      "id": "persistent-agent-policy-finalization",
+      "summary": "Finalized the native subagent, project state, approval, validation and public hygiene policies. Aligned the deployment manual, migration record, recovery decision and open math backlog. Local only, pending publication approval. Refined the policy with bounded recovery and long-running approved work checkpoints.",
+      "evidence": [
+        "AGENTS.md",
+        "docs/development.md",
+        "docs/DECISIONS.md",
+        "docs/PAGES-MIGRATION.md",
+        "docs/BACKLOG.md"
+      ],
+      "validation": "Native role discovery and strict config validation passed for six unchanged TOML roles. Independent review confirmed scope and policy consistency. Local checks passed: 33 unit tests, strict production Jekyll build and integrity check of 14 HTML pages and two photos. The generated site excluded internal instructions, docs, agent configuration, progress, originals and test output. Browser tests were not rerun for this documentation pass."
+    },
+    {
+      "id": "BUILD-02",
+      "status": "verified_locally_publication_pending",
+      "summary": "Exclude the local photography import manifest from Jekyll and reject it anywhere in the generated site.",
+      "validation": "In a disposable fixture the strict build preserved the synthetic source manifest and omitted it from output. The integrity check passed for clean output and rejected the deliberate output leak. 33 unit tests, 14 HTML pages, and two photo checks passed. All 48 public files matched the baseline after build-time normalization.",
+      "evidence": [
+        "_config.yml",
+        "scripts/check-site.mjs",
+        "docs/BACKLOG.md"
+      ]
+    }
+  ],
+  "unfinished_tasks": [
+    {
+      "id": "SETUP-01",
+      "status": "release_authorized_on_updated_base",
+      "summary": "The owner approved preserving the upstream bilingual essay at b2552c8f4eaa49141b404f260bef1b1d1aff84f2 and publishing the 16-file setup proposal on that base. The upstream essay is unchanged. Production verification remains separate and is pending the Actions run, deployment evidence and live smoke checks for the commit carrying this ledger.",
+      "evidence": [
+        "AGENTS.md",
+        ".codex/config.toml",
+        ".codex/agents/",
+        "docs/BACKLOG.md",
+        "docs/PAGES-MIGRATION.md",
+        "_config.yml",
+        "scripts/check-site.mjs"
+      ],
+      "validation": "The updated tree passed 33 unit tests, strict production Jekyll build and integrity checks for 15 HTML pages and two photos. The upstream essay renders in both languages. All six native roles loaded. The generated site excludes internal files and the manifest. BUILD-02 also passed isolated exclusion and leak-rejection tests. Production verification remains pending."
+    }
+  ],
+  "known_issues": [
+    {
+      "id": "local-mathjax-cdn",
+      "scope": "Math rendering and external renderer availability",
+      "summary": "The MathJax rendering test requires jsDelivr. The local desktop and mobile checks previously failed when the CDN returned net::ERR_NETWORK_ACCESS_DENIED. Both passed in the verified baseline CI run. Live Chrome smoke before and after the Pages Source migration did not show rendered math for the same published artifact. After cutover the formula was exposed as raw TeX. The live cause is unconfirmed.",
+      "evidence": [
+        "_layouts/default.html",
+        "tests/browser/site.spec.mjs",
+        "https://github.com/kaetowjj/kaetowjj.github.io/actions/runs/43681791573",
+        "docs/PAGES-MIGRATION.md",
+        "https://kaetowjj.github.io/tech/reproducible-data-workflows/",
+        "docs/BACKLOG.md"
+      ]
+    }
+  ],
+  "planned_improvements": [
+    {
+      "id": "reviewable-photo-import",
+      "status": "optional_proposal",
+      "summary": "If approved in a future task, consider a dry-run import helper that validates IDs, previews the merge and prevents accidental overwrites. The current import remains manual.",
+      "evidence": [
+        "scripts/optimize-images.mjs",
+        "docs/photography.md"
+      ]
+    }
+  ]
+}

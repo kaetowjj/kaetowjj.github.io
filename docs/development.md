@@ -83,7 +83,7 @@ Remove-Item Env:JEKYLL_ENV
 
 - npm test：逻辑和图片流水线测试。图片测试会读取当前真实摄影数据并检查文件与比例，不再要求八张 Demo。
 - Jekyll build：解析 Liquid、YAML、Markdown 并输出 _site。_site 是构建产物，不应手动维护或提交。
-- check:site：检查生成 HTML 中的本地 href/src、关键页面、SEO、Sitemap 与无 Feed 输出；现在也通过 checkPhotography 校验摄影 JSON 引用和其中 image/thumbnail/srcset 的本地文件；实际显示仍需预览。
+- check:site：检查生成 HTML 的本地 href/src、关键页面、SEO、Sitemap 与 Feed 排除，并通过 checkPhotography 校验摄影 JSON 及图片引用。摄影优化生成的 `photography-import.json` 仅供本地审核。Jekyll 排除该文件，若它出现在构建结果中，站点检查会失败。
 - test:browser：需先构建 _site，自动在 127.0.0.1:4173 启动测试服务器，使用桌面 1280×900 和手机 390×844 视口。摄影浏览器测试从当前真实数据推导数量、分类、标签与浏览顺序，头像测试也读取当前资料属性，不再要求 Demo ID 或占位姓名。
 - 浏览器用例会用当前布局和 Tag 过滤器在临时目录构建专用双语文章，验证可选 updated 回退、Unicode Tag、代码、表格与公式；夹具缓存位于 .jekyll-cache，不写入生产 _site，也不要求保留任何 Demo 文章或空集合目录。
 - 固定版本 MathJax 依赖 CDN 网络；首次安装 Playwright 需要下载 Chromium。本地只写内容可先运行 Jekyll 预览，最终仍以 CI 的完整检查为准。
@@ -100,15 +100,15 @@ Remove-Item Env:JEKYLL_ENV
 <a id="deploy"></a>
 ## GitHub Actions 部署与故障排查
 
-[工作流文件](../.github/workflows/pages.yml)是真实执行依据。它在推送 main、提交 PR 或手动 workflow_dispatch 时运行；PR 只构建测试，合并/推送 main 后才执行部署。流程为：安装 Ruby/Node 与依赖 → npm test → Jekyll 生产构建 → 资源检查 → 安装 Chromium → 浏览器测试 → 打包 → deploy。
+GitHub Pages 的 **Source** 已迁移为 **GitHub Actions**。生产发布仅使用 [pages.yml](../.github/workflows/pages.yml)。它在推送 main、提交 PR 或手动 workflow_dispatch 时运行。PR 执行构建和测试，只有符合条件的 main 执行部署。流程依次为安装锁定依赖、运行单元测试、执行严格 Jekyll 构建、检查生成站点、运行 Playwright、上传已测试的 `_site`，最后部署同一产物。迁移经过、部署编号、线上验证和回退流程见[迁移记录](PAGES-MIGRATION.md#cutover-result)。
 
 ### 在 GitHub 查看本次发布
 
 1. 打开 [Actions](https://github.com/kaetowjj/kaetowjj.github.io/actions/workflows/pages.yml)，选择 **Build, test and deploy Engineering Lab** 对应的提交。核对提交说明/commit SHA，别看到了更早的成功记录。
 2. 展开 build；若红叉，点失败的具体步骤，阅读第一处实际错误。
-3. build 成功后还要等待 deploy 成功，才打开网站检查。频繁提交可能取消前一个运行，以最新提交为准。
-4. 手动触发：该工作流页面的 **Run workflow → main → Run workflow**（需写权限）；修复源码后新提交也会自动重跑。
-5. 仓库 Settings → Pages（需登录有仓库管理权限的账号，匿名访问后台可能显示 404） 的 **Build and deployment → Source** 应选 **GitHub Actions**。若仍是 Deploy from a branch，可能出现额外的 “pages build and deployment” 运行；切换后可避免分支流程绕过本工作流的测试和重复发布。本手册并不代表已代你修改后台设置。
+3. 等待 build 和 deploy 成功后，核对活动部署的 SHA、工作流和产物，再检查线上页面。将验证结果和遗留问题写入部署记录。
+4. 获得站点所有者明确批准后，才能推送 main 或在工作流页面选择 **Run workflow → main → Run workflow**。执行前核对远端 main 的 SHA，并确认没有重复的发布运行。
+5. 在 **Settings → Pages → Build and deployment → Source** 可核对 **GitHub Actions**，需登录有仓库管理权限的账号。保留该来源与现有验证步骤。修改工作流、发布设置或发布流程须先获站点所有者明确批准。
 
 | 现象 | 操作 |
 | --- | --- |

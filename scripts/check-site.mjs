@@ -3,7 +3,17 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 await checkPhotography();
 const root=path.resolve('_site'),errors=[];let count=0;const techURLs=[];
-async function walk(dir){for(const entry of await fs.readdir(dir,{withFileTypes:true})){const file=path.join(dir,entry.name);if(entry.isDirectory())await walk(file);else if(file.endsWith('.html')){count++;const html=await fs.readFile(file,'utf8');if(/{{|{%/.test(html))errors.push(file+': unrendered Liquid');if(/<link\b[^>]*type="application\/(?:atom|rss)\+xml"/.test(html))errors.push(file+': unexpected feed metadata');for(const match of html.matchAll(/\s(?:href|src)="([^"]+)"/g)){const url=match[1].split(/[?#]/)[0];if(!url)continue;if(/^(https?:|mailto:|data:|javascript:)/.test(url))continue;const target=url.startsWith('/')?path.join(root,url):path.resolve(path.dirname(file),url);try{await fs.access(target)}catch{errors.push(file+': missing '+url)}}if(!/<title>[^<]+<\/title>/.test(html)||!/<meta name="description" content="[^"]+"/.test(html)||!/<link rel="canonical"/.test(html)||!/<meta property="og:title"/.test(html))errors.push(file+': missing basic SEO');if(file.startsWith(path.join(root,'tech')+path.sep)&&file!==path.join(root,'tech','index.html')){const canonical=html.match(/<link rel="canonical" href="([^"]+)"/);if(canonical)techURLs.push(canonical[1]);if(!/article:published_time/.test(html)||!/article:modified_time/.test(html))errors.push(file+': missing article dates');}}}}
+async function walk(dir) {
+  for (const entry of await fs.readdir(dir, {withFileTypes: true})) {
+    const file = path.join(dir, entry.name);
+    if (entry.name.toLowerCase() === 'photography-import.json') {
+      errors.push(path.relative(root, file) + ': private photography import manifest must not be published');
+    }
+    if (entry.isDirectory()) await walk(file);
+    else if (file.endsWith('.html')) {count++;const html=await fs.readFile(file,'utf8');if(/{{|{%/.test(html))errors.push(file+': unrendered Liquid');if(/<link\b[^>]*type="application\/(?:atom|rss)\+xml"/.test(html))errors.push(file+': unexpected feed metadata');for(const match of html.matchAll(/\s(?:href|src)="([^"]+)"/g)){const url=match[1].split(/[?#]/)[0];if(!url)continue;if(/^(https?:|mailto:|data:|javascript:)/.test(url))continue;const target=url.startsWith('/')?path.join(root,url):path.resolve(path.dirname(file),url);try{await fs.access(target)}catch{errors.push(file+': missing '+url)}}if(!/<title>[^<]+<\/title>/.test(html)||!/<meta name="description" content="[^"]+"/.test(html)||!/<link rel="canonical"/.test(html)||!/<meta property="og:title"/.test(html))errors.push(file+': missing basic SEO');if(file.startsWith(path.join(root,'tech')+path.sep)&&file!==path.join(root,'tech','index.html')){const canonical=html.match(/<link rel="canonical" href="([^"]+)"/);if(canonical)techURLs.push(canonical[1]);if(!/article:published_time/.test(html)||!/article:modified_time/.test(html))errors.push(file+': missing article dates');}
+    }
+  }
+}
 await walk(root);
 for(const p of ['index.html','tech/index.html','essays/index.html','photography/index.html','about/index.html','sitemap.xml'])try{await fs.access(path.join(root,p))}catch{errors.push('Missing '+p)}
 for(const p of ['feed.xml','notes','projects','essays/feed.xml','tech/feed.xml'])try{await fs.access(path.join(root,p));errors.push('Unexpected legacy/feed output '+p)}catch{}

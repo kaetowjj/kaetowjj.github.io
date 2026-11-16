@@ -36,4 +36,4 @@ defaults:
       layout: article
 plugins:
   - jekyll-sitemap
-exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, node_modules, package.json, package-lock.json, scripts, tests, playwright.config.mjs, test-results, playwright-report, docs, originals, vendor]
+exclude: [README.md, AGENTS.md, Gemfile, Gemfile.lock, node_modules, package.json, package-lock.json, scripts, tests, playwright.config.mjs, test-results, playwright-report, docs, originals, vendor, .codex, progress.json, photography-import.json]

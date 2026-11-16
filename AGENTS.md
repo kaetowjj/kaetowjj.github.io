@@ -1,33 +1,87 @@
-# Engineering Lab
+# Jerry's Engineering Lab
 
-Current owner manuals in docs describe active behavior; docs/requirements-v2.md is historical. Keep the site static: Jekyll/Liquid + YAML + native JS. Personal facts remain explicit placeholders until supplied; demo articles and images stay visibly labeled.
+A bilingual personal site for engineering writing, essays, and photography. Keep it static: Jekyll 4.4, Liquid, Kramdown/Markdown, YAML/JSON, CSS, and browser-native JavaScript modules. Node.js runs Sharp, validation scripts, and tests. GitHub Actions builds the site for GitHub Pages.
 
-## Architecture and boundaries
+## Start or resume work
 
-Layouts compose pages; _tech and _essays own bilingual Markdown articles. Technical posts use only _tech with /tech/:name/ URLs and optional lowercase-normalized Tags; preserve date-based archive ordering and URL/history filtering. Never recreate _notes or _projects collections, require technical Category/type fields, or nest tag links inside title links. Build sitemap and basic SEO; reintroducing RSS/Atom requires an explicit owner request. _data owns profile, navigation and photography taxonomies/records. assets/js/gallery-core.mjs owns selection and proportional row geometry; gallery.mjs consumes that logic and owns the DOM/dialog. site.mjs owns preferences and article TOC. CSS variables are the source of theme colors.
+- Read this guide and the relevant project state before planning. After context compaction or when starting or recovering a session, reload the guide and applicable documents. Inspect Git status and reconcile the working tree with [the progress ledger](progress.json) and [the backlog](docs/BACKLOG.md). Preserve owner edits.
+- Use backlog IDs, dependencies, and acceptance criteria to resume the next approved unfinished item within the owner's current scope. Continue through approved, unblocked items without seeking confirmation after each subtask. Reopen completed work only when evidence shows a regression.
+- Read [Architecture](docs/ARCHITECTURE.md) for routes, shared layouts, content contracts, or browser behavior. Read [Decisions](docs/DECISIONS.md) before revisiting an established choice. Consult the owner manuals below. [Requirements V2](docs/requirements-v2.md), earlier plans, and [validation history](docs/validation.md) describe historical states.
 
-Article language sections live in one Markdown file with markdown="1" and blank lines around containers. Headings in the inactive section must not enter the TOC. Language fallback preserves available text. Preference access must tolerate storage denial.
+## Repository map
 
-Home owns only headline/intro in _data/home.yml; About owns full exploring/beyond text in _data/about.yml. Preserve complete bilingual paragraphs when moving personal copy. Home Recent Posts concatenates tech + essays, excludes demo:true before sorting date descending and taking at most three; keep an empty state and source labels. updated and photography never determine this list. Footer social layout and curated-thought selection remain independent.
+| Path | Responsibility |
+| --- | --- |
+| `index.html`, `tech.html`, `essays.html`, `photography.html`, `about.md`, `404.html` | Public pages and route entry points |
+| `_tech/`, `_essays/` | Bilingual articles, front matter, and dates |
+| `_layouts/`, `_includes/`, `_plugins/` | Shared Liquid rendering and build-time Tech Blog tag keys |
+| `_data/`, `assets/` | Editable site content and metadata, site/media assets, and browser modules |
+| `scripts/`, `tests/`, `.github/workflows/pages.yml` | Image processing, checks, and publishing |
+| `docs/`, `.codex/`, `progress.json` | Owner manuals, contributor guidance, project agent roles, and handoff state |
 
-Every photograph has equal visual priority. Combine one category and one tag, sort on capture date, use ID for ties, and put undated photos last in both directions. Viewer order follows visible results. Preserve aspect ratio, keyboard focus, touch navigation and native dialog focus trapping.
+## Site conventions
 
-## Verification
+- Use `_tech/` for all technical writing at `/tech/:name/` with optional lowercase-normalized tags. Preserve archive date ordering, shareable tag URLs and history, and independent tag links. Keep tag links outside article title links. Keep Essays separate. Keep sitemap and basic SEO. Reintroducing feeds, separate Notes or Projects collections, or required technical category/type fields needs an explicit owner request.
+- Keep both article languages in one Markdown file with `markdown="1"` and blank lines around and inside each language container. Preserve fallback content, the visible-language TOC, and tolerance of denied storage access.
+- Keep Home's headline and short intro in `_data/home.yml` and the full Exploring and Beyond Engineering copy in `_data/about.yml`. Preserve the complete bilingual paragraphs. Recent Posts excludes Demo items before sorting Tech and Essays by publication date and taking up to three. Keep the empty state and source labels.
+- Preserve the current typography, layouts, accessible focus/hover behavior, theme variables, and shared Dot Wave fallback and motion controls unless the task calls for a change. Keep Footer social links independent of its randomly selected curated quote. Preserve the quote's original text, language, and provenance.
+- Photography keeps equal visual priority and aspect ratio, combines one category and one tag, and sorts on capture date with undated images last in both directions and ID as the tie-breaker. The viewer follows visible results. Preserve keyboard and touch navigation, focus restoration, and native lightbox dialog focus trapping. Use lowercase kebab-case taxonomy IDs and run `node scripts/check-photography.mjs` for taxonomy changes. Report invalid references and preserve photo files and unrelated metadata. Keep original photos and coordinates private and retain metadata stripping in the image pipeline.
+- Use data or collections for editable content. Preserve existing owner content, approved profile facts, and Demo labels. Keep unprovided personal facts as explicit placeholders. Keep real-data browser tests resilient to changes in content counts, IDs, titles, and profile values.
 
-Use npm test for pure logic, bundle exec jekyll build --strict_front_matter for Liquid/Markdown, npm run check:site for generated links, and npm run test:browser for desktop/mobile interactions. Browser tests require a built _site and Playwright Chromium. See docs/development.md for setup commands and docs/validation.md for historical evidence.
+## Multi-agent workflow
 
-Before reporting deployment, inspect actual workflow/deployment success or the live site. A commit alone proves no deployment. Keep original photos and coordinates private; the optimization pipeline strips metadata by default. Add content through collections and YAML rather than hard-coded HTML lists.
+For every non-trivial development task, the primary agent acts as **Coordinator** and delegates to actual native Codex subagents using the project roles under [`.codex/agents/`](.codex/agents/). Trivial content corrections may be handled directly. If native subagents are unavailable, notify the owner before any single-agent fallback. Report the actual agents and roles used, and identify any fallback. A single agent must never simulate subagents.
+
+| Role | Assignment |
+| --- | --- |
+| `coordinator` | The primary decomposes work, assigns ownership, integrates changes, and verifies the result. A spawned coordinator advises the primary. |
+| `architect` | Propose boundaries, tradeoffs, compatibility rules, and implementation order. |
+| `explorer` | Trace existing behavior, dependencies, and repository evidence. |
+| `developer` | Implement changes within assigned files and run focused checks. |
+| `reviewer` | Independently review the integrated diff against requirements and project rules. |
+| `tester` | Run assigned checks and report results, environmental failures, and coverage gaps. |
+
+1. Assign each task an objective, baseline or prerequisites, read scope, exclusive writable paths or read-only status, explicit acceptance criteria, and expected evidence. Architect, Explorer, and Reviewer are read-only. Tester may write generated output in an assigned directory or slot. Assign test source edits to a Developer.
+2. Run independent tasks in parallel only when their writes and generated outputs are isolated. A file has one writer at a time, including the Coordinator. Sequence overlapping work with an explicit handoff. Use isolated outputs or serialize commands that write to `_site/`, `.jekyll-cache/`, or Playwright outputs. Workers report out-of-scope changes and dependencies for reassignment. Start each new task batch with fresh subagents.
+3. The primary integrates work, runs checks against the integrated diff, and requires independent review for significant changes. Review and testing may overlap on a stable diff. Rerun affected checks after fixes.
+4. The primary is the sole writer of shared progress state. Save a checkpoint after each completed task by synchronizing the backlog and `progress.json` by task ID, verified status, and evidence. Record unfinished work and reproducible issues, and label optional improvements as proposals.
+
+Codex loads the project roles from a trusted repository. Subagents operate within the parent session's permissions. Open a new session at the repository root after changing the guidance or agent catalog. See [Codex subagent documentation](https://learn.chatgpt.com/docs/agent-configuration/subagents).
+
+### Failure handling and recovery
+
+- For a recoverable failure, give the existing subagent targeted error evidence and request a correction. If the approach is fundamentally incorrect, end that assignment and give a fresh subagent a revised, self-contained task. Transfer file ownership before the replacement starts work.
+- Limit automatic retries to two per task, including retries by a replacement agent. Request owner approval before retrying further. Record unresolved failures and blockers in the backlog and `progress.json`, and continue independent, approved work when safe. Keep the original acceptance criteria in force.
+
+## Local validation and completion
+
+Run checks from the repository root. See [development setup](docs/development.md) for Ruby 3.3 with Bundler, Node 22, Windows DevKit, and Chromium. In a fresh checkout, run `npm ci` and `bundle install`. Preview with `bundle exec jekyll serve --livereload`.
+
+```powershell
+npm test
+$env:JEKYLL_ENV = 'production'
+bundle exec jekyll build --strict_front_matter --trace
+npm run check:site
+npx playwright install chromium
+npm run test:browser
+```
+
+Playwright uses generated `_site/` and separate Jekyll fixtures. Use desktop and mobile checks for interaction or layout changes. Local work is done when acceptance criteria are met, relevant tests pass, required independent review is complete, and applicable documentation and progress are current. Report changed files, actual checks and results, and any failures, skips, or limitations. Local completion and production release are separate milestones.
+
+## Git and production release
+
+GitHub Pages Source is **GitHub Actions**. [`pages.yml`](.github/workflows/pages.yml) is the sole authorized production publisher. Keep branch-based publishing disabled and production publishing confined to this workflow. For migration evidence and rollback, see the [Pages migration record](docs/PAGES-MIGRATION.md).
+
+Preserve the pipeline order. Install locked dependencies, run unit tests, build Jekyll in strict mode, check the generated site, and run Playwright. Upload the tested `_site` artifact and deploy that same artifact. Keep all gates required for deployment. Fix failures at their source. Never weaken checks to get a green deployment or edit tests solely to conceal implementation failures.
+
+1. Keep implementation local. Obtain explicit owner approval for material architectural decisions, scope expansion, destructive actions, and changes to workflow files, deployment settings, or release procedures. Before requesting Git or release approval, review Git status and the proposed diff, complete the local checks and review above, and list the exact files proposed for commit along with known failures and outstanding risks.
+2. Obtain explicit owner authorization before committing, pushing, merging, or manually deploying. Treat any action that can trigger production, including a push or merge to `main`, as a release action. Present proposed deployment changes before implementing them.
+3. After an authorized release, confirm Actions succeeded, match the active deployment to the intended commit and tested artifact, and smoke-test the production site. Record the run, deployment outcome, and unresolved issues. Mark a production release complete only after these checks.
+
+## Public repository hygiene
+
+Include durable, non-sensitive instructions and engineering records in proposed commits when appropriate. Keep credentials, private execution logs, local machine paths, sensitive personal information, original photos and their metadata out of Git. Verify Jekyll excludes agent-only files and internal documentation from `_site/` before publication.
 
 ## Documentation synchronization
 
-Update the primary manual when its behavior, data structure or owner workflow changes:
-
-- Article schema, publication and bilingual article content: [publishing.md](docs/publishing.md).
-- Photography processing, metadata, taxonomy and import workflow: [photography.md](docs/photography.md).
-- Homepage, About, profile, theme, language and navigation configuration: [customization.md](docs/customization.md).
-- Quote collection, provenance and display behavior: [silly-thoughts.md](docs/silly-thoughts.md).
-- Environment, build, tests and deployment: [development.md](docs/development.md).
-
-Update README.md only when project positioning, core features or documentation navigation changes. Keep full procedures in their primary manual; cross-reference it from other manuals instead of copying instructions. Preserve requirements, historical validation records and article templates; label them as historical rather than treating them as current operating instructions.
-
-Photography taxonomy IDs must use lowercase kebab-case and pass node scripts/check-photography.mjs (also included in check:site). Report invalid references instead of silently folding their case at runtime. Browser tests must use current real data rather than fixed Demo counts, IDs, titles or personal placeholders. Preserve photo files and unrelated metadata during taxonomy migrations.
+Update the primary manual when behavior or owner workflows change: [publishing](docs/publishing.md) for articles, [photography](docs/photography.md) for photos and import, [customization](docs/customization.md) for site and profile settings, [Silly Thoughts](docs/silly-thoughts.md) for quotes, and [development](docs/development.md) for tooling and deployment. Update Architecture when the system map or contracts change and record material decisions in Decisions with their rationale and evidence. Update README only for changes to project positioning, core features, or documentation navigation. Preserve historical records and article templates.
